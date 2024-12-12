@@ -12,15 +12,13 @@ import DefaultLayout from '@/views/layouts/Default';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <>
-            <Route path="/" element={<DefaultLayout />}>
-                <Route index element={<Index />} />
+        <Route path="/" element={<DefaultLayout />}>
+            <Route index element={<Index />} />
 
-                <Route path="login" element={<Login />} />
+            <Route path="login" element={<Login />} />
 
-                <Route path="*" element={<NotFound />} />
-            </Route>
-        </>
+            <Route path="*" element={<NotFound />} />
+        </Route>
     )
 );
 
