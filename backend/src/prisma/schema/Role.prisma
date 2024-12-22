@@ -1,0 +1,7 @@
+model Role {
+    id          String      @db.Uuid @id @default(uuid())
+    name        String      @db.VarChar(255) @unique
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+    users       Role2User[]
+}

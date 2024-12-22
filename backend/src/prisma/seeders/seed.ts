@@ -1,68 +1,43 @@
-import { PrismaClient } from '@prisma/client';
+import { Role } from '@/enums/Role';
+import { PrismaService } from '@/services/PrismaService';
 
-// @TODO Why does @ is not working?
-import { Role } from '../../enums/Role';
+const prisma = new PrismaService().withExtensions();
 
-const prisma = new PrismaClient();
-
-// @TODO Hash passwords!
 async function main() {
-    const adminRole = await prisma.role.create({
-        data: {
-            name: Role.ADMIN
-        }
-    });
+    console.log('Seeder running');
 
-    const userRole = await prisma.role.create({
-        data: {
-            name: Role.USER
-        }
-    });
+    const [adminRole, userRole] = await Promise.all([
+        prisma.role.create({ data: { name: Role.ADMIN } }),
+        prisma.role.create({ data: { name: Role.USER } })
+    ]);
 
-    await prisma.user.create({
-        data: {
-            username: 'admin',
-            email: 'admin@filmrate.test',
-            password: 'password',
-            roles: {
-                create: [
-                    {
-                        role: {
-                            connect: {
-                                id: adminRole.id
-                            }
-                        }
-                    },
-                    {
-                        role: {
-                            connect: {
-                                id: userRole.id
-                            }
-                        }
-                    }
-                ]
+    await Promise.all([
+        prisma.user.create({
+            data: {
+                username: 'admin',
+                email: 'admin@filmrate.test',
+                password: 'Qwerty123!',
+                roles: {
+                    create: [
+                        { role: { connect: { id: adminRole.id } } },
+                        { role: { connect: { id: userRole.id } } }
+                    ]
+                }
             }
-        }
-    });
-
-    await prisma.user.create({
-        data: {
-            username: 'user',
-            email: 'user@filmrate.test',
-            password: 'password',
-            roles: {
-                create: [
-                    {
-                        role: {
-                            connect: {
-                                id: userRole.id
-                            }
-                        }
-                    }
-                ]
+        }),
+        prisma.user.create({
+            data: {
+                username: 'user',
+                email: 'user@filmrate.test',
+                password: 'Qwerty123!',
+                roles: {
+                    create: [{ role: { connect: { id: userRole.id } } }]
+                }
             }
-        }
-    });
+        })
+    ]);
+
+    console.log('Seeder finished');
 }
 
 main()
