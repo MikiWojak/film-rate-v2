@@ -74,7 +74,7 @@
         "testEnvironment": "node"
     },
     "prisma": {
-        "schema": "src/prisma/schema",
-        "seed": "ts-node -r tsconfig-paths/register --transpile-only src/prisma/seeders/seed.ts"
+        "schema": "src/schema",
+        "seed": "ts-node -r tsconfig-paths/register --transpile-only src/seeders/seed.ts"
     }
 }
