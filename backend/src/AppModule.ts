@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { AppService } from '@/services/AppService';
+import { PrismaService } from '@/services/PrismaService';
 import { AppController } from '@/controllers/AppController';
 
 @Module({
@@ -11,6 +12,14 @@ import { AppController } from '@/controllers/AppController';
         })
     ],
     controllers: [AppController],
-    providers: [AppService]
+    providers: [
+        AppService,
+        {
+            provide: PrismaService,
+            useFactory: () => {
+                return new PrismaService().withExtensions();
+            }
+        }
+    ]
 })
 export class AppModule {}
