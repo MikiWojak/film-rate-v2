@@ -1,18 +1,29 @@
-import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+    Get,
+    Body,
+    Post,
+    Request,
+    HttpCode,
+    Controller,
+    HttpStatus
+} from '@nestjs/common';
 
+import { Public } from '@/decorators/Public';
 import { AuthService } from '@/services/AuthService';
 
-@Controller('v1/auth')
+@Controller('api/v1/auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
 
+    @Public()
     @Post('login')
     @HttpCode(HttpStatus.OK)
     signIn(@Body() signInDto: Record<string, any>) {
-        return this.authService.login(signInDto.email);
+        return this.authService.login(signInDto.email, signInDto.password);
     }
 
-    // @TODO refresh-token
-    // @TODO logout
-    // @TODO me
+    @Get('me')
+    getProfile(@Request() req) {
+        return req.user;
+    }
 }
