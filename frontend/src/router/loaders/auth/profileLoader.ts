@@ -6,7 +6,6 @@ import { authApiSlice } from '@/redux/auth/authApiSlice';
 import type { IMeResponse } from '@/types/api/auth';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { StatusCodes as HTTP } from 'http-status-codes/build/cjs/status-codes';
-import { redirect } from 'react-router-dom';
 
 export const profileLoader = async (): Promise<
     IMeResponse | Response | null
@@ -25,7 +24,7 @@ export const profileLoader = async (): Promise<
         const fetchError = error as FetchBaseQueryError;
 
         if (fetchError?.status === HTTP.UNAUTHORIZED) {
-            return redirect('/login');
+            return null;
         }
 
         toast.error("Error while fetching logged user's profile");

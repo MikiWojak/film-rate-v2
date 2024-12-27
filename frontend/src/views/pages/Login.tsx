@@ -29,9 +29,7 @@ const Login = () => {
 
     return (
         <>
-            <h1 className="text-lg text-center font-medium sm:text-xl">
-                Sign in
-            </h1>
+            <h1 className="text-xl text-center font-medium">Sign in</h1>
 
             <div className="mb-5 text-center sm:mb-7">
                 Don't have an account?{' '}
@@ -53,14 +51,11 @@ const Login = () => {
                     onChange={formik.handleChange}
                     className={
                         'block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ' +
-                        (hasError('email') ? '!border-red-600' : 'mb-5 sm:mb-7')
+                        (hasError('email') ? '!border-red-600' : 'mb-7')
                     }
                 />
                 {hasError('email') && (
-                    <ValidationMessage
-                        message={getErrorMessage('email')}
-                        mobileXsFont={true}
-                    />
+                    <ValidationMessage message={getErrorMessage('email')} />
                 )}
 
                 <input
@@ -72,14 +67,11 @@ const Login = () => {
                     onChange={formik.handleChange}
                     className={
                         'block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ' +
-                        (hasError('email') ? '!border-red-600' : 'mb-5 sm:mb-7')
+                        (hasError('email') ? '!border-red-600' : 'mb-7')
                     }
                 />
                 {hasError('password') && (
-                    <ValidationMessage
-                        message={getErrorMessage('password')}
-                        mobileXsFont={true}
-                    />
+                    <ValidationMessage message={getErrorMessage('password')} />
                 )}
 
                 <button
