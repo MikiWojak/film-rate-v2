@@ -26,13 +26,13 @@ import { AuthController } from '@/controllers/AuthController';
             inject: [ConfigService]
         })
     ],
+    controllers: [AuthController],
     providers: [
         AuthService,
         {
             provide: APP_GUARD,
             useClass: AuthGuard
         }
-    ],
-    controllers: [AuthController]
+    ]
 })
 export class AuthModule {}

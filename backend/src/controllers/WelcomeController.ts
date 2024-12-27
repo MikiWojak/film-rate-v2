@@ -7,7 +7,7 @@ import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 @ApiTags('welcome')
 @Controller('api/v1')
 export class WelcomeController {
-    constructor(private readonly appService: WelcomeService) {}
+    constructor(private readonly welcomeService: WelcomeService) {}
 
     @Public()
     @Get()
@@ -17,6 +17,6 @@ export class WelcomeController {
         example: 'Hello world'
     })
     getHello(): string {
-        return this.appService.getHello();
+        return this.welcomeService.getHello();
     }
 }

@@ -4,7 +4,7 @@ import { WelcomeService } from '@/services/WelcomeService';
 import { WelcomeController } from '@/controllers/WelcomeController';
 
 @Module({
-    providers: [WelcomeService],
-    controllers: [WelcomeController]
+    controllers: [WelcomeController],
+    providers: [WelcomeService]
 })
 export class WelcomeModule {}

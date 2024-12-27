@@ -16,7 +16,7 @@ export class UserRepository {
             { isMergeableObject: isPlainObject }
         );
 
-        return this.prisma.user.findUnique(args);
+        return this.prisma.user.findFirst(args);
     }
 
     findById(id: string, options = {}): Promise<User | null> {
@@ -26,6 +26,6 @@ export class UserRepository {
             { isMergeableObject: isPlainObject }
         );
 
-        return this.prisma.user.findUnique(args);
+        return this.prisma.user.findFirst(args);
     }
 }
