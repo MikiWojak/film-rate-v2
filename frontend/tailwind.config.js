@@ -5,6 +5,9 @@ export default {
         extend: {
             fontFamily: {
                 roboto: ['Roboto', 'sans-serif']
+            },
+            spacing: {
+                128: '32rem'
             }
         }
     },
