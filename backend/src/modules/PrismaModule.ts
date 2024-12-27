@@ -7,7 +7,14 @@ import { PrismaService } from '@/services/PrismaService';
         {
             provide: PrismaService,
             useFactory: () => {
-                return new PrismaService().withExtensions();
+                return new PrismaService({
+                    log: ['query', 'info', 'warn', 'error'],
+                    omit: {
+                        user: {
+                            password: true
+                        }
+                    }
+                }).withExtensions();
             }
         }
     ],

@@ -16,7 +16,11 @@ import { AuthController } from '@/controllers/AuthController';
                 return {
                     global: true,
                     secret: configService.get<string>('JWT_SECRET_KEY'),
-                    signOptions: { expiresIn: '60s' }
+                    signOptions: {
+                        expiresIn: configService.get<string>(
+                            'JWT_ACCESS_TOKEN_EXPIRATION'
+                        )
+                    }
                 };
             },
             inject: [ConfigService]
