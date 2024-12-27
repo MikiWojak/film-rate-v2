@@ -9,7 +9,6 @@ import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 export class WelcomeController {
     constructor(private readonly welcomeService: WelcomeService) {}
 
-    @Public()
     @Get()
     @ApiOperation({ summary: 'Show welcome message' })
     @ApiOkResponse({

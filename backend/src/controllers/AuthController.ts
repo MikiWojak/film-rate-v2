@@ -5,7 +5,8 @@ import {
     Request,
     HttpCode,
     Controller,
-    HttpStatus
+    HttpStatus,
+    UseGuards
 } from '@nestjs/common';
 import {
     ApiTags,
@@ -15,8 +16,10 @@ import {
     ApiUnauthorizedResponse
 } from '@nestjs/swagger';
 
-import { Public } from '@/decorators/Public';
+import { AuthGuard } from '@/guards/AuthGuard';
+import { JwtAuthGuard } from '@/guards/JwtAuthGuard';
 import { AuthService } from '@/services/AuthService';
+import { LocalAuthGuard } from '@/guards/LocalAuthGuard';
 import { MeResponseDto } from '@/dto/auth/MeResponseDto';
 import { LoginRequestDto } from '@/dto/auth/LoginRequestDto';
 import { TokenResponseDto } from '@/dto/auth/TokenResponseDto';
@@ -26,7 +29,7 @@ import { TokenResponseDto } from '@/dto/auth/TokenResponseDto';
 export class AuthController {
     constructor(private authService: AuthService) {}
 
-    @Public()
+    @UseGuards(LocalAuthGuard)
     @Post('login')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Login to existing account' })
@@ -35,11 +38,15 @@ export class AuthController {
         type: TokenResponseDto
     })
     @ApiUnauthorizedResponse({ description: 'Unauthorized' })
-    login(@Body() loginRequestDto: LoginRequestDto): Promise<TokenResponseDto> {
-        return this.authService.login(loginRequestDto);
+    login(@Request() req): Promise<TokenResponseDto> {
+        console.log(req.user);
+
+        return this.authService.login(req.user);
     }
 
+    // @TODO How to Get User's data?
     // @TODO Type for request
+    @UseGuards(JwtAuthGuard)
     @Get('me')
     @ApiBearerAuth()
     @ApiOperation({ summary: "Get logged user's data" })
@@ -49,6 +56,6 @@ export class AuthController {
     })
     @ApiUnauthorizedResponse({ description: 'Unauthorized' })
     me(@Request() req): Promise<MeResponseDto> {
-        return this.authService.me(req.user.sub);
+        return req.user;
     }
 }
