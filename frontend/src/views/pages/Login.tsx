@@ -69,7 +69,7 @@ const Login = () => {
                     onChange={formik.handleChange}
                     className={
                         'block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ' +
-                        (hasError('email') ? '!border-red-600' : 'mb-7')
+                        (hasError('password') ? '!border-red-600' : 'mb-7')
                     }
                 />
                 {hasError('password') && (
