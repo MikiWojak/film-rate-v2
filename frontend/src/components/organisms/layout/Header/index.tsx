@@ -28,11 +28,11 @@ const Header = () => {
     useOnClickOutside(profileRef, closeMenu);
 
     return (
-        <header className="flex justify-between items-center w-full h-16 p-4 bg-violet-500 md:h-20 md:p-5">
+        <header className="flex justify-between items-center w-full h-16 p-4 bg-violet-500 text-white md:h-20 md:p-5">
             <div className="flex gap-2.5">
                 <Link
                     to="/"
-                    className="flex items-center justify-between gap-2.5 text-white hover:text-gray-200"
+                    className="flex items-center justify-between gap-2.5 hover:text-gray-200"
                 >
                     <FilmIcon className="size-8 md:size-10" />
 
@@ -46,7 +46,7 @@ const Header = () => {
                 {loggedIn ? (
                     <div ref={profileRef} className="relative">
                         <button
-                            className="flex items-center justify-between text-white hover:text-gray-200"
+                            className="flex items-center justify-between hover:text-gray-200"
                             onClick={openMenu}
                         >
                             <UserCircleIcon className="size-8 md:size-10" />
@@ -57,7 +57,7 @@ const Header = () => {
                 ) : (
                     <Link
                         to="login"
-                        className="flex items-center justify-between text-white hover:text-gray-200"
+                        className="flex items-center justify-between hover:text-gray-200"
                     >
                         <ArrowRightEndOnRectangleIcon className="size-8 md:size-10" />
                     </Link>
