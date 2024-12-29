@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { AuthModule } from '@/modules/AuthModule';
+import { FilmModule } from '@/modules/FilmModule';
 import { WelcomeModule } from '@/modules/WelcomeModule';
 
 @Module({
@@ -10,6 +11,7 @@ import { WelcomeModule } from '@/modules/WelcomeModule';
             isGlobal: true
         }),
         AuthModule,
+        FilmModule,
         WelcomeModule
     ]
 })
