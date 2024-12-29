@@ -6,7 +6,7 @@ const Default = () => (
     <div>
         <Header />
 
-        <main className="w-full min-h-[calc(100vh-64px)] p-4 font-roboto">
+        <main className="w-full min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] p-4 font-roboto">
             <Outlet />
         </main>
     </div>

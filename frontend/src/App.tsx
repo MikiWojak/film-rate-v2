@@ -17,6 +17,8 @@ import { profileLoader } from '@/router/loaders/auth/profileLoader';
 import AnonymousRoute from '@/components/organisms/router/AnonymousRoute';
 import ProtectedRoute from '@/components/organisms/router/ProtectedRoute';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>

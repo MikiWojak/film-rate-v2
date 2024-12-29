@@ -10,11 +10,13 @@ const Login = () => {
     const submit = useSubmit();
     const { state } = useNavigation();
 
+    const initialValues: ILoginRequest = {
+        email: '',
+        password: ''
+    };
+
     const formik = useFormik<ILoginRequest>({
-        initialValues: {
-            email: '',
-            password: ''
-        },
+        initialValues,
         validationSchema: LoginSchema,
         onSubmit: async values => {
             submit({ ...values }, { method: 'post' });
@@ -31,7 +33,7 @@ const Login = () => {
         <>
             <h1 className="text-xl text-center font-medium">Sign in</h1>
 
-            <div className="mb-5 text-center sm:mb-7">
+            <div className="mb-7 text-center">
                 Don't have an account?{' '}
                 <Link
                     to="/register"

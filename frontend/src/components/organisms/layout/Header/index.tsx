@@ -1,6 +1,6 @@
 import {
     FilmIcon,
-    UserIcon,
+    UserCircleIcon,
     ArrowRightEndOnRectangleIcon
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
@@ -28,15 +28,17 @@ const Header = () => {
     useOnClickOutside(profileRef, closeMenu);
 
     return (
-        <header className="flex justify-between items-center w-full h-16 px-4 py-3 bg-violet-500 text-white">
+        <header className="flex justify-between items-center w-full h-16 p-4 bg-violet-500 md:h-20 md:p-5">
             <div className="flex gap-2.5">
                 <Link
                     to="/"
-                    className="flex items-center justify-between gap-2.5"
+                    className="flex items-center justify-between gap-2.5 text-white hover:text-gray-200"
                 >
-                    <FilmIcon className="h-5 w-5" />
+                    <FilmIcon className="size-8 md:size-10" />
 
-                    <div className="hidden md:block">Film Rate</div>
+                    <div className="hidden md:block text-4xl font-bold">
+                        Film Rate
+                    </div>
                 </Link>
             </div>
 
@@ -44,10 +46,10 @@ const Header = () => {
                 {loggedIn ? (
                     <div ref={profileRef} className="relative">
                         <button
-                            className="flex items-center justify-between gap-2.5"
+                            className="flex items-center justify-between text-white hover:text-gray-200"
                             onClick={openMenu}
                         >
-                            <UserIcon className="h-5 w-5" />
+                            <UserCircleIcon className="size-8 md:size-10" />
                         </button>
 
                         {isMenuOpen && <Menu closeMenu={closeMenu} />}
@@ -55,9 +57,9 @@ const Header = () => {
                 ) : (
                     <Link
                         to="login"
-                        className="flex items-center justify-between gap-2.5"
+                        className="flex items-center justify-between text-white hover:text-gray-200"
                     >
-                        <ArrowRightEndOnRectangleIcon className="h-5 w-5" />
+                        <ArrowRightEndOnRectangleIcon className="size-8 md:size-10" />
                     </Link>
                 )}
             </div>

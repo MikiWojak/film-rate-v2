@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import type { ITokensResponse } from '@/types/api/auth';
+import type { ITokenResponse } from '@/types/api/auth';
 
 const initialState = {
     loggedIn: !!localStorage.getItem('accessToken'),
@@ -11,7 +11,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setCredentials: (state, action: PayloadAction<ITokensResponse>) => {
+        setCredentials: (state, action: PayloadAction<ITokenResponse>) => {
             localStorage.setItem('accessToken', action.payload.accessToken);
             state.loggedIn = true;
             state.accessToken = action.payload.accessToken;

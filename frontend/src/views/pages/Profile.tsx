@@ -1,15 +1,13 @@
 import { useLoaderData } from 'react-router';
 
-import { IMeResponse } from '@/types/api/auth.ts';
+import type { IMeResponse } from '@/types/api/auth';
 
 const Profile = () => {
     const profile = useLoaderData() as IMeResponse;
 
     return (
         <div className="max-w-96 mx-auto">
-            <h1 className="mb-4 text-lg text-center font-medium sm:text-xl">
-                Profile
-            </h1>
+            <h1 className="mb-4 text-xl text-center font-medium">Profile</h1>
 
             <div>
                 Username: <b>{profile?.username ? profile.username : '-'}</b>

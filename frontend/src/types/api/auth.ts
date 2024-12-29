@@ -5,7 +5,7 @@ interface ILoginRequest {
     password: string;
 }
 
-interface ITokensResponse {
+interface ITokenResponse {
     accessToken: string;
 }
 
@@ -17,9 +17,4 @@ interface IMeResponse {
     updatedAt: string;
 }
 
-export type {
-    IMeResponse,
-    ILoginRequest,
-    ITokensResponse,
-    ILoginRequestFields
-};
+export type { IMeResponse, ILoginRequest, ITokenResponse, ILoginRequestFields };

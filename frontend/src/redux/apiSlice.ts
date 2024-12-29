@@ -25,7 +25,7 @@ const baseQuery = fetchBaseQuery({
     }
 });
 
-const baseQueryWithReauth: BaseQueryFn<
+const baseQueryWithLogout: BaseQueryFn<
     string | FetchArgs,
     unknown,
     FetchBaseQueryError
@@ -40,6 +40,6 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 
 export const apiSlice = createApi({
-    baseQuery: baseQueryWithReauth,
+    baseQuery: baseQueryWithLogout,
     endpoints: () => ({})
 });
