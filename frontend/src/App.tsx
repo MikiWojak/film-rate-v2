@@ -12,6 +12,7 @@ import Profile from '@/views/pages/Profile';
 import NotFound from '@/views/pages/NotFound';
 import AuthLayout from '@/views/layouts/Auth';
 import DefaultLayout from '@/views/layouts/Default';
+import { filmsLoader } from '@/router/loaders/film/filmsLoader';
 import { loginAction } from '@/router/actions/auth/loginAction';
 import { profileLoader } from '@/router/loaders/auth/profileLoader';
 import AnonymousRoute from '@/components/organisms/router/AnonymousRoute';
@@ -23,7 +24,7 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route path="/" element={<DefaultLayout />}>
-                <Route index element={<Index />} />
+                <Route index element={<Index />} loader={filmsLoader} />
 
                 <Route element={<ProtectedRoute />}>
                     <Route

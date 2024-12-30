@@ -7,9 +7,7 @@ import { authApiSlice } from '@/redux/auth/authApiSlice';
 import type { IMeResponse } from '@/types/api/auth';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 
-export const profileLoader = async (): Promise<
-    IMeResponse | Response | null
-> => {
+export const profileLoader = async (): Promise<IMeResponse | null> => {
     try {
         const response = await store
             .dispatch(
