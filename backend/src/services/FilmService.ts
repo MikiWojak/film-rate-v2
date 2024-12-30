@@ -10,4 +10,8 @@ export class FilmService {
     index(): Promise<SingleFilmDto[]> {
         return this.filmRepository.findAll();
     }
+
+    show(id: string): Promise<SingleFilmDto | null> {
+        return this.filmRepository.findById(id);
+    }
 }

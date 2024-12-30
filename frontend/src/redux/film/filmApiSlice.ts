@@ -8,6 +8,11 @@ export const filmApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: '/v1/films'
             })
+        }),
+        show: builder.query<IFilm, string | undefined>({
+            query: id => ({
+                url: `/v1/films/${id}`
+            })
         })
     })
 });

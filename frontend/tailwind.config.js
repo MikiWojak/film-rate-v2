@@ -7,7 +7,8 @@ export default {
                 roboto: ['Roboto', 'sans-serif']
             },
             spacing: {
-                128: '32rem'
+                128: '32rem',
+                250: '62.5rem',
             }
         }
     },

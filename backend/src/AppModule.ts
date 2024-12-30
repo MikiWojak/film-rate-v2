@@ -12,9 +12,14 @@ import { WelcomeModule } from '@/modules/WelcomeModule';
         ConfigModule.forRoot({
             isGlobal: true
         }),
+        // @TODO Fix ENOENT index.html
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', 'public'),
-            serveRoot: '/public'
+            serveRoot: '/public',
+            serveStaticOptions: {
+                redirect: false,
+                index: false
+            }
         }),
         AuthModule,
         FilmModule,

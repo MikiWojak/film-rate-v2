@@ -29,7 +29,10 @@ export class AuthController {
     @Public()
     @Post('login')
     @HttpCode(HttpStatus.OK)
-    @ApiOperation({ summary: 'Login to existing account' })
+    @ApiOperation({
+        summary: 'Login to existing account',
+        description: 'Endpoint used to login to existing account'
+    })
     @ApiOkResponse({
         description: 'User logged in',
         type: TokenResponseDto
@@ -42,7 +45,10 @@ export class AuthController {
     // @TODO Type for request
     @Get('me')
     @ApiBearerAuth()
-    @ApiOperation({ summary: "Get logged user's data" })
+    @ApiOperation({
+        summary: "Get logged user's data",
+        description: "Endpoint used to get logged user's data"
+    })
     @ApiOkResponse({
         description: "Logged user's data",
         type: MeResponseDto

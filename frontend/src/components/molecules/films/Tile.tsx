@@ -1,9 +1,11 @@
-import config from '@/config';
+import { Link } from 'react-router-dom';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 
+import getFullImagePath from '@/helpers/getFullImagePath';
+
 import type { IFilm } from '@/types/api/film';
-import { Link } from 'react-router-dom';
+import type { MouseEventHandler, MouseEvent } from 'react';
 
 type ItemProps = {
     film: IFilm;
@@ -12,8 +14,16 @@ type ItemProps = {
 export const Tile = ({ film }: ItemProps) => {
     const { id, title, posterUrl, avgRate } = film;
 
-    // @TODO Look for more robust solution - whether `/` is present or not
-    const fullPosterUrl = `${config.apiMediaUrl}/${posterUrl}`;
+    const fullPosterUrl = getFullImagePath(posterUrl);
+
+    const onRateButtonClick: MouseEventHandler<HTMLButtonElement> | void = (
+        event: MouseEvent
+    ) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        alert('Rate film');
+    };
 
     return (
         <Link
@@ -23,7 +33,7 @@ export const Tile = ({ film }: ItemProps) => {
             <img
                 src={fullPosterUrl}
                 alt={title}
-                className="block w-full h-2/3 object-cover md:h-3/4"
+                className="block w-full h-2/3 object-cover rounded-xl md:h-3/4"
             />
 
             <div className="flex flex-col justify-between h-1/3 md:h-1/4">
@@ -37,14 +47,8 @@ export const Tile = ({ film }: ItemProps) => {
                         <span>{avgRate.toFixed(2)}</span>
                     </div>
 
-                    {/*// @TODO Refactor Event*/}
                     <button
-                        onClick={event => {
-                            event.preventDefault();
-                            event.stopPropagation();
-
-                            alert('Rate film');
-                        }}
+                        onClick={onRateButtonClick}
                         className="group flex items-center gap-1 md:gap-2"
                     >
                         <StarOutlineIcon className="size-5 text-gray-300 group-hover:text-gray-400 md:size-8" />

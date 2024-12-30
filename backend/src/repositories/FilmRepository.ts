@@ -1,4 +1,6 @@
+import * as deepmerge from 'deepmerge';
 import { Injectable } from '@nestjs/common';
+import { isPlainObject } from 'is-plain-object';
 import { plainToInstance } from 'class-transformer';
 
 import { PrismaService } from '@/services/PrismaService';
@@ -12,5 +14,17 @@ export class FilmRepository {
         const filmsPrisma = await this.prisma.film.findMany(options);
 
         return plainToInstance(SingleFilmDto, filmsPrisma);
+    }
+
+    async findById(id: string, options = {}): Promise<SingleFilmDto | null> {
+        const args = deepmerge(
+            options,
+            { where: { id } },
+            { isMergeableObject: isPlainObject }
+        );
+
+        const filmPrisma = this.prisma.film.findFirst(args);
+
+        return plainToInstance(SingleFilmDto, filmPrisma);
     }
 }

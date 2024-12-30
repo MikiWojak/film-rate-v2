@@ -11,11 +11,9 @@ const Index = () => {
     const filmsList = films.map(film => <FilmTile key={film.id} film={film} />);
 
     return (
-        <div className="md:max-w-[1000px] mx-auto">
-            <main className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
-                {filmsList}
-            </main>
-        </div>
+        <main className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
+            {filmsList}
+        </main>
     );
 };
 
