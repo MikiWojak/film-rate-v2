@@ -4,11 +4,11 @@ import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 
 import getFullImagePath from '@/helpers/getFullImagePath';
 
-import type { IFilm } from '@/types/api/film';
+import type { IBaseFilm } from '@/types/api/film';
 import type { MouseEventHandler, MouseEvent } from 'react';
 
 type ItemProps = {
-    film: IFilm;
+    film: IBaseFilm;
 };
 
 export const Tile = ({ film }: ItemProps) => {

@@ -6,11 +6,12 @@ import {
     ApiNotFoundResponse
 } from '@nestjs/swagger';
 
+import { FilmDto } from '@/dto/film/FilmDto';
 import { Public } from '@/decorators/Public';
 import { FilmService } from '@/services/FilmService';
-import { SingleFilmDto } from '@/dto/film/SingleFilmDto';
+import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
+import { ErrorResponse } from '@/dto/common/ErrorResponse';
 
-// @TODO Endpoint descriptions
 @ApiTags('films')
 @Controller('api/v1/films')
 export class FilmController {
@@ -20,33 +21,35 @@ export class FilmController {
     @Get()
     @ApiOperation({
         summary: 'Get all films',
-        description: 'Endpoint used to get all films'
+        description: 'Endpoint to get all films'
     })
     @ApiOkResponse({
         description: 'Array with films data',
-        type: [SingleFilmDto]
+        type: [BaseFilmDto]
     })
-    index(): Promise<SingleFilmDto[]> {
+    index(): Promise<BaseFilmDto[]> {
         return this.filmService.index();
     }
 
-    // @TODO 404 description
     @Public()
     @Get(':id')
     @ApiOperation({
         summary: 'Get film by ID',
-        description: 'Endpoint used to get film by ID'
+        description: 'Endpoint to get film by ID'
     })
     @ApiOkResponse({
         description: "Film's data",
-        type: SingleFilmDto
+        type: FilmDto
     })
-    @ApiNotFoundResponse({})
-    async show(@Param('id') id: string): Promise<SingleFilmDto> {
+    @ApiNotFoundResponse({
+        description: 'Not Found',
+        type: ErrorResponse
+    })
+    async show(@Param('id') id: string): Promise<FilmDto> {
         const film = await this.filmService.show(id);
 
         if (!film) {
-            throw new NotFoundException(`Film with id ${id} not found`);
+            throw new NotFoundException();
         }
 
         return film;

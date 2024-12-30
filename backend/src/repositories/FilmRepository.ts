@@ -4,19 +4,31 @@ import { isPlainObject } from 'is-plain-object';
 import { plainToInstance } from 'class-transformer';
 
 import { PrismaService } from '@/services/PrismaService';
-import { SingleFilmDto } from '@/dto/film/SingleFilmDto';
+import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
+import { FilmDto } from '@/dto/film/FilmDto';
 
 @Injectable()
 export class FilmRepository {
     constructor(private prisma: PrismaService) {}
 
-    async findAll(options = {}): Promise<SingleFilmDto[]> {
-        const filmsPrisma = await this.prisma.film.findMany(options);
+    async findAll(options = {}): Promise<BaseFilmDto[]> {
+        const args = deepmerge(
+            options,
+            {
+                omit: {
+                    description: true,
+                    releaseDate: true
+                }
+            },
+            { isMergeableObject: isPlainObject }
+        );
 
-        return plainToInstance(SingleFilmDto, filmsPrisma);
+        const filmsPrisma = await this.prisma.film.findMany(args);
+
+        return plainToInstance(BaseFilmDto, filmsPrisma);
     }
 
-    async findById(id: string, options = {}): Promise<SingleFilmDto | null> {
+    async findById(id: string, options = {}): Promise<FilmDto | null> {
         const args = deepmerge(
             options,
             { where: { id } },
@@ -25,6 +37,6 @@ export class FilmRepository {
 
         const filmPrisma = this.prisma.film.findFirst(args);
 
-        return plainToInstance(SingleFilmDto, filmPrisma);
+        return plainToInstance(FilmDto, filmPrisma);
     }
 }

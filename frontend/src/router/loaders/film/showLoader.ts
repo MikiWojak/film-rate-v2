@@ -1,17 +1,18 @@
 import { store } from '@/redux';
+import { defer } from 'react-router-dom';
+
 import { filmApiSlice } from '@/redux/film/filmApiSlice';
 
-import type { IFilm } from '@/types/api/film';
 import type { LoaderFunctionArgs } from 'react-router';
 
-export const showLoader = async ({
-    params
-}: LoaderFunctionArgs): Promise<IFilm> => {
+export const showLoader = async ({ params }: LoaderFunctionArgs) => {
     const { id } = params;
 
-    const response = await store
+    const responsePromise = store
         .dispatch(filmApiSlice.endpoints.show.initiate(id))
         .unwrap();
 
-    return response;
+    return defer({
+        film: responsePromise
+    });
 };

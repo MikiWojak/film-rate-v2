@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class SingleFilmDto {
+export class BaseFilmDto {
     @ApiProperty({
         description: "Film's id",
         example: '34a710ed-64fd-4d4b-8944-4f9bbb07d29d'
@@ -20,17 +20,8 @@ export class SingleFilmDto {
     readonly posterUrl: string;
 
     @ApiProperty({
-        description: "Film's description",
-        example: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
-    })
-    readonly description: string;
-
-    @ApiProperty({ description: "Film's release date", example: '2024-09-23' })
-    readonly releaseDate: string;
-
-    @ApiProperty({
         description: "Film's average rate - based on users rates",
-        example: 7.3
+        example: 7.32
     })
     readonly avgRate: number;
 

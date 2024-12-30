@@ -45,6 +45,7 @@ const router = createBrowserRouter(
                     <Route
                         path="profile"
                         element={<Profile />}
+                        errorElement={<Error />}
                         loader={profileLoader}
                     />
                 </Route>

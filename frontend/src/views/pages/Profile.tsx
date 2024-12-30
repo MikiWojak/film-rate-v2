@@ -1,20 +1,33 @@
-import { useLoaderData } from 'react-router';
+import { Suspense } from 'react';
+import { Await, useLoaderData } from 'react-router-dom';
 
-import type { IMeResponse } from '@/types/api/auth';
+import type { IMeResponse, IProfileLoaderData } from '@/types/api/auth';
 
 const Profile = () => {
-    const profile = useLoaderData() as IMeResponse;
+    const loaderData = useLoaderData() as IProfileLoaderData;
+
+    const renderProfileData = (profile: IMeResponse) => {
+        const { username, email } = profile;
+
+        return (
+            <>
+                <div>
+                    Username: <b>{username}</b>
+                </div>
+                <div>
+                    Email: <b>{email}</b>
+                </div>
+            </>
+        );
+    };
 
     return (
-        <div className="max-w-96 mx-auto">
+        <div>
             <h1 className="mb-4 text-xl text-center font-medium">Profile</h1>
 
-            <div>
-                Username: <b>{profile?.username ? profile.username : '-'}</b>
-            </div>
-            <div>
-                Email: <b>{profile?.email ? profile.email : '-'}</b>
-            </div>
+            <Suspense fallback={<h1>Loading...</h1>}>
+                <Await resolve={loaderData.profile}>{renderProfileData}</Await>
+            </Suspense>
         </div>
     );
 };

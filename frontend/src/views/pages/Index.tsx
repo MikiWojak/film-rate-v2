@@ -1,18 +1,20 @@
-import { useLoaderData } from 'react-router';
+import { Suspense } from 'react';
+import { Await, useLoaderData } from 'react-router-dom';
 
 import FilmTile from '@/components/molecules/films/Tile';
+import { IBaseFilm, IFilmIndexLoaderData } from '@/types/api/film.ts';
 
-import type { IFilm } from '@/types/api/film';
-
-// @TODO Loader
 const Index = () => {
-    const films = useLoaderData() as IFilm[];
+    const loaderData = useLoaderData() as IFilmIndexLoaderData;
 
-    const filmsList = films.map(film => <FilmTile key={film.id} film={film} />);
+    const renderFilmsList = (films: IBaseFilm[]) =>
+        films.map(film => <FilmTile key={film.id} film={film} />);
 
     return (
         <main className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
-            {filmsList}
+            <Suspense fallback={<h1>Loading...</h1>}>
+                <Await resolve={loaderData.films}>{renderFilmsList}</Await>
+            </Suspense>
         </main>
     );
 };
