@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import Film from '@/views/pages/Film';
 import Index from '@/views/pages/Index';
 import Login from '@/views/pages/Login';
 import Profile from '@/views/pages/Profile';
@@ -16,6 +17,8 @@ import { loginAction } from '@/router/actions/auth/loginAction';
 import { profileLoader } from '@/router/loaders/auth/profileLoader';
 import AnonymousRoute from '@/components/organisms/router/AnonymousRoute';
 import ProtectedRoute from '@/components/organisms/router/ProtectedRoute';
+import { showLoader as filmShowLoader } from '@/router/loaders/film/showLoader';
+import { indexLoader as filmIndexLoader } from '@/router/loaders/film/indexLoader';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,7 +26,13 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route path="/" element={<DefaultLayout />}>
-                <Route index element={<Index />} />
+                <Route index element={<Index />} loader={filmIndexLoader} />
+
+                <Route
+                    path="films/:id"
+                    element={<Film />}
+                    loader={filmShowLoader}
+                />
 
                 <Route element={<ProtectedRoute />}>
                     <Route

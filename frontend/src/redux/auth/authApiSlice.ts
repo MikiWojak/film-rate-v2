@@ -16,9 +16,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             })
         }),
         me: builder.query<IMeResponse, void>({
-            query: () => ({
-                url: '/v1/auth/me'
-            })
+            query: () => '/v1/auth/me'
         })
     })
 });

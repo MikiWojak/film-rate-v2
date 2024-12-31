@@ -11,7 +11,10 @@ export class WelcomeController {
 
     @Public()
     @Get()
-    @ApiOperation({ summary: 'Show welcome message' })
+    @ApiOperation({
+        summary: 'Show welcome message',
+        description: 'Endpoint for getting welcome message'
+    })
     @ApiOkResponse({
         description: 'Welcome message',
         example: 'Hello world'

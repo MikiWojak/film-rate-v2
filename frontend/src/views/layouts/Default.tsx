@@ -7,7 +7,9 @@ const Default = () => (
         <Header />
 
         <main className="w-full min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] p-4 font-roboto">
-            <Outlet />
+            <div className="md:max-w-250 mx-auto">
+                <Outlet />
+            </div>
         </main>
     </div>
 );

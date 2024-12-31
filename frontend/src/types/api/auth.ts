@@ -17,4 +17,14 @@ interface IMeResponse {
     updatedAt: string;
 }
 
-export type { IMeResponse, ILoginRequest, ITokenResponse, ILoginRequestFields };
+interface IProfileLoaderData {
+    profile: Promise<IMeResponse>;
+}
+
+export type {
+    IMeResponse,
+    ILoginRequest,
+    ITokenResponse,
+    IProfileLoaderData,
+    ILoginRequestFields
+};
