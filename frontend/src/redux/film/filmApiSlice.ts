@@ -7,7 +7,7 @@ export const filmApiSlice = apiSlice.injectEndpoints({
         index: builder.query<IBaseFilm[], void>({
             query: () => '/v1/films'
         }),
-        show: builder.query<IFilm, string | undefined>({
+        show: builder.query<IFilm, string>({
             query: id => `/v1/films/${id}`
         })
     })

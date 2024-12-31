@@ -6,7 +6,7 @@ import { filmApiSlice } from '@/redux/film/filmApiSlice';
 import type { LoaderFunctionArgs } from 'react-router';
 
 export const showLoader = async ({ params }: LoaderFunctionArgs) => {
-    const { id } = params;
+    const id = params.id as string;
 
     const responsePromise = store
         .dispatch(filmApiSlice.endpoints.show.initiate(id))
