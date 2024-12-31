@@ -6,6 +6,7 @@ import { MeResponseDto } from '@/dto/auth/MeResponseDto';
 import { LoginRequestDto } from '@/dto/auth/LoginRequestDto';
 import { TokenResponseDto } from '@/dto/auth/TokenResponseDto';
 import { UserRepository } from '@/repositories/UserRepository';
+import { RegisterRequestDto } from '@/dto/auth/RegisterRequestDto';
 
 @Injectable()
 export class AuthService {
@@ -36,6 +37,18 @@ export class AuthService {
         return {
             accessToken: await this.jwtService.signAsync(payload)
         };
+    }
+
+    async register(registerRequestDto: RegisterRequestDto): Promise<void> {
+        console.log({ registerRequestDto });
+
+        // @TODO
+        // Check if username and email are taken
+        // Save user to DB
+        // Return user's data (without password!)
+        // @TODO
+
+        return Promise.resolve();
     }
 
     async me(id: string): Promise<MeResponseDto> {

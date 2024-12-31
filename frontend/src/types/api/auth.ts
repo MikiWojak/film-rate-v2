@@ -1,8 +1,18 @@
 type ILoginRequestFields = 'email' | 'password';
 
+type IRegisterRequestFields =
+    | ILoginRequestFields
+    | 'username'
+    | 'confirmPassword';
+
 interface ILoginRequest {
     email: string;
     password: string;
+}
+
+interface IRegisterRequest extends ILoginRequest {
+    username: string;
+    confirmPassword: string;
 }
 
 interface ITokenResponse {
@@ -25,6 +35,8 @@ export type {
     IMeResponse,
     ILoginRequest,
     ITokenResponse,
+    IRegisterRequest,
     IProfileLoaderData,
-    ILoginRequestFields
+    ILoginRequestFields,
+    IRegisterRequestFields
 };

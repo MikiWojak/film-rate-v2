@@ -1,49 +1,69 @@
 import { useFormik } from 'formik';
 import { Link, Form, useSubmit, useNavigation } from 'react-router-dom';
 
-import LoginSchema from '@/validators/auth/LoginSchema';
+import RegisterSchema from '@/validators/auth/RegisterSchema';
 import ValidationMessage from '@/components/atoms/forms/ValidationMessage';
 
-import type { ILoginRequest, ILoginRequestFields } from '@/types/api/auth';
+import type {
+    IRegisterRequest,
+    IRegisterRequestFields
+} from '@/types/api/auth';
 
-const Login = () => {
+const Register = () => {
     const submit = useSubmit();
     const { state } = useNavigation();
 
-    const initialValues: ILoginRequest = {
+    const initialValues: IRegisterRequest = {
+        username: '',
         email: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
     };
 
-    const formik = useFormik<ILoginRequest>({
+    const formik = useFormik<IRegisterRequest>({
         initialValues,
-        validationSchema: LoginSchema,
+        validationSchema: RegisterSchema,
         onSubmit: async values => {
             submit({ ...values }, { method: 'post' });
         }
     });
 
-    const hasError = (field: ILoginRequestFields) =>
+    const hasError = (field: IRegisterRequestFields) =>
         formik.touched[field] === true && !!formik.errors[field];
 
-    const getErrorMessage = (field: ILoginRequestFields): string =>
+    const getErrorMessage = (field: IRegisterRequestFields): string =>
         formik.errors[field] || '';
 
     return (
         <>
-            <h1 className="text-xl text-center font-medium">Login</h1>
+            <h1 className="text-xl text-center font-medium">Register</h1>
 
             <div className="mb-7 text-center">
-                Don't have an account?{' '}
+                Already have an account?{' '}
                 <Link
-                    to="/register"
+                    to="/login"
                     className="text-violet-500 hover:underline hover:text-violet-600"
                 >
-                    Register here!
+                    Login here!
                 </Link>
             </div>
 
             <Form method="post" onSubmit={formik.handleSubmit}>
+                <input
+                    id="username"
+                    name="username"
+                    placeholder="Username"
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    className={
+                        'block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ' +
+                        (hasError('username') ? '!border-red-600' : 'mb-7')
+                    }
+                />
+                {hasError('username') && (
+                    <ValidationMessage message={getErrorMessage('username')} />
+                )}
+
                 <input
                     type="email"
                     id="email"
@@ -76,16 +96,36 @@ const Login = () => {
                     <ValidationMessage message={getErrorMessage('password')} />
                 )}
 
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm password"
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    className={
+                        'block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ' +
+                        (hasError('confirmPassword')
+                            ? '!border-red-600'
+                            : 'mb-7')
+                    }
+                />
+                {hasError('confirmPassword') && (
+                    <ValidationMessage
+                        message={getErrorMessage('confirmPassword')}
+                    />
+                )}
+
                 <button
                     type="submit"
                     disabled={state === 'submitting'}
                     className="block w-full p-2 bg-violet-500 rounded-lg text-white font-medium hover:bg-violet-600 disabled:bg-violet-200 disabled:hover:bg-violet-200 sm:p-4"
                 >
-                    {state === 'submitting' ? 'Logging in...' : 'Login'}
+                    {state === 'submitting' ? 'Registering...' : 'Registering'}
                 </button>
             </Form>
         </>
     );
 };
 
-export default Login;
+export default Register;

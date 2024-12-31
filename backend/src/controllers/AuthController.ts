@@ -22,6 +22,7 @@ import { MeResponseDto } from '@/dto/auth/MeResponseDto';
 import { ErrorResponse } from '@/dto/common/ErrorResponse';
 import { LoginRequestDto } from '@/dto/auth/LoginRequestDto';
 import { TokenResponseDto } from '@/dto/auth/TokenResponseDto';
+import { RegisterRequestDto } from '@/dto/auth/RegisterRequestDto';
 import { BadRequestErrorResponse } from '@/dto/common/BadRequestErrorResponse';
 
 @ApiTags('auth')
@@ -50,6 +51,13 @@ export class AuthController {
     })
     login(@Body() loginRequestDto: LoginRequestDto): Promise<TokenResponseDto> {
         return this.authService.login(loginRequestDto);
+    }
+
+    // @TODO Docs
+    @Public()
+    @Post('register')
+    register(@Body() registerRequestDto: RegisterRequestDto): Promise<void> {
+        return this.authService.register(registerRequestDto);
     }
 
     // @TODO Type for request
