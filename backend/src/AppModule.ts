@@ -12,13 +12,13 @@ import { WelcomeModule } from '@/modules/WelcomeModule';
         ConfigModule.forRoot({
             isGlobal: true
         }),
-        // @TODO Fix ENOENT index.html
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', 'public'),
             serveRoot: '/public',
             serveStaticOptions: {
+                index: false,
                 redirect: false,
-                index: false
+                fallthrough: false
             }
         }),
         AuthModule,

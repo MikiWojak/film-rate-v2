@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router-dom';
 
 import FilmTile from '@/components/molecules/films/Tile';
-import AwaitError from '@/components/organisms/router/AsyncError';
+import AsyncError from '@/components/organisms/router/AsyncError';
 
 import { IBaseFilm, IFilmIndexLoaderData } from '@/types/api/film';
 
@@ -15,7 +15,7 @@ const Index = () => {
     return (
         <main className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-4">
             <Suspense fallback={<h1>Loading...</h1>}>
-                <Await resolve={loaderData.films} errorElement={<AwaitError />}>
+                <Await resolve={loaderData.films} errorElement={<AsyncError />}>
                     {renderFilmTiles}
                 </Await>
             </Suspense>

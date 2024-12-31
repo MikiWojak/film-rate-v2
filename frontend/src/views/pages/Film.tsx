@@ -6,7 +6,7 @@ import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 
 import getFullImagePath from '@/helpers/getFullImagePath';
 import BackButton from '@/components/atoms/common/BackButton';
-import AwaitError from '@/components/organisms/router/AsyncError';
+import AsyncError from '@/components/organisms/router/AsyncError';
 
 import type { IFilm, IFilmShowLoaderData } from '@/types/api/film';
 
@@ -76,7 +76,7 @@ const Film = () => {
             <BackButton />
 
             <Suspense fallback={<h1>Loading...</h1>}>
-                <Await resolve={loaderData.film} errorElement={<AwaitError />}>
+                <Await resolve={loaderData.film} errorElement={<AsyncError />}>
                     {renderFilmData}
                 </Await>
             </Suspense>

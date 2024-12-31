@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router-dom';
 
-import AwaitError from '@/components/organisms/router/AsyncError';
+import AsyncError from '@/components/organisms/router/AsyncError';
 
 import type { IMeResponse, IProfileLoaderData } from '@/types/api/auth';
 
@@ -30,7 +30,7 @@ const Profile = () => {
             <Suspense fallback={<h1>Loading...</h1>}>
                 <Await
                     resolve={loaderData.profile}
-                    errorElement={<AwaitError />}
+                    errorElement={<AsyncError />}
                 >
                     {renderProfileData}
                 </Await>
