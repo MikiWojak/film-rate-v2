@@ -12,12 +12,12 @@ interface IFilm extends IBaseFilm {
     releaseDate: string;
 }
 
-interface IFilmIndexLoaderData {
-    films: Promise<IBaseFilm[]>;
+interface IFilmShowLoaderData {
+    film: Promise<IFilm>;
 }
 
-interface IFilmShowLoaderData {
-    film: Promise<IFilm[]>;
+interface IFilmIndexLoaderData {
+    films: Promise<IBaseFilm[]>;
 }
 
 export type { IFilm, IBaseFilm, IFilmShowLoaderData, IFilmIndexLoaderData };

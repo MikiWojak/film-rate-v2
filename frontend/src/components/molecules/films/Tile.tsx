@@ -28,7 +28,7 @@ export const Tile = ({ film }: ItemProps) => {
     return (
         <Link
             to={`/films/${id}`}
-            className="flex flex-col min-h-64 shadow-md rounded-xl hover:shadow-2xl p-2 md:p-4 md:min-h-96"
+            className="flex flex-col min-h-64 p-2 shadow-md rounded-xl hover:shadow-2xl md:p-4 md:min-h-96"
         >
             <img
                 src={fullPosterUrl}
@@ -43,7 +43,7 @@ export const Tile = ({ film }: ItemProps) => {
 
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1 md:gap-2">
-                        <StarIcon className="size-5 text-yellow-400 md:size-8" />
+                        <StarIcon className="size-6 text-yellow-400" />
                         <span>{avgRate.toFixed(2)}</span>
                     </div>
 
@@ -51,7 +51,7 @@ export const Tile = ({ film }: ItemProps) => {
                         onClick={onRateButtonClick}
                         className="group flex items-center gap-1 md:gap-2"
                     >
-                        <StarOutlineIcon className="size-5 text-gray-300 group-hover:text-gray-400 md:size-8" />
+                        <StarOutlineIcon className="size-6 text-gray-300 group-hover:text-gray-400" />
                         <span className="group-hover:underline">Rate</span>
                     </button>
                 </div>

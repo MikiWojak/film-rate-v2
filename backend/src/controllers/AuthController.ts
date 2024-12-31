@@ -34,10 +34,10 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @ApiOperation({
         summary: 'Login to existing account',
-        description: 'Endpoint to login to existing account'
+        description: 'Endpoint for logging in to an existing account'
     })
     @ApiOkResponse({
-        description: 'User logged in',
+        description: 'Access token',
         type: TokenResponseDto
     })
     @ApiBadRequestResponse({
@@ -57,7 +57,7 @@ export class AuthController {
     @ApiBearerAuth()
     @ApiOperation({
         summary: "Get logged user's data",
-        description: "Endpoint to get logged user's data"
+        description: "Endpoint for getting logged user's data"
     })
     @ApiOkResponse({
         description: "Logged user's data",

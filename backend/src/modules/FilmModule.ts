@@ -8,6 +8,6 @@ import { FilmRepository } from '@/repositories/FilmRepository';
 @Module({
     imports: [PrismaModule],
     controllers: [FilmController],
-    providers: [FilmService, FilmRepository]
+    providers: [FilmRepository, FilmService]
 })
 export class FilmModule {}

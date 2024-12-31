@@ -1,6 +1,8 @@
 import { Suspense } from 'react';
 import { Await, useLoaderData } from 'react-router-dom';
 
+import AwaitError from '@/components/organisms/router/AsyncError';
+
 import type { IMeResponse, IProfileLoaderData } from '@/types/api/auth';
 
 const Profile = () => {
@@ -26,7 +28,12 @@ const Profile = () => {
             <h1 className="mb-4 text-xl text-center font-medium">Profile</h1>
 
             <Suspense fallback={<h1>Loading...</h1>}>
-                <Await resolve={loaderData.profile}>{renderProfileData}</Await>
+                <Await
+                    resolve={loaderData.profile}
+                    errorElement={<AwaitError />}
+                >
+                    {renderProfileData}
+                </Await>
             </Suspense>
         </div>
     );

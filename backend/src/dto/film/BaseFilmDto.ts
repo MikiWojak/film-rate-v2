@@ -15,7 +15,7 @@ export class BaseFilmDto {
 
     @ApiProperty({
         description: "Film's poster URL",
-        example: 'images/34a710ed-64fd-4d4b-8944-4f9bbb07d29e'
+        example: 'uploads/images/34a710ed-64fd-4d4b-8944-4f9bbb07d29e'
     })
     readonly posterUrl: string;
 

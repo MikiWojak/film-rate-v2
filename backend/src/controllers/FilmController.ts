@@ -1,10 +1,10 @@
-import { Get, Controller, Param, NotFoundException } from '@nestjs/common';
 import {
     ApiTags,
     ApiOperation,
     ApiOkResponse,
     ApiNotFoundResponse
 } from '@nestjs/swagger';
+import { Get, Controller, Param } from '@nestjs/common';
 
 import { FilmDto } from '@/dto/film/FilmDto';
 import { Public } from '@/decorators/Public';
@@ -21,7 +21,7 @@ export class FilmController {
     @Get()
     @ApiOperation({
         summary: 'Get all films',
-        description: 'Endpoint to get all films'
+        description: 'Endpoint for getting all films'
     })
     @ApiOkResponse({
         description: 'Array with films data',
@@ -35,7 +35,7 @@ export class FilmController {
     @Get(':id')
     @ApiOperation({
         summary: 'Get film by ID',
-        description: 'Endpoint to get film by ID'
+        description: 'Endpoint for getting film by ID'
     })
     @ApiOkResponse({
         description: "Film's data",
@@ -45,13 +45,7 @@ export class FilmController {
         description: 'Not Found',
         type: ErrorResponse
     })
-    async show(@Param('id') id: string): Promise<FilmDto> {
-        const film = await this.filmService.show(id);
-
-        if (!film) {
-            throw new NotFoundException();
-        }
-
-        return film;
+    show(@Param('id') id: string): Promise<FilmDto> {
+        return this.filmService.show(id);
     }
 }

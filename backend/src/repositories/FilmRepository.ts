@@ -3,9 +3,9 @@ import { Injectable } from '@nestjs/common';
 import { isPlainObject } from 'is-plain-object';
 import { plainToInstance } from 'class-transformer';
 
-import { PrismaService } from '@/services/PrismaService';
-import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
 import { FilmDto } from '@/dto/film/FilmDto';
+import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
+import { PrismaService } from '@/services/PrismaService';
 
 @Injectable()
 export class FilmRepository {

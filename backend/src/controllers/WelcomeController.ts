@@ -13,7 +13,7 @@ export class WelcomeController {
     @Get()
     @ApiOperation({
         summary: 'Show welcome message',
-        description: 'Endpoint to get welcome message'
+        description: 'Endpoint for getting welcome message'
     })
     @ApiOkResponse({
         description: 'Welcome message',

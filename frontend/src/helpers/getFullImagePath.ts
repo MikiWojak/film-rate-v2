@@ -1,7 +1,9 @@
+import urlJoin from 'url-join';
+
 import config from '@/config';
 
-// @TODO Come up with more robust solution
-const getFullImagePath = (imagePath: string) =>
-    `${config.apiMediaUrl}/${imagePath}`;
+const getFullImagePath = (imagePath: string) => {
+    return urlJoin(config.apiMediaUrl, imagePath);
+};
 
 export default getFullImagePath;

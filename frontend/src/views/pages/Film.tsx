@@ -6,10 +6,11 @@ import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 
 import getFullImagePath from '@/helpers/getFullImagePath';
 import BackButton from '@/components/atoms/common/BackButton';
+import AwaitError from '@/components/organisms/router/AsyncError';
 
 import type { IFilm, IFilmShowLoaderData } from '@/types/api/film';
 
-const Index = () => {
+const Film = () => {
     const loaderData = useLoaderData() as IFilmShowLoaderData;
 
     const onRateButtonClick = () => {
@@ -38,7 +39,7 @@ const Index = () => {
                     <div className="flex flex-col md:justify-between md:items-start">
                         <div className="flex items-center justify-between md:flex-col">
                             <div className="flex items-center gap-1 md:gap-2">
-                                <StarIcon className="size-5 text-yellow-400 md:size-8" />
+                                <StarIcon className="size-6 text-yellow-400" />
                                 <span>{avgRate.toFixed(2)}</span>
                             </div>
 
@@ -46,7 +47,7 @@ const Index = () => {
                                 onClick={onRateButtonClick}
                                 className="group flex items-center gap-1 md:gap-2"
                             >
-                                <StarOutlineIcon className="size-5 text-gray-300 group-hover:text-gray-400 md:size-8" />
+                                <StarOutlineIcon className="size-6 text-gray-300 group-hover:text-gray-400" />
                                 <span className="group-hover:underline">
                                     Rate
                                 </span>
@@ -75,10 +76,12 @@ const Index = () => {
             <BackButton />
 
             <Suspense fallback={<h1>Loading...</h1>}>
-                <Await resolve={loaderData.film}>{renderFilmData}</Await>
+                <Await resolve={loaderData.film} errorElement={<AwaitError />}>
+                    {renderFilmData}
+                </Await>
             </Suspense>
         </main>
     );
 };
 
-export default Index;
+export default Film;

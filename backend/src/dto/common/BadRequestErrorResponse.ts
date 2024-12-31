@@ -11,5 +11,5 @@ export class BadRequestErrorResponse {
     readonly error: string;
 
     @ApiProperty({ description: 'HTTP status code', example: '400' })
-    readonly statusCode: string;
+    readonly statusCode: number;
 }

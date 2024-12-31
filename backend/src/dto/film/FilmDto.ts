@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
 
 export class FilmDto extends BaseFilmDto {
@@ -8,6 +9,9 @@ export class FilmDto extends BaseFilmDto {
     })
     readonly description: string;
 
-    @ApiProperty({ description: "Film's release date", example: '2024-09-23' })
+    @ApiProperty({
+        description: "Film's release date",
+        example: '2012-09-21T00:00:00.000Z'
+    })
     readonly releaseDate: string;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { FilmDto } from '@/dto/film/FilmDto';
 import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
@@ -12,7 +12,13 @@ export class FilmService {
         return this.filmRepository.findAll();
     }
 
-    show(id: string): Promise<FilmDto | null> {
-        return this.filmRepository.findById(id);
+    async show(id: string): Promise<FilmDto> {
+        const film = await this.filmRepository.findById(id);
+
+        if (!film) {
+            throw new NotFoundException();
+        }
+
+        return film;
     }
 }

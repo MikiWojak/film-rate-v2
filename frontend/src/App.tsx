@@ -13,7 +13,6 @@ import Profile from '@/views/pages/Profile';
 import NotFound from '@/views/pages/NotFound';
 import AuthLayout from '@/views/layouts/Auth';
 import DefaultLayout from '@/views/layouts/Default';
-import Error from '@/components/organisms/router/Error';
 import { loginAction } from '@/router/actions/auth/loginAction';
 import { profileLoader } from '@/router/loaders/auth/profileLoader';
 import AnonymousRoute from '@/components/organisms/router/AnonymousRoute';
@@ -27,17 +26,11 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route path="/" element={<DefaultLayout />}>
-                <Route
-                    index
-                    element={<Index />}
-                    errorElement={<Error />}
-                    loader={filmIndexLoader}
-                />
+                <Route index element={<Index />} loader={filmIndexLoader} />
 
                 <Route
                     path="films/:id"
                     element={<Film />}
-                    errorElement={<Error />}
                     loader={filmShowLoader}
                 />
 
@@ -45,7 +38,6 @@ const router = createBrowserRouter(
                     <Route
                         path="profile"
                         element={<Profile />}
-                        errorElement={<Error />}
                         loader={profileLoader}
                     />
                 </Route>

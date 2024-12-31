@@ -5,5 +5,5 @@ export class ErrorResponse {
     readonly message: string;
 
     @ApiProperty({ description: 'HTTP status code', example: '404' })
-    readonly statusCode: string;
+    readonly statusCode: number;
 }
