@@ -10,11 +10,13 @@ import Film from '@/views/pages/Film';
 import Index from '@/views/pages/Index';
 import Login from '@/views/pages/Login';
 import Profile from '@/views/pages/Profile';
-import NotFound from '@/views/pages/NotFound';
 import AuthLayout from '@/views/layouts/Auth';
+import NotFound from '@/views/pages/NotFound';
+import Register from '@/views/pages/Register';
 import DefaultLayout from '@/views/layouts/Default';
 import { loginAction } from '@/router/actions/auth/loginAction';
 import { profileLoader } from '@/router/loaders/auth/profileLoader';
+import { registerAction } from '@/router/actions/auth/registerAction';
 import AnonymousRoute from '@/components/organisms/router/AnonymousRoute';
 import ProtectedRoute from '@/components/organisms/router/ProtectedRoute';
 import { showLoader as filmShowLoader } from '@/router/loaders/film/showLoader';
@@ -51,6 +53,12 @@ const router = createBrowserRouter(
                         path="login"
                         element={<Login />}
                         action={loginAction}
+                    />
+
+                    <Route
+                        path="register"
+                        element={<Register />}
+                        action={registerAction}
                     />
                 </Route>
             </Route>

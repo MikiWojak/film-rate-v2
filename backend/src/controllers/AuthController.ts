@@ -18,16 +18,37 @@ import {
 
 import { Public } from '@/decorators/Public';
 import { AuthService } from '@/services/AuthService';
-import { MeResponseDto } from '@/dto/auth/MeResponseDto';
 import { ErrorResponse } from '@/dto/common/ErrorResponse';
 import { LoginRequestDto } from '@/dto/auth/LoginRequestDto';
 import { TokenResponseDto } from '@/dto/auth/TokenResponseDto';
+import { ProfileResponseDto } from '@/dto/auth/ProfileResponseDto';
+import { RegisterRequestDto } from '@/dto/auth/RegisterRequestDto';
+import { RegisterValidationPipe } from '@/pipes/auth/RegisterValidationPipe';
 import { BadRequestErrorResponse } from '@/dto/common/BadRequestErrorResponse';
 
 @ApiTags('auth')
 @Controller('api/v1/auth')
 export class AuthController {
     constructor(private authService: AuthService) {}
+
+    // @TODO Type for request
+    @Get('me')
+    @ApiBearerAuth()
+    @ApiOperation({
+        summary: "Get logged user's data",
+        description: "Endpoint for getting logged user's data"
+    })
+    @ApiOkResponse({
+        description: "Logged user's data",
+        type: ProfileResponseDto
+    })
+    @ApiUnauthorizedResponse({
+        description: 'Unauthorized',
+        type: ErrorResponse
+    })
+    me(@Request() req): Promise<ProfileResponseDto> {
+        return this.authService.me(req.user.sub);
+    }
 
     @Public()
     @Post('login')
@@ -52,22 +73,24 @@ export class AuthController {
         return this.authService.login(loginRequestDto);
     }
 
-    // @TODO Type for request
-    @Get('me')
-    @ApiBearerAuth()
+    @Public()
+    @Post('register')
     @ApiOperation({
-        summary: "Get logged user's data",
-        description: "Endpoint for getting logged user's data"
+        summary: 'Register a new account',
+        description: 'Endpoint for registering a new account'
     })
     @ApiOkResponse({
-        description: "Logged user's data",
-        type: MeResponseDto
+        description: 'Created account data',
+        type: ProfileResponseDto
     })
-    @ApiUnauthorizedResponse({
-        description: 'Unauthorized',
-        type: ErrorResponse
+    @ApiBadRequestResponse({
+        description: 'Bad Request',
+        type: BadRequestErrorResponse
     })
-    me(@Request() req): Promise<MeResponseDto> {
-        return this.authService.me(req.user.sub);
+    register(
+        @Body(RegisterValidationPipe)
+        registerRequestDto: RegisterRequestDto
+    ): Promise<ProfileResponseDto> {
+        return this.authService.register(registerRequestDto);
     }
 }

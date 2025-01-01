@@ -1,15 +1,25 @@
 type ILoginRequestFields = 'email' | 'password';
 
+type IRegisterRequestFields =
+    | ILoginRequestFields
+    | 'username'
+    | 'confirmPassword';
+
 interface ILoginRequest {
     email: string;
     password: string;
+}
+
+interface IRegisterRequest extends ILoginRequest {
+    username: string;
+    confirmPassword: string;
 }
 
 interface ITokenResponse {
     accessToken: string;
 }
 
-interface IMeResponse {
+interface IProfileResponse {
     id: string;
     username: string;
     email: string;
@@ -18,13 +28,15 @@ interface IMeResponse {
 }
 
 interface IProfileLoaderData {
-    profile: Promise<IMeResponse>;
+    profile: Promise<IProfileResponse>;
 }
 
 export type {
-    IMeResponse,
     ILoginRequest,
     ITokenResponse,
+    IProfileResponse,
+    IRegisterRequest,
     IProfileLoaderData,
-    ILoginRequestFields
+    ILoginRequestFields,
+    IRegisterRequestFields
 };

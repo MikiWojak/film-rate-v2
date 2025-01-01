@@ -1,9 +1,10 @@
 import { apiSlice } from '@/redux/apiSlice';
 
 import type {
-    IMeResponse,
     ILoginRequest,
-    ITokenResponse
+    ITokenResponse,
+    IProfileResponse,
+    IRegisterRequest
 } from '@/types/api/auth';
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -15,7 +16,14 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 body
             })
         }),
-        me: builder.query<IMeResponse, void>({
+        register: builder.mutation<IProfileResponse, IRegisterRequest>({
+            query: body => ({
+                url: '/v1/auth/register',
+                method: 'POST',
+                body
+            })
+        }),
+        me: builder.query<IProfileResponse, void>({
             query: () => '/v1/auth/me'
         })
     })

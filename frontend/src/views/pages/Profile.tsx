@@ -3,12 +3,12 @@ import { Await, useLoaderData } from 'react-router-dom';
 
 import AsyncError from '@/components/organisms/router/AsyncError';
 
-import type { IMeResponse, IProfileLoaderData } from '@/types/api/auth';
+import type { IProfileResponse, IProfileLoaderData } from '@/types/api/auth';
 
 const Profile = () => {
     const loaderData = useLoaderData() as IProfileLoaderData;
 
-    const renderProfileData = (profile: IMeResponse) => {
+    const renderProfileData = (profile: IProfileResponse) => {
         const { username, email } = profile;
 
         return (
