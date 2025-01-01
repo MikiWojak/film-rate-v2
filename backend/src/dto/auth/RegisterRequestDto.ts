@@ -1,38 +1,49 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
     IsEmail,
-    IsNotEmpty,
     Matches,
     MaxLength,
-    MinLength
+    MinLength,
+    IsNotEmpty,
+    IsString
 } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 import { Transform, TransformFnParams } from 'class-transformer';
 
-// @TODO Check transform
 export class RegisterRequestDto {
-    @Transform(({ value }: TransformFnParams) => value?.trim())
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(32)
     @Matches(/^[a-zA-Z0-9_]+$/)
+    @MaxLength(32)
+    @MinLength(2)
+    @IsString()
+    @IsNotEmpty()
+    @Transform(({ value }: TransformFnParams) =>
+        typeof value === 'string' ? value.trim() : value
+    )
     @ApiProperty({ description: "User's username", example: 'joedoe' })
     readonly username: string;
 
-    @Transform(({ value }: TransformFnParams) => value?.trim())
-    @IsNotEmpty()
     @IsEmail()
+    @IsString()
+    @IsNotEmpty()
+    @Transform(({ value }: TransformFnParams) =>
+        typeof value === 'string' ? value.trim() : value
+    )
     @ApiProperty({ description: "User's email", example: 'user@example.test' })
     readonly email: string;
 
-    @Transform(({ value }: TransformFnParams) => value?.trim())
-    @IsNotEmpty()
     @MinLength(8)
+    @IsString()
+    @IsNotEmpty()
+    @Transform(({ value }: TransformFnParams) =>
+        typeof value === 'string' ? value.trim() : value
+    )
     @ApiProperty({ description: "User's password", example: 'password' })
     readonly password: string;
 
-    // @TODO Same as password
-    @Transform(({ value }: TransformFnParams) => value?.trim())
+    @IsString()
     @IsNotEmpty()
+    @Transform(({ value }: TransformFnParams) =>
+        typeof value === 'string' ? value.trim() : value
+    )
     @ApiProperty({
         description: "User's password confirmation",
         example: 'password'

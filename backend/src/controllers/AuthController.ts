@@ -18,13 +18,12 @@ import {
 
 import { Public } from '@/decorators/Public';
 import { AuthService } from '@/services/AuthService';
-import { EmailInUsePipe } from '@/pipes/EmailInUsePipe';
 import { ErrorResponse } from '@/dto/common/ErrorResponse';
 import { LoginRequestDto } from '@/dto/auth/LoginRequestDto';
-import { UsernameInUsePipe } from '@/pipes/UsernameInUsePipe';
 import { TokenResponseDto } from '@/dto/auth/TokenResponseDto';
 import { ProfileResponseDto } from '@/dto/auth/ProfileResponseDto';
 import { RegisterRequestDto } from '@/dto/auth/RegisterRequestDto';
+import { RegisterValidationPipe } from '@/pipes/auth/RegisterValidationPipe';
 import { BadRequestErrorResponse } from '@/dto/common/BadRequestErrorResponse';
 
 @ApiTags('auth')
@@ -74,7 +73,6 @@ export class AuthController {
         return this.authService.login(loginRequestDto);
     }
 
-    // @TODO Validation - try other approach
     @Public()
     @Post('register')
     @ApiOperation({
@@ -90,11 +88,8 @@ export class AuthController {
         type: BadRequestErrorResponse
     })
     register(
-        @Body() registerRequestDto: RegisterRequestDto,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        @Body('username', UsernameInUsePipe) username: string,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        @Body('email', EmailInUsePipe) email: string
+        @Body(RegisterValidationPipe)
+        registerRequestDto: RegisterRequestDto
     ): Promise<ProfileResponseDto> {
         return this.authService.register(registerRequestDto);
     }

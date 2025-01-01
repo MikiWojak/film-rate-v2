@@ -1,5 +1,11 @@
+import {
+    Link,
+    Form,
+    useSubmit,
+    useNavigation,
+    useActionData
+} from 'react-router-dom';
 import { useFormik } from 'formik';
-import { Link, Form, useSubmit, useNavigation } from 'react-router-dom';
 
 import RegisterSchema from '@/validators/auth/RegisterSchema';
 import ValidationMessage from '@/components/atoms/forms/ValidationMessage';
@@ -10,6 +16,8 @@ import type {
 } from '@/types/api/auth';
 
 const Register = () => {
+    const errorMessages = useActionData() as string[];
+
     const submit = useSubmit();
     const { state } = useNavigation();
 
@@ -55,11 +63,17 @@ const Register = () => {
                     placeholder="Username"
                     value={formik.values.username}
                     onChange={formik.handleChange}
-                    className={
-                        'block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ' +
-                        (hasError('username') ? '!border-red-600' : 'mb-7')
-                    }
+                    className={`block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ${
+                        hasError('username') && '!border-red-600'
+                    }`}
                 />
+                <div
+                    className={`text-sm text-slate-700 ${
+                        !hasError('username') && 'mb-7'
+                    }`}
+                >
+                    Only letters, numbers and underscores are accepted
+                </div>
                 {hasError('username') && (
                     <ValidationMessage message={getErrorMessage('username')} />
                 )}
@@ -71,10 +85,9 @@ const Register = () => {
                     placeholder="Email"
                     value={formik.values.email}
                     onChange={formik.handleChange}
-                    className={
-                        'block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ' +
-                        (hasError('email') ? '!border-red-600' : 'mb-7')
-                    }
+                    className={`block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ${
+                        hasError('email') ? '!border-red-600' : 'mb-7'
+                    }`}
                 />
                 {hasError('email') && (
                     <ValidationMessage message={getErrorMessage('email')} />
@@ -87,10 +100,9 @@ const Register = () => {
                     placeholder="Password"
                     value={formik.values.password}
                     onChange={formik.handleChange}
-                    className={
-                        'block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ' +
-                        (hasError('password') ? '!border-red-600' : 'mb-7')
-                    }
+                    className={`block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ${
+                        hasError('password') ? '!border-red-600' : 'mb-7'
+                    }`}
                 />
                 {hasError('password') && (
                     <ValidationMessage message={getErrorMessage('password')} />
@@ -103,12 +115,9 @@ const Register = () => {
                     placeholder="Confirm password"
                     value={formik.values.confirmPassword}
                     onChange={formik.handleChange}
-                    className={
-                        'block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ' +
-                        (hasError('confirmPassword')
-                            ? '!border-red-600'
-                            : 'mb-7')
-                    }
+                    className={`block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ${
+                        hasError('confirmPassword') ? '!border-red-600' : 'mb-7'
+                    }`}
                 />
                 {hasError('confirmPassword') && (
                     <ValidationMessage
@@ -121,8 +130,16 @@ const Register = () => {
                     disabled={state === 'submitting'}
                     className="block w-full p-2 bg-violet-500 rounded-lg text-white font-medium hover:bg-violet-600 disabled:bg-violet-200 disabled:hover:bg-violet-200 sm:p-4"
                 >
-                    {state === 'submitting' ? 'Registering...' : 'Registering'}
+                    {state === 'submitting' ? 'Registering...' : 'Register'}
                 </button>
+
+                {errorMessages && (
+                    <ul className="mt-7 list-disc list-inside text-red-600">
+                        {errorMessages.map((errorMessage, index) => (
+                            <li key={index}>{errorMessage}</li>
+                        ))}
+                    </ul>
+                )}
             </Form>
         </>
     );

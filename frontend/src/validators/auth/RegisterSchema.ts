@@ -5,10 +5,7 @@ const RegisterSchema = object({
         .required('This field is required')
         .min(2, 'This field must have at least 2 characters')
         .max(64, 'This field must have max 64 characters')
-        .matches(
-            /^[a-zA-Z0-9_]+$/,
-            'Only characters, numbers and underscores are accepted'
-        ),
+        .matches(/^[a-zA-Z0-9_]+$/, 'This field has forbidden characters'),
     email: string()
         .required('This field is required')
         .email('Wrong email format'),

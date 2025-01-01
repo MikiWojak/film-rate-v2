@@ -5,12 +5,15 @@ import { redirect, ActionFunctionArgs } from 'react-router-dom';
 import { store } from '@/redux';
 import { authApiSlice } from '@/redux/auth/authApiSlice';
 
+import type { IErrorResponse } from '@/types/api/common';
 import type { IRegisterRequest } from '@/types/api/auth';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 
 export const registerAction = async ({
     request
-}: ActionFunctionArgs<IRegisterRequest>): Promise<Response | null> => {
+}: ActionFunctionArgs<IRegisterRequest>): Promise<
+    Response | string[] | null
+> => {
     const formData = await request.formData();
 
     const username = formData.get('username') as string;
@@ -37,9 +40,12 @@ export const registerAction = async ({
         const fetchError = error as FetchBaseQueryError;
 
         if (fetchError?.status === HTTP.BAD_REQUEST) {
+            const apiErrorResponse = fetchError.data as IErrorResponse;
+            const { message } = apiErrorResponse;
+
             toast.error('Recheck your form');
 
-            return null;
+            return Array.isArray(message) ? message : [message];
         }
 
         toast.error('Something went wrong...');
