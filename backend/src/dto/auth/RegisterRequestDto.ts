@@ -1,17 +1,17 @@
 import {
     IsEmail,
     Matches,
+    IsString,
     MaxLength,
     MinLength,
-    IsNotEmpty,
-    IsString
+    IsNotEmpty
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, TransformFnParams } from 'class-transformer';
 
 export class RegisterRequestDto {
     @Matches(/^[a-zA-Z0-9_]+$/)
-    @MaxLength(32)
+    @MaxLength(64)
     @MinLength(2)
     @IsString()
     @IsNotEmpty()

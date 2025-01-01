@@ -63,13 +63,13 @@ const Register = () => {
                     placeholder="Username"
                     value={formik.values.username}
                     onChange={formik.handleChange}
-                    className={`block w-full p-2 rounded-lg outline-2 border-2 sm:p-4 ${
-                        hasError('username') && '!border-red-600'
+                    className={`block w-full p-2 rounded-lg outline-2 border-2 sm:p-4${
+                        hasError('username') ? ' !border-red-600' : ''
                     }`}
                 />
                 <div
-                    className={`text-sm text-slate-700 ${
-                        !hasError('username') && 'mb-7'
+                    className={`text-sm text-slate-700${
+                        !hasError('username') ? ' mb-7' : ''
                     }`}
                 >
                     Only letters, numbers and underscores are accepted
