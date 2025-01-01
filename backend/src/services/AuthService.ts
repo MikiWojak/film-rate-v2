@@ -1,19 +1,33 @@
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { plainToInstance } from 'class-transformer';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
-import { MeResponseDto } from '@/dto/auth/MeResponseDto';
+import { Role } from '@/enums/Role';
 import { LoginRequestDto } from '@/dto/auth/LoginRequestDto';
+import { RoleRepository } from '@/repositories/RoleRepository';
 import { TokenResponseDto } from '@/dto/auth/TokenResponseDto';
 import { UserRepository } from '@/repositories/UserRepository';
+import { ProfileResponseDto } from '@/dto/auth/ProfileResponseDto';
 import { RegisterRequestDto } from '@/dto/auth/RegisterRequestDto';
 
 @Injectable()
 export class AuthService {
     constructor(
         private userRepository: UserRepository,
+        private roleRepository: RoleRepository,
         private jwtService: JwtService
     ) {}
+
+    async me(id: string): Promise<ProfileResponseDto> {
+        const user = await this.userRepository.findById(id);
+
+        if (!user) {
+            throw new UnauthorizedException();
+        }
+
+        return plainToInstance(ProfileResponseDto, user);
+    }
 
     async login(loginRequestDto: LoginRequestDto): Promise<TokenResponseDto> {
         const { email, password } = loginRequestDto;
@@ -39,27 +53,22 @@ export class AuthService {
         };
     }
 
-    async register(registerRequestDto: RegisterRequestDto): Promise<void> {
-        console.log({ registerRequestDto });
+    async register(
+        registerRequestDto: RegisterRequestDto
+    ): Promise<ProfileResponseDto> {
+        const { username, email, password } = registerRequestDto;
 
-        // @TODO
-        // Check if username and email are taken
-        // Save user to DB
-        // Return user's data (without password!)
-        // @TODO
+        const roleUser = await this.roleRepository.findByName(Role.USER);
 
-        return Promise.resolve();
-    }
+        const user = await this.userRepository.create({
+            username,
+            email,
+            password,
+            roles: {
+                create: [{ role: { connect: { id: roleUser.id } } }]
+            }
+        });
 
-    async me(id: string): Promise<MeResponseDto> {
-        const fetchedUser = await this.userRepository.findById(id);
-
-        if (!fetchedUser) {
-            throw new UnauthorizedException();
-        }
-
-        const user = fetchedUser as MeResponseDto;
-
-        return user;
+        return plainToInstance(ProfileResponseDto, user);
     }
 }

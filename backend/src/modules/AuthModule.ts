@@ -4,6 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 
 import { AuthGuard } from '@/guards/AuthGuard';
+import { RoleModule } from '@/modules/RoleModule';
 import { UserModule } from '@/modules/UserModule';
 import { AuthService } from '@/services/AuthService';
 import { AuthController } from '@/controllers/AuthController';
@@ -11,6 +12,7 @@ import { AuthController } from '@/controllers/AuthController';
 @Module({
     imports: [
         UserModule,
+        RoleModule,
         JwtModule.registerAsync({
             useFactory: async (configService: ConfigService) => {
                 return {

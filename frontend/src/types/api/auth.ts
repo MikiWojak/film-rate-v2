@@ -19,7 +19,7 @@ interface ITokenResponse {
     accessToken: string;
 }
 
-interface IMeResponse {
+interface IProfileResponse {
     id: string;
     username: string;
     email: string;
@@ -28,13 +28,13 @@ interface IMeResponse {
 }
 
 interface IProfileLoaderData {
-    profile: Promise<IMeResponse>;
+    profile: Promise<IProfileResponse>;
 }
 
 export type {
-    IMeResponse,
     ILoginRequest,
     ITokenResponse,
+    IProfileResponse,
     IRegisterRequest,
     IProfileLoaderData,
     ILoginRequestFields,

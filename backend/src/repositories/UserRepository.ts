@@ -9,6 +9,16 @@ import { PrismaService } from '@/services/PrismaService';
 export class UserRepository {
     constructor(private prisma: PrismaService) {}
 
+    findById(id: string, options = {}): Promise<User | null> {
+        const args = deepmerge(
+            options,
+            { where: { id } },
+            { isMergeableObject: isPlainObject }
+        );
+
+        return this.prisma.user.findFirst(args);
+    }
+
     findByEmail(email: string, options = {}): Promise<User | null> {
         const args = deepmerge(
             options,
@@ -19,13 +29,24 @@ export class UserRepository {
         return this.prisma.user.findFirst(args);
     }
 
-    findById(id: string, options = {}): Promise<User | null> {
+    findByUsername(username: string, options = {}): Promise<User | null> {
         const args = deepmerge(
             options,
-            { where: { id } },
+            { where: { username } },
             { isMergeableObject: isPlainObject }
         );
 
         return this.prisma.user.findFirst(args);
+    }
+
+    // @TODO Type for data
+    create(data, options = {}) {
+        const args = deepmerge(
+            options,
+            { data },
+            { isMergeableObject: isPlainObject }
+        );
+
+        return this.prisma.user.create(args);
     }
 }
