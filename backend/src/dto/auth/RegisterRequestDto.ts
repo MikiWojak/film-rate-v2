@@ -21,7 +21,7 @@ export class RegisterRequestDto {
     @ApiProperty({ description: "User's username", example: 'joedoe' })
     readonly username: string;
 
-    @IsEmail()
+    @IsEmail({}, { message: 'Wrong email format' })
     @IsString()
     @IsNotEmpty()
     @Transform(({ value }: TransformFnParams) =>
