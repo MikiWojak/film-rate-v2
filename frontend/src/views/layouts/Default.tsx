@@ -6,11 +6,11 @@ const Default = () => (
     <div>
         <Header />
 
-        <main className="w-full min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] p-4 font-roboto">
-            <div className="md:max-w-250 mx-auto">
+        <div className="min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] p-4">
+            <main className="md:max-w-250 mx-auto">
                 <Outlet />
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
 );
 

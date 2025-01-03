@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import Film from '@/views/pages/Film';
 import Index from '@/views/pages/Index';
 import Login from '@/views/pages/Login';
 import Profile from '@/views/pages/Profile';
@@ -14,6 +13,7 @@ import AuthLayout from '@/views/layouts/Auth';
 import NotFound from '@/views/pages/NotFound';
 import Register from '@/views/pages/Register';
 import DefaultLayout from '@/views/layouts/Default';
+import SingleFilm from '@/views/pages/films/Single';
 import { loginAction } from '@/router/actions/auth/loginAction';
 import { profileLoader } from '@/router/loaders/auth/profileLoader';
 import { registerAction } from '@/router/actions/auth/registerAction';
@@ -32,7 +32,7 @@ const router = createBrowserRouter(
 
                 <Route
                     path="films/:id"
-                    element={<Film />}
+                    element={<SingleFilm />}
                     loader={filmShowLoader}
                 />
 

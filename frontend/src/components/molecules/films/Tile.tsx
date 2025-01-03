@@ -9,20 +9,21 @@ import type { MouseEventHandler, MouseEvent } from 'react';
 
 type ItemProps = {
     film: IBaseFilm;
+    onRateButtonClick: (film: IBaseFilm) => void;
 };
 
-export const Tile = ({ film }: ItemProps) => {
+export const Tile = ({ film, onRateButtonClick }: ItemProps) => {
     const { id, title, posterUrl, avgRate } = film;
 
     const fullPosterUrl = getFullImagePath(posterUrl);
 
-    const onRateButtonClick: MouseEventHandler<HTMLButtonElement> | void = (
+    const doOnRateButtonClick: MouseEventHandler<HTMLButtonElement> | void = (
         event: MouseEvent
     ) => {
         event.preventDefault();
         event.stopPropagation();
 
-        alert('Rate film');
+        onRateButtonClick(film);
     };
 
     return (
@@ -48,7 +49,7 @@ export const Tile = ({ film }: ItemProps) => {
                     </div>
 
                     <button
-                        onClick={onRateButtonClick}
+                        onClick={doOnRateButtonClick}
                         className="group flex items-center gap-1 md:gap-2"
                     >
                         <StarOutlineIcon className="size-6 text-gray-300 group-hover:text-gray-400" />

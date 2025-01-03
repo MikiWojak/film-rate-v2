@@ -9,7 +9,7 @@ export const showLoader = async ({ params }: LoaderFunctionArgs) => {
     const id = params.id as string;
 
     const responsePromise = store
-        .dispatch(filmApiSlice.endpoints.show.initiate(id))
+        .dispatch(filmApiSlice.endpoints.getFilmById.initiate(id))
         .unwrap();
 
     return defer({

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { PrismaService } from '@/services/PrismaService';
 
+// @TODO Disable logs if not development env!
 @Module({
     providers: [
         {

@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { Suspense } from 'react';
+import { createPortal } from 'react-dom';
+import { Suspense, useState } from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { Await, useLoaderData } from 'react-router-dom';
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
@@ -8,13 +9,20 @@ import getFullImagePath from '@/helpers/getFullImagePath';
 import BackButton from '@/components/atoms/common/BackButton';
 import AsyncError from '@/components/organisms/router/AsyncError';
 
-import type { IFilm, IFilmShowLoaderData } from '@/types/api/film';
+import { IFilm, IFilmShowLoaderData } from '@/types/api/film';
+import RateFilmModal from '@/components/organisms/films/RateModal';
 
-const Film = () => {
+const Single = () => {
     const loaderData = useLoaderData() as IFilmShowLoaderData;
 
-    const onRateButtonClick = () => {
-        alert('Rate film');
+    const [rateFilmModalVisible, setRateFilmModalVisible] = useState(false);
+
+    const showRateFilmModal = () => {
+        setRateFilmModalVisible(true);
+    };
+
+    const closeRateFilmModal = () => {
+        setRateFilmModalVisible(false);
     };
 
     const renderFilmData = (film: IFilm) => {
@@ -44,7 +52,7 @@ const Film = () => {
                             </div>
 
                             <button
-                                onClick={onRateButtonClick}
+                                onClick={showRateFilmModal}
                                 className="group flex items-center gap-1 md:gap-2"
                             >
                                 <StarOutlineIcon className="size-6 text-gray-300 group-hover:text-gray-400" />
@@ -67,6 +75,15 @@ const Film = () => {
                 </div>
 
                 <div className="whitespace-pre-line">{description}</div>
+
+                {rateFilmModalVisible &&
+                    createPortal(
+                        <RateFilmModal
+                            film={film}
+                            onClose={closeRateFilmModal}
+                        />,
+                        document.body
+                    )}
             </>
         );
     };
@@ -84,4 +101,4 @@ const Film = () => {
     );
 };
 
-export default Film;
+export default Single;

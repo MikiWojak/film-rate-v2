@@ -4,11 +4,12 @@ import { IFilm, IBaseFilm } from '@/types/api/film';
 
 export const filmApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        index: builder.query<IBaseFilm[], void>({
+        getFilms: builder.query<IBaseFilm[], void>({
             query: () => '/v1/films'
         }),
-        show: builder.query<IFilm, string>({
+        getFilmById: builder.query<IFilm, string>({
             query: id => `/v1/films/${id}`
         })
-    })
+    }),
+    overrideExisting: 'throw'
 });
