@@ -1,26 +1,42 @@
 import dayjs from 'dayjs';
+import { toast } from 'react-toastify';
 import { createPortal } from 'react-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { Suspense, useState } from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { Await, useLoaderData } from 'react-router-dom';
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 
+import { RootState } from '@/redux';
 import getFullImagePath from '@/helpers/getFullImagePath';
 import BackButton from '@/components/atoms/common/BackButton';
 import AsyncError from '@/components/organisms/router/AsyncError';
-
-import { IFilm, IFilmShowLoaderData } from '@/types/api/film';
 import RateFilmModal from '@/components/organisms/films/RateModal';
 
+import type { IFilm, IFilmShowLoaderData } from '@/types/api/film';
+
 const Single = () => {
+    const navigate = useNavigate();
     const loaderData = useLoaderData() as IFilmShowLoaderData;
 
     const [rateFilmModalVisible, setRateFilmModalVisible] = useState(false);
 
+    const { loggedIn } = useSelector((state: RootState) => state.auth);
+
     const showRateFilmModal = () => {
+        if (!loggedIn) {
+            toast.error('You must login first!');
+
+            navigate('/login');
+
+            return;
+        }
+
         setRateFilmModalVisible(true);
     };
 
+    // @TODO Refresh on success
     const closeRateFilmModal = () => {
         setRateFilmModalVisible(false);
     };

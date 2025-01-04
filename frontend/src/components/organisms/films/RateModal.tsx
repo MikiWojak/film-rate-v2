@@ -1,5 +1,17 @@
-import { IBaseFilm } from '@/types/api/film';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
+import { StatusCodes as HTTP } from 'http-status-codes';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Formik, Form, FormikHelpers, Field } from 'formik';
+
+import { useRateFilmMutation } from '@/redux/film/filmApiSlice';
+
+import type {
+    IBaseFilm,
+    IRateFilmBody,
+    IRateFilmRequest
+} from '@/types/api/film';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 
 type Props = {
     film: IBaseFilm | null;
@@ -10,6 +22,9 @@ type Props = {
 // @TODO Unify - not found and content or sth else
 // @TODO Remove rate
 const RateModal = ({ film, onClose }: Props) => {
+    const navigate = useNavigate();
+    const [rateFilm, { isLoading }] = useRateFilmMutation();
+
     if (!film) {
         return (
             <div>
@@ -18,6 +33,43 @@ const RateModal = ({ film, onClose }: Props) => {
             </div>
         );
     }
+
+    // @TODO Change initial rate
+    const initialValues: IRateFilmBody = {
+        rate: 10
+    };
+
+    const handleSubmit = async (
+        values: IRateFilmBody,
+        { resetForm }: FormikHelpers<IRateFilmBody>
+    ) => {
+        try {
+            const payload: IRateFilmRequest = {
+                id: film.id,
+                body: values
+            };
+
+            await rateFilm(payload).unwrap();
+
+            toast.success('Film rated');
+
+            resetForm();
+
+            onClose();
+        } catch (error) {
+            const fetchError = error as FetchBaseQueryError;
+
+            if (fetchError?.status === HTTP.UNAUTHORIZED) {
+                toast.error('You must login first!');
+
+                navigate('/login');
+
+                return;
+            }
+
+            toast.error('Error while rating the film');
+        }
+    };
 
     const { title } = film;
 
@@ -39,25 +91,36 @@ const RateModal = ({ film, onClose }: Props) => {
                     </h1>
                 </div>
 
-                <select className="block w-full p-2 rounded-lg outline-2 bg-white border-2 border-slate-400 focus:outline-black sm:p-4">
-                    <option disabled selected>
-                        -- Rate film --
-                    </option>
-                    <option value="10">(10) Masterpiece</option>
-                    <option value="9">(9) Great</option>
-                    <option value="8">(8) Very Good</option>
-                    <option value="7">(7) Good</option>
-                    <option value="6">(6) Fine</option>
-                    <option value="5">(5) Average</option>
-                    <option value="4">(4) Bad</option>
-                    <option value="3">(3) Very Bad</option>
-                    <option value="2">(2) Horrible</option>
-                    <option value="1">(1) Appalling</option>
-                </select>
+                {/*// @TODO Validation schema (or not)*/}
+                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                    <Form className="flex flex-col gap-4">
+                        <Field
+                            as="select"
+                            id="rate"
+                            name="rate"
+                            className="block w-full p-2 rounded-lg outline-2 bg-white border-2 border-slate-400 focus:outline-black sm:p-4"
+                        >
+                            <option value={10}>(10) Masterpiece</option>
+                            <option value={9}>(9) Great</option>
+                            <option value={8}>(8) Very Good</option>
+                            <option value={7}>(7) Good</option>
+                            <option value={6}>(6) Fine</option>
+                            <option value={5}>(5) Average</option>
+                            <option value={4}>(4) Bad</option>
+                            <option value={3}>(3) Very Bad</option>
+                            <option value={2}>(2) Horrible</option>
+                            <option value={1}>(1) Appalling</option>
+                        </Field>
 
-                <button className="block w-full p-2 bg-violet-500 rounded-lg text-white font-medium hover:bg-violet-600 disabled:bg-violet-200 disabled:hover:bg-violet-200 sm:p-4">
-                    Rate
-                </button>
+                        <button
+                            type="submit"
+                            disabled={isLoading}
+                            className="block w-full p-2 bg-violet-500 rounded-lg text-white font-medium hover:bg-violet-600 disabled:bg-violet-200 disabled:hover:bg-violet-200 sm:p-4"
+                        >
+                            {isLoading ? 'Processing...' : 'Rate'}
+                        </button>
+                    </Form>
+                </Formik>
             </div>
         </div>
     );

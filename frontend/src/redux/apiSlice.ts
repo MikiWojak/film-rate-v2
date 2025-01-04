@@ -41,5 +41,6 @@ const baseQueryWithLogout: BaseQueryFn<
 
 export const apiSlice = createApi({
     baseQuery: baseQueryWithLogout,
+    tagTypes: ['Film'],
     endpoints: () => ({})
 });

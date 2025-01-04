@@ -20,4 +20,20 @@ interface IFilmIndexLoaderData {
     films: Promise<IBaseFilm[]>;
 }
 
-export type { IFilm, IBaseFilm, IFilmShowLoaderData, IFilmIndexLoaderData };
+interface IRateFilmBody {
+    rate: number;
+}
+
+interface IRateFilmRequest {
+    id: string;
+    body: IRateFilmBody;
+}
+
+export type {
+    IFilm,
+    IBaseFilm,
+    IRateFilmBody,
+    IRateFilmRequest,
+    IFilmShowLoaderData,
+    IFilmIndexLoaderData
+};

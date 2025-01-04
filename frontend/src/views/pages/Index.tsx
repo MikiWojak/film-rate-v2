@@ -1,7 +1,11 @@
+import { toast } from 'react-toastify';
 import { createPortal } from 'react-dom';
+import { useSelector } from 'react-redux';
 import { Suspense, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { Await, useLoaderData } from 'react-router-dom';
 
+import { RootState } from '@/redux';
 import FilmTile from '@/components/molecules/films/Tile';
 import AsyncError from '@/components/organisms/router/AsyncError';
 import RateFilmModal from '@/components/organisms/films/RateModal';
@@ -9,12 +13,23 @@ import RateFilmModal from '@/components/organisms/films/RateModal';
 import type { IBaseFilm, IFilmIndexLoaderData } from '@/types/api/film';
 
 const Index = () => {
+    const navigate = useNavigate();
     const loaderData = useLoaderData() as IFilmIndexLoaderData;
 
     const [rateFilmModalVisible, setRateFilmModalVisible] = useState(false);
     const [selectedFilm, setSelectedFilm] = useState<IBaseFilm | null>(null);
 
+    const { loggedIn } = useSelector((state: RootState) => state.auth);
+
     const showRateFilmModal = (film: IBaseFilm) => {
+        if (!loggedIn) {
+            toast.error('You must login first!');
+
+            navigate('/login');
+
+            return;
+        }
+
         setSelectedFilm(film);
         setRateFilmModalVisible(true);
     };

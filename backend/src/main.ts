@@ -24,7 +24,10 @@ async function bootstrap() {
         new ValidationPipe({
             whitelist: true,
             transform: true,
-            stopAtFirstError: true
+            stopAtFirstError: true,
+            transformOptions: {
+                enableImplicitConversion: true
+            }
         })
     );
 
