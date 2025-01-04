@@ -8,6 +8,7 @@ type Props = {
 
 // @TODO Block BG!
 // @TODO Unify - not found and content or sth else
+// @TODO Remove rate
 const RateModal = ({ film, onClose }: Props) => {
     if (!film) {
         return (
