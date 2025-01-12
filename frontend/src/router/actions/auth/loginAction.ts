@@ -3,6 +3,7 @@ import { StatusCodes as HTTP } from 'http-status-codes';
 import { redirect, ActionFunctionArgs } from 'react-router-dom';
 
 import { store } from '@/redux';
+import { apiSlice } from '@/redux/apiSlice';
 import { setCredentials } from '@/redux/auth/authSlice';
 import { authApiSlice } from '@/redux/auth/authApiSlice';
 
@@ -30,6 +31,8 @@ export const loginAction = async ({
         store.dispatch(setCredentials(response));
 
         toast.success("You've been logged in successfully");
+
+        store.dispatch(apiSlice.util.invalidateTags(['Film']));
 
         return redirect('/');
     } catch (error) {

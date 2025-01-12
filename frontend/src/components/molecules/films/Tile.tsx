@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
-
 import getFullImagePath from '@/helpers/getFullImagePath';
 
-import type { IBaseFilm } from '@/types/api/film';
 import type { MouseEventHandler, MouseEvent } from 'react';
+import type { IBaseFilm, IFilm2User } from '@/types/api/film';
 
 type ItemProps = {
     film: IBaseFilm;
@@ -13,7 +12,9 @@ type ItemProps = {
 };
 
 export const Tile = ({ film, onRateButtonClick }: ItemProps) => {
-    const { id, title, posterUrl, avgRate } = film;
+    const { id, title, posterUrl, avgRate, film2Users } = film;
+    const film2User: IFilm2User | undefined = film2Users?.[0];
+    const rate = film2User?.rate ?? null;
 
     const fullPosterUrl = getFullImagePath(posterUrl);
 
@@ -52,8 +53,15 @@ export const Tile = ({ film, onRateButtonClick }: ItemProps) => {
                         onClick={doOnRateButtonClick}
                         className="group flex items-center gap-1 md:gap-2"
                     >
-                        <StarOutlineIcon className="size-6 text-gray-300 group-hover:text-gray-400" />
-                        <span className="group-hover:underline">Rate</span>
+                        {rate ? (
+                            <StarIcon className="size-6 text-gray-300 group-hover:text-gray-400" />
+                        ) : (
+                            <StarOutlineIcon className="size-6 text-gray-300 group-hover:text-gray-400" />
+                        )}
+
+                        <span className="group-hover:underline">
+                            {rate ? rate.toFixed(2) : 'Rate'}
+                        </span>
                     </button>
                 </div>
             </div>

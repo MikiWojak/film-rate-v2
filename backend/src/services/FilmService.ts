@@ -14,7 +14,7 @@ export class FilmService {
         private film2UserRepository: Film2UserRepository
     ) {}
 
-    async index(userId: string | null | undefined): Promise<BaseFilmDto[]> {
+    async index(userId: string | undefined): Promise<BaseFilmDto[]> {
         const films = await this.filmRepository.findAll({
             ...(userId && {
                 include: {
@@ -30,8 +30,18 @@ export class FilmService {
         return plainToInstance(BaseFilmDto, films);
     }
 
-    async show(id: string): Promise<FilmDto> {
-        const film = await this.filmRepository.findById(id);
+    async show(filmId: string, userId: string | undefined): Promise<FilmDto> {
+        const film = await this.filmRepository.findById(filmId, {
+            ...(userId && {
+                include: {
+                    film2Users: {
+                        where: {
+                            userId
+                        }
+                    }
+                }
+            })
+        });
 
         if (!film) {
             throw new NotFoundException();

@@ -1,9 +1,13 @@
+import {
+    Await,
+    useNavigate,
+    useLoaderData,
+    useRevalidator
+} from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import { Suspense, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Await, useLoaderData } from 'react-router-dom';
 
 import { RootState } from '@/redux';
 import FilmTile from '@/components/molecules/films/Tile';
@@ -14,6 +18,7 @@ import type { IBaseFilm, IFilmIndexLoaderData } from '@/types/api/film';
 
 const Index = () => {
     const navigate = useNavigate();
+    const { revalidate } = useRevalidator();
     const loaderData = useLoaderData() as IFilmIndexLoaderData;
 
     const [rateFilmModalVisible, setRateFilmModalVisible] = useState(false);
@@ -37,6 +42,8 @@ const Index = () => {
     const closeRateFilmModal = () => {
         setRateFilmModalVisible(false);
         setSelectedFilm(null);
+
+        revalidate();
     };
 
     const renderFilmTiles = (films: IBaseFilm[]) =>
