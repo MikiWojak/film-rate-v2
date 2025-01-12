@@ -14,8 +14,18 @@ export class FilmService {
         private film2UserRepository: Film2UserRepository
     ) {}
 
-    async index(): Promise<BaseFilmDto[]> {
-        const films = await this.filmRepository.findAll();
+    async index(userId: string | null | undefined): Promise<BaseFilmDto[]> {
+        const films = await this.filmRepository.findAll({
+            ...(userId && {
+                include: {
+                    film2Users: {
+                        where: {
+                            userId
+                        }
+                    }
+                }
+            })
+        });
 
         return plainToInstance(BaseFilmDto, films);
     }
@@ -44,7 +54,6 @@ export class FilmService {
 
         await this.filmRepository.update({ avgRate }, { id: filmId });
 
-        // @TODO Return... dunno
         return Promise.resolve();
     }
 }

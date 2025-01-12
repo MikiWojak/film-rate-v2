@@ -17,8 +17,8 @@ import {
 
 import { FilmDto } from '@/dto/film/FilmDto';
 import { Public } from '@/decorators/Public';
-import { FilmService } from '@/services/FilmService';
 import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
+import { FilmService } from '@/services/FilmService';
 import { ErrorResponse } from '@/dto/common/ErrorResponse';
 import { RateFilmRequestDto } from '@/dto/film/RateFilmRequestDto';
 
@@ -37,8 +37,8 @@ export class FilmController {
         description: 'Array with films data',
         type: [BaseFilmDto]
     })
-    index(): Promise<BaseFilmDto[]> {
-        return this.filmService.index();
+    index(@Request() req): Promise<BaseFilmDto[]> {
+        return this.filmService.index(req.user?.sub);
     }
 
     @Public()
@@ -69,7 +69,6 @@ export class FilmController {
         @Request() req,
         @Body() rateFilmRequestDto: RateFilmRequestDto
     ): Promise<void> {
-        // @TODO Pass user too
         return this.filmService.rate(id, req.user.sub, rateFilmRequestDto);
     }
 }
