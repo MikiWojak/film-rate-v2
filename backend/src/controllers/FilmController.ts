@@ -39,7 +39,8 @@ export class FilmController {
         description: 'Endpoint for getting all films'
     })
     @ApiOkResponse({
-        description: 'Array with films data',
+        description:
+            'Array with films (film2Users included for authenticated users)',
         type: [BaseFilmDto]
     })
     index(@Request() request): Promise<BaseFilmDto[]> {
@@ -53,7 +54,8 @@ export class FilmController {
         description: 'Endpoint for getting film by ID'
     })
     @ApiOkResponse({
-        description: "Film's data",
+        description:
+            "Film's details (film2Users included for authenticated users)",
         type: FilmDto
     })
     @ApiNotFoundResponse({

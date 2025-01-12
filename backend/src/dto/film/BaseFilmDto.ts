@@ -1,4 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+
+import { Film2UserDto } from '@/dto/film/Film2UserDto';
 
 export class BaseFilmDto {
     @ApiProperty({
@@ -36,4 +38,12 @@ export class BaseFilmDto {
         example: '2024-12-22T10:55:17.451Z'
     })
     readonly updatedAt: Date;
+
+    @ApiPropertyOptional({
+        description:
+            'Film to user associations with rate (included for authenticated users)',
+        type: Film2UserDto,
+        isArray: true
+    })
+    readonly film2Users?: Film2UserDto[];
 }
