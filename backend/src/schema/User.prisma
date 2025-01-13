@@ -5,6 +5,8 @@ model User {
   password   String      @db.VarChar(255)
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
-  roles      Role2User[]
+  role2Users Role2User[]
   film2Users Film2User[]
+
+  @@map("Users")
 }

@@ -8,4 +8,5 @@ model Film2User {
   updatedAt DateTime @updatedAt
 
   @@id([filmId, userId])
+  @@map("Film2User")
 }

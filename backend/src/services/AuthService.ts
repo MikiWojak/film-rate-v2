@@ -64,7 +64,7 @@ export class AuthService {
             username,
             email,
             password,
-            roles: {
+            role2Users: {
                 create: [{ role: { connect: { id: roleUser.id } } }]
             }
         });
