@@ -1,11 +1,15 @@
+import {
+    Await,
+    useNavigate,
+    useLoaderData,
+    useRevalidator
+} from 'react-router-dom';
 import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
 import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
 import { Suspense, useState } from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
-import { Await, useRevalidator, useLoaderData } from 'react-router-dom';
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 
 import { RootState } from '@/redux';

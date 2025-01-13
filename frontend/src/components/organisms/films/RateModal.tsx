@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { StatusCodes as HTTP } from 'http-status-codes';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Formik, Form, FormikHelpers, Field } from 'formik';
@@ -18,8 +18,6 @@ type Props = {
     onClose: () => void;
 };
 
-// @TODO Block BG!
-// @TODO Unify - not found and content or sth else
 // @TODO Remove rate
 const RateModal = ({ film, onClose }: Props) => {
     const navigate = useNavigate();
@@ -27,9 +25,13 @@ const RateModal = ({ film, onClose }: Props) => {
 
     if (!film) {
         return (
-            <div>
-                <button onClick={onClose}>X</button>
-                <div>Cannot load modal!</div>
+            <div className="flex justify-center items-center fixed top-0 z-10 w-screen h-screen p-4 bg-black/20">
+                <div className="flex flex-col gap-4 p-4 bg-white rounded-2xl w-full sm:max-w-100">
+                    <button onClick={onClose}>
+                        <XMarkIcon className="size-4" />
+                    </button>
+                    <div>Cannot load modal!</div>
+                </div>
             </div>
         );
     }

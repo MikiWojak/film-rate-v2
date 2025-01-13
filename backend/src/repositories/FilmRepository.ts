@@ -34,7 +34,6 @@ export class FilmRepository {
         return this.prisma.film.findFirst(args);
     }
 
-    // @TODO Types
     update(data, where) {
         return this.prisma.film.update({
             data,

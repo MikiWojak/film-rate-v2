@@ -21,7 +21,6 @@ const Header = () => {
         setIsMenuOpen(true);
     };
 
-    // @TODO Refresh page on success
     const closeMenu = () => {
         setIsMenuOpen(false);
     };
