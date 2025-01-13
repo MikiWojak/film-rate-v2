@@ -26,5 +26,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
         me: builder.query<IProfileResponse, void>({
             query: () => '/v1/auth/me'
         })
-    })
+    }),
+    overrideExisting: 'throw'
 });

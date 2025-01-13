@@ -1,16 +1,31 @@
 import {
+    Get,
+    Post,
+    Body,
+    Param,
+    Request,
+    HttpCode,
+    Controller,
+    HttpStatus
+} from '@nestjs/common';
+import {
     ApiTags,
     ApiOperation,
+    ApiBearerAuth,
     ApiOkResponse,
-    ApiNotFoundResponse
+    ApiNotFoundResponse,
+    ApiNoContentResponse,
+    ApiBadRequestResponse,
+    ApiUnauthorizedResponse
 } from '@nestjs/swagger';
-import { Get, Controller, Param } from '@nestjs/common';
 
 import { FilmDto } from '@/dto/film/FilmDto';
 import { Public } from '@/decorators/Public';
-import { FilmService } from '@/services/FilmService';
 import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
+import { FilmService } from '@/services/FilmService';
 import { ErrorResponse } from '@/dto/common/ErrorResponse';
+import { RateFilmRequestDto } from '@/dto/film/RateFilmRequestDto';
+import { BadRequestErrorResponse } from '@/dto/common/BadRequestErrorResponse';
 
 @ApiTags('films')
 @Controller('api/v1/films')
@@ -24,11 +39,12 @@ export class FilmController {
         description: 'Endpoint for getting all films'
     })
     @ApiOkResponse({
-        description: 'Array with films data',
+        description:
+            'Array with films (film2Users included for authenticated users)',
         type: [BaseFilmDto]
     })
-    index(): Promise<BaseFilmDto[]> {
-        return this.filmService.index();
+    index(@Request() request): Promise<BaseFilmDto[]> {
+        return this.filmService.index(request.user?.sub);
     }
 
     @Public()
@@ -38,14 +54,41 @@ export class FilmController {
         description: 'Endpoint for getting film by ID'
     })
     @ApiOkResponse({
-        description: "Film's data",
+        description:
+            "Film's details (film2Users included for authenticated users)",
         type: FilmDto
     })
     @ApiNotFoundResponse({
         description: 'Not Found',
         type: ErrorResponse
     })
-    show(@Param('id') id: string): Promise<FilmDto> {
-        return this.filmService.show(id);
+    show(@Request() request, @Param('id') id: string): Promise<FilmDto> {
+        return this.filmService.show(id, request.user?.sub);
+    }
+
+    @Post(':id/rate')
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @ApiBearerAuth()
+    @ApiOperation({
+        summary: 'Rate film',
+        description: 'Endpoint for rating film'
+    })
+    @ApiNoContentResponse({
+        description: 'Film rated successfully'
+    })
+    @ApiBadRequestResponse({
+        description: 'Bad Request',
+        type: BadRequestErrorResponse
+    })
+    @ApiUnauthorizedResponse({
+        description: 'Unauthorized',
+        type: ErrorResponse
+    })
+    rate(
+        @Param('id') id: string,
+        @Request() request,
+        @Body() rateFilmRequestDto: RateFilmRequestDto
+    ): Promise<void> {
+        return this.filmService.rate(id, request.user.sub, rateFilmRequestDto);
     }
 }

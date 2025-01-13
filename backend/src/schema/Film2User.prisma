@@ -1,0 +1,12 @@
+model Film2User {
+  film      Film     @relation(fields: [filmId], references: [id])
+  filmId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.Uuid
+  rate      Int      @db.Integer
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([filmId, userId])
+  @@map("Film2User")
+}

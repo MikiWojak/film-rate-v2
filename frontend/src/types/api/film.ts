@@ -5,6 +5,15 @@ interface IBaseFilm {
     avgRate: number;
     createdAt: string;
     updatedAt: string;
+    film2Users?: IFilm2User[];
+}
+
+interface IFilm2User {
+    filmId: string;
+    userId: string;
+    rate: number;
+    createdAt: string;
+    updatedAt: string;
 }
 
 interface IFilm extends IBaseFilm {
@@ -20,4 +29,21 @@ interface IFilmIndexLoaderData {
     films: Promise<IBaseFilm[]>;
 }
 
-export type { IFilm, IBaseFilm, IFilmShowLoaderData, IFilmIndexLoaderData };
+interface IRateFilmBody {
+    rate: number;
+}
+
+interface IRateFilmRequest {
+    id: string;
+    body: IRateFilmBody;
+}
+
+export type {
+    IFilm,
+    IBaseFilm,
+    IFilm2User,
+    IRateFilmBody,
+    IRateFilmRequest,
+    IFilmShowLoaderData,
+    IFilmIndexLoaderData
+};

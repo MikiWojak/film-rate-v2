@@ -5,7 +5,7 @@ import { filmApiSlice } from '@/redux/film/filmApiSlice';
 
 export const indexLoader = () => {
     const responsePromise = store
-        .dispatch(filmApiSlice.endpoints.index.initiate())
+        .dispatch(filmApiSlice.endpoints.getFilms.initiate())
         .unwrap();
 
     return defer({

@@ -1,7 +1,9 @@
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Link, useRevalidator } from 'react-router-dom';
 
+import { store } from '@/redux';
+import { apiSlice } from '@/redux/apiSlice';
 import { logoutUser } from '@/redux/auth/authSlice';
 
 interface MenuProps {
@@ -10,11 +12,16 @@ interface MenuProps {
 
 const Menu = ({ closeMenu }: MenuProps) => {
     const dispatch = useDispatch();
+    const { revalidate } = useRevalidator();
 
-    const doLogout = async () => {
+    const doLogout = () => {
         dispatch(logoutUser());
 
         toast.success("You've been logged out");
+
+        store.dispatch(apiSlice.util.invalidateTags(['Film']));
+
+        revalidate();
     };
 
     return (

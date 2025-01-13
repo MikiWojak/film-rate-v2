@@ -31,7 +31,6 @@ import { BadRequestErrorResponse } from '@/dto/common/BadRequestErrorResponse';
 export class AuthController {
     constructor(private authService: AuthService) {}
 
-    // @TODO Type for request
     @Get('me')
     @ApiBearerAuth()
     @ApiOperation({
@@ -46,8 +45,8 @@ export class AuthController {
         description: 'Unauthorized',
         type: ErrorResponse
     })
-    me(@Request() req): Promise<ProfileResponseDto> {
-        return this.authService.me(req.user.sub);
+    me(@Request() request): Promise<ProfileResponseDto> {
+        return this.authService.me(request.user.sub);
     }
 
     @Public()

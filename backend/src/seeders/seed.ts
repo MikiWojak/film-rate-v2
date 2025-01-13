@@ -17,7 +17,7 @@ async function main() {
                 username: 'admin',
                 email: 'admin@filmrate.test',
                 password: 'Qwerty123!',
-                roles: {
+                role2Users: {
                     create: [
                         { role: { connect: { id: adminRole.id } } },
                         { role: { connect: { id: userRole.id } } }
@@ -30,7 +30,7 @@ async function main() {
                 username: 'user',
                 email: 'user@filmrate.test',
                 password: 'Qwerty123!',
-                roles: {
+                role2Users: {
                     create: [{ role: { connect: { id: userRole.id } } }]
                 }
             }
