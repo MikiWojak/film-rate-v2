@@ -8,6 +8,7 @@ import { useRateFilmMutation } from '@/redux/film/filmApiSlice';
 
 import type {
     IBaseFilm,
+    IFilm2User,
     IRateFilmBody,
     IRateFilmRequest
 } from '@/types/api/film';
@@ -36,9 +37,11 @@ const RateModal = ({ film, onClose }: Props) => {
         );
     }
 
-    // @TODO Change initial rate
+    const film2User: IFilm2User | undefined = film?.film2Users?.[0];
+    const rate = film2User?.rate ?? null;
+
     const initialValues: IRateFilmBody = {
-        rate: 10
+        rate: rate ?? ''
     };
 
     const handleSubmit = async (
@@ -102,6 +105,9 @@ const RateModal = ({ film, onClose }: Props) => {
                             name="rate"
                             className="block w-full p-2 rounded-lg outline-2 bg-white border-2 border-slate-400 focus:outline-black sm:p-4"
                         >
+                            <option value="" disabled>
+                                -- Rate film --
+                            </option>
                             <option value={10}>(10) Masterpiece</option>
                             <option value={9}>(9) Great</option>
                             <option value={8}>(8) Very Good</option>
@@ -113,7 +119,6 @@ const RateModal = ({ film, onClose }: Props) => {
                             <option value={2}>(2) Horrible</option>
                             <option value={1}>(1) Appalling</option>
                         </Field>
-
                         <button
                             type="submit"
                             disabled={isLoading}
@@ -121,6 +126,13 @@ const RateModal = ({ film, onClose }: Props) => {
                         >
                             {isLoading ? 'Processing...' : 'Rate'}
                         </button>
+
+                        {/*// @TODO What about disabled?*/}
+                        {rate && (
+                            <button className="block w-full p-2 bg-red-500 rounded-lg text-white font-medium hover:bg-red-600 disabled:bg-red-200 disabled:hover:bg-red-200 sm:p-4">
+                                Remove rate
+                            </button>
+                        )}
                     </Form>
                 </Formik>
             </div>

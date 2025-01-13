@@ -30,7 +30,7 @@ interface IFilmIndexLoaderData {
 }
 
 interface IRateFilmBody {
-    rate: number;
+    rate: number | '';
 }
 
 interface IRateFilmRequest {

@@ -1,7 +1,5 @@
 import { User } from '@prisma/client';
-import * as deepmerge from 'deepmerge';
 import { Injectable } from '@nestjs/common';
-import { isPlainObject } from 'is-plain-object';
 
 import { PrismaService } from '@/services/PrismaService';
 
@@ -9,44 +7,45 @@ import { PrismaService } from '@/services/PrismaService';
 export class UserRepository {
     constructor(private prisma: PrismaService) {}
 
-    findById(id: string, options = {}): Promise<User | null> {
-        const args = deepmerge(
-            options,
-            { where: { id } },
-            { isMergeableObject: isPlainObject }
-        );
-
-        return this.prisma.user.findFirst(args);
+    findById(id: string): Promise<User | null> {
+        return this.prisma.user.findFirst({ where: { id } });
     }
 
-    findByEmail(email: string, options = {}): Promise<User | null> {
-        const args = deepmerge(
-            options,
-            { where: { email } },
-            { isMergeableObject: isPlainObject }
-        );
-
-        return this.prisma.user.findFirst(args);
+    findByEmail(
+        email: string,
+        { includePassword = false }: { includePassword?: boolean } = {}
+    ): Promise<User | null> {
+        return this.prisma.user.findFirst({
+            where: { email },
+            ...(includePassword && {
+                omit: { password: false }
+            })
+        });
     }
 
-    findByUsername(username: string, options = {}): Promise<User | null> {
-        const args = deepmerge(
-            options,
-            { where: { username } },
-            { isMergeableObject: isPlainObject }
-        );
-
-        return this.prisma.user.findFirst(args);
+    findByUsername(username: string): Promise<User | null> {
+        return this.prisma.user.findFirst({ where: { username } });
     }
 
-    // @TODO Type for data
-    create(data, options = {}) {
-        const args = deepmerge(
-            options,
-            { data },
-            { isMergeableObject: isPlainObject }
-        );
+    create(data: {
+        username: string;
+        email: string;
+        password: string;
+        roleIds: string[];
+    }): Promise<User> {
+        const { username, email, password, roleIds } = data;
 
-        return this.prisma.user.create(args);
+        return this.prisma.user.create({
+            data: {
+                username,
+                email,
+                password,
+                role2Users: {
+                    create: roleIds.map(roleId => ({
+                        role: { connect: { id: roleId } }
+                    }))
+                }
+            }
+        });
     }
 }

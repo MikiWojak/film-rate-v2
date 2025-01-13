@@ -1,7 +1,5 @@
 import { Film } from '@prisma/client';
-import * as deepmerge from 'deepmerge';
 import { Injectable } from '@nestjs/common';
-import { isPlainObject } from 'is-plain-object';
 
 import { PrismaService } from '@/services/PrismaService';
 
@@ -9,32 +7,45 @@ import { PrismaService } from '@/services/PrismaService';
 export class FilmRepository {
     constructor(private prisma: PrismaService) {}
 
-    findAll(options = {}): Promise<Film[]> {
-        const args = deepmerge(
-            options,
-            {
-                omit: {
-                    description: true,
-                    releaseDate: true
+    findAll({ userId = null }: { userId: string | null }) {
+        return this.prisma.film.findMany({
+            ...(userId && {
+                include: {
+                    film2Users: {
+                        where: {
+                            userId
+                        }
+                    }
                 }
+            }),
+            omit: {
+                description: true,
+                releaseDate: true
+            }
+        });
+    }
+
+    findById(
+        id: string,
+        { userId = null }: { userId: string | null }
+    ): Promise<Film | null> {
+        return this.prisma.film.findFirst({
+            where: {
+                id
             },
-            { isMergeableObject: isPlainObject }
-        );
-
-        return this.prisma.film.findMany(args);
+            ...(userId && {
+                include: {
+                    film2Users: {
+                        where: {
+                            userId
+                        }
+                    }
+                }
+            })
+        });
     }
 
-    findById(id: string, options = {}): Promise<Film | null> {
-        const args = deepmerge(
-            options,
-            { where: { id } },
-            { isMergeableObject: isPlainObject }
-        );
-
-        return this.prisma.film.findFirst(args);
-    }
-
-    update(data, where) {
+    update(data: { avgRate?: number }, where: { id: string }) {
         return this.prisma.film.update({
             data,
             where
