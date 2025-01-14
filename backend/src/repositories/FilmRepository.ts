@@ -27,7 +27,7 @@ export class FilmRepository {
 
     findById(
         id: string,
-        { userId = null }: { userId: string | null }
+        { userId = null }: { userId?: string | null } = {}
     ): Promise<Film | null> {
         return this.prisma.film.findFirst({
             where: {

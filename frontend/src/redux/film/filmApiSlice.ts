@@ -19,9 +19,16 @@ export const filmApiSlice = apiSlice.injectEndpoints({
                 body
             }),
             invalidatesTags: ['Film']
+        }),
+        removeRateFromFilm: builder.mutation<void, string>({
+            query: id => ({
+                url: `/v1/films/${id}/rate`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['Film']
         })
     }),
     overrideExisting: 'throw'
 });
 
-export const { useRateFilmMutation } = filmApiSlice;
+export const { useRateFilmMutation, useRemoveRateFromFilmMutation } = filmApiSlice;

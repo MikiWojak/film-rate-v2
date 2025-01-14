@@ -3,6 +3,7 @@ import {
     Post,
     Body,
     Param,
+    Delete,
     Request,
     HttpCode,
     Controller,
@@ -25,6 +26,7 @@ import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
 import { FilmService } from '@/services/FilmService';
 import { ErrorResponse } from '@/dto/common/ErrorResponse';
 import { RateFilmRequestDto } from '@/dto/film/RateFilmRequestDto';
+import { RateValidationPipe } from '@/pipes/film/RateValidationPipe';
 import { BadRequestErrorResponse } from '@/dto/common/BadRequestErrorResponse';
 
 @ApiTags('films')
@@ -66,6 +68,7 @@ export class FilmController {
         return this.filmService.show(id, request.user?.sub);
     }
 
+    // @TODO Check if fil and user exists!
     @Post(':id/rate')
     @HttpCode(HttpStatus.NO_CONTENT)
     @ApiBearerAuth()
@@ -85,10 +88,20 @@ export class FilmController {
         type: ErrorResponse
     })
     rate(
-        @Param('id') id: string,
+        @Param('id', RateValidationPipe) id: string,
         @Request() request,
         @Body() rateFilmRequestDto: RateFilmRequestDto
     ): Promise<void> {
         return this.filmService.rate(id, request.user.sub, rateFilmRequestDto);
+    }
+
+    // @TODO Docs
+    @Delete(':id/rate')
+    @HttpCode(HttpStatus.NO_CONTENT)
+    removeRate(
+        @Param('id', RateValidationPipe) id: string,
+        @Request() request
+    ): Promise<void> {
+        return this.filmService.removeRate(id, request.user.sub);
     }
 }

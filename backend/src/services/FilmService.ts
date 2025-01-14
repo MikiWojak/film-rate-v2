@@ -36,9 +36,24 @@ export class FilmService {
         userId: string,
         rateFilmRequestDto: RateFilmRequestDto
     ): Promise<void> {
+        console.dir({ msg: 'rate', filmId, userId }, { depth: null });
+
         const { rate } = rateFilmRequestDto;
 
         await this.film2UserRepository.rate(filmId, userId, rate);
+
+        const avgRate = await this.film2UserRepository.countAvgRate(filmId);
+
+        await this.filmRepository.update({ avgRate }, { id: filmId });
+
+        return Promise.resolve();
+    }
+
+    // @TODO Transactions!
+    async removeRate(filmId: string, userId: string): Promise<void> {
+        await this.film2UserRepository.removeRate(filmId, userId);
+
+        console.dir({ msg: 'removeRate', filmId, userId }, { depth: null });
 
         const avgRate = await this.film2UserRepository.countAvgRate(filmId);
 

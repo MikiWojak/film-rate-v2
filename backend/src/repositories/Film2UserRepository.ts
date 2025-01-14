@@ -23,7 +23,15 @@ export class Film2UserRepository {
         });
     }
 
-    // @TODO What if all rates for film are deleted?
+    removeRate(filmId: string, userId: string) {
+        return this.prisma.film2User.deleteMany({
+            where: {
+                filmId,
+                userId
+            }
+        });
+    }
+
     async countAvgRate(filmId: string): Promise<number> {
         const {
             _avg: { rate }
@@ -36,6 +44,6 @@ export class Film2UserRepository {
             }
         });
 
-        return rate;
+        return rate === null ? 0 : rate;
     }
 }
