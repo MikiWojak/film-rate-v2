@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '@/services/PrismaService';
 
+import type { PrismaTransaction } from '@/types/prisma';
+
 @Injectable()
 export class FilmRepository {
     constructor(private prisma: PrismaService) {}
@@ -48,7 +50,7 @@ export class FilmRepository {
     update(
         data: { avgRate?: number },
         where: { id: string },
-        tx: any = this.prisma
+        tx: PrismaService | PrismaTransaction = this.prisma
     ) {
         return tx.film.update({
             data,

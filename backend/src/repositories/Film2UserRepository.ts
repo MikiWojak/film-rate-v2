@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '@/services/PrismaService';
 
+import type { PrismaTransaction } from '@/types/prisma';
+
 @Injectable()
 export class Film2UserRepository {
     constructor(private prisma: PrismaService) {}
@@ -11,7 +13,7 @@ export class Film2UserRepository {
         filmId: string,
         userId: string,
         rate: number,
-        tx: any = this.prisma
+        tx: PrismaService | PrismaTransaction = this.prisma
     ): Promise<Film2User> {
         return tx.film2User.upsert({
             where: {
@@ -28,7 +30,11 @@ export class Film2UserRepository {
         });
     }
 
-    removeRate(filmId: string, userId: string, tx: any = this.prisma) {
+    removeRate(
+        filmId: string,
+        userId: string,
+        tx: PrismaService | PrismaTransaction = this.prisma
+    ) {
         return tx.film2User.delete({
             where: {
                 filmId_userId: { filmId, userId }
@@ -36,7 +42,10 @@ export class Film2UserRepository {
         });
     }
 
-    async countAvgRate(filmId: string, tx: any = this.prisma): Promise<number> {
+    async countAvgRate(
+        filmId: string,
+        tx: PrismaService | PrismaTransaction = this.prisma
+    ): Promise<number> {
         const {
             _avg: { rate }
         } = await tx.film2User.aggregate({
