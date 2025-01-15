@@ -76,7 +76,7 @@ const Single = () => {
                     />
 
                     <div className="flex flex-col md:justify-between md:items-start">
-                        <div className="flex items-center justify-between md:flex-col">
+                        <div className="flex items-center justify-between md:flex-col md:items-start">
                             <div className="flex items-center gap-1 md:gap-2">
                                 <StarIcon className="size-6 text-yellow-400" />
                                 <span>{avgRate.toFixed(2)}</span>

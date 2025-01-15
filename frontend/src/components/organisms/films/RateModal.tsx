@@ -170,7 +170,6 @@ const RateModal = ({ film, onClose }: Props) => {
 
                 {rate && (
                     <button
-                        type="button"
                         disabled={isModalProcessing}
                         className="block w-full p-2 bg-red-500 rounded-lg text-white font-medium hover:bg-red-600 disabled:bg-red-200 disabled:hover:bg-red-200 sm:p-4"
                         onClick={handleRemoveRateFromFilm}
