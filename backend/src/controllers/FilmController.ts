@@ -3,10 +3,12 @@ import {
     Post,
     Body,
     Param,
+    Delete,
     Request,
     HttpCode,
     Controller,
-    HttpStatus
+    HttpStatus,
+    ParseUUIDPipe
 } from '@nestjs/common';
 import {
     ApiTags,
@@ -62,7 +64,10 @@ export class FilmController {
         description: 'Not Found',
         type: ErrorResponse
     })
-    show(@Request() request, @Param('id') id: string): Promise<FilmDto> {
+    show(
+        @Param('id', new ParseUUIDPipe()) id: string,
+        @Request() request
+    ): Promise<FilmDto> {
         return this.filmService.show(id, request.user?.sub);
     }
 
@@ -84,11 +89,40 @@ export class FilmController {
         description: 'Unauthorized',
         type: ErrorResponse
     })
+    @ApiNotFoundResponse({
+        description: 'Not Found',
+        type: ErrorResponse
+    })
     rate(
-        @Param('id') id: string,
+        @Param('id', new ParseUUIDPipe()) id: string,
         @Request() request,
         @Body() rateFilmRequestDto: RateFilmRequestDto
     ): Promise<void> {
         return this.filmService.rate(id, request.user.sub, rateFilmRequestDto);
+    }
+
+    @Delete(':id/rate')
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @ApiBearerAuth()
+    @ApiOperation({
+        summary: 'Remove rate from film',
+        description: 'Endpoint for removing rate from film'
+    })
+    @ApiNoContentResponse({
+        description: 'Rate removed from film successfully'
+    })
+    @ApiUnauthorizedResponse({
+        description: 'Unauthorized',
+        type: ErrorResponse
+    })
+    @ApiNotFoundResponse({
+        description: 'Not Found',
+        type: ErrorResponse
+    })
+    removeRate(
+        @Param('id', new ParseUUIDPipe()) id: string,
+        @Request() request
+    ): Promise<void> {
+        return this.filmService.removeRate(id, request.user.sub);
     }
 }

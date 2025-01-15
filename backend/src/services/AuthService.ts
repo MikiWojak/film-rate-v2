@@ -33,7 +33,7 @@ export class AuthService {
         const { email, password } = loginRequestDto;
 
         const user = await this.userRepository.findByEmail(email, {
-            omit: { password: false }
+            includePassword: true
         });
 
         if (!user) {
@@ -64,9 +64,7 @@ export class AuthService {
             username,
             email,
             password,
-            role2Users: {
-                create: [{ role: { connect: { id: roleUser.id } } }]
-            }
+            roleIds: [roleUser.id]
         });
 
         return plainToInstance(ProfileResponseDto, user);

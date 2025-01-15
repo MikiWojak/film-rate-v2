@@ -44,14 +44,14 @@ export const Tile = ({ film, onRateButtonClick }: ItemProps) => {
                 </div>
 
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1 md:gap-2">
+                    <div className="flex items-center gap-0.5 md:gap-2">
                         <StarIcon className="size-6 text-yellow-400" />
                         <span>{avgRate.toFixed(2)}</span>
                     </div>
 
                     <button
                         onClick={doOnRateButtonClick}
-                        className="group flex items-center gap-1 md:gap-2"
+                        className="group flex items-center gap-0.5 md:gap-2"
                     >
                         {rate ? (
                             <StarIcon className="size-6 text-gray-300 group-hover:text-gray-400" />
