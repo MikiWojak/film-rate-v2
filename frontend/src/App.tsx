@@ -12,8 +12,11 @@ import Profile from '@/views/pages/Profile';
 import AuthLayout from '@/views/layouts/Auth';
 import NotFound from '@/views/pages/NotFound';
 import Register from '@/views/pages/Register';
+import AdminLayout from '@/views/layouts/Admin';
 import DefaultLayout from '@/views/layouts/Default';
 import SingleFilm from '@/views/pages/films/Single';
+import AdminDashboard from '@/views/pages/admin/Dashboard';
+import AdminFilmsIndex from '@/views/pages/admin/films/Index';
 import { loginAction } from '@/router/actions/auth/loginAction';
 import { profileLoader } from '@/router/loaders/auth/profileLoader';
 import { registerAction } from '@/router/actions/auth/registerAction';
@@ -45,6 +48,16 @@ const router = createBrowserRouter(
                 </Route>
 
                 <Route path="*" element={<NotFound />} />
+            </Route>
+
+            {/*// @TODO Change layout*/}
+            {/*// @TODO Restrict access to admin only!*/}
+            <Route element={<ProtectedRoute />}>
+                <Route path="/admin" element={<AdminLayout />}>
+                    <Route index element={<AdminDashboard />} />
+
+                    <Route path="films" element={<AdminFilmsIndex />} />
+                </Route>
             </Route>
 
             <Route element={<AnonymousRoute />}>

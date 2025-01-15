@@ -1,5 +1,6 @@
 import {
     FilmIcon,
+    Bars3Icon,
     UserCircleIcon,
     ArrowRightEndOnRectangleIcon
 } from '@heroicons/react/24/outline';
@@ -30,6 +31,10 @@ const Header = () => {
     return (
         <header className="flex justify-between items-center w-full h-16 p-4 bg-violet-500 text-white md:h-20 md:p-5">
             <div className="flex gap-2.5">
+                <button>
+                    <Bars3Icon className="size-8 md:size-10" />
+                </button>
+
                 <Link
                     to="/"
                     className="flex items-center gap-2.5 hover:text-gray-200"
