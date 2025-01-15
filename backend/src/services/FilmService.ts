@@ -36,7 +36,11 @@ export class FilmService {
         userId: string,
         rateFilmRequestDto: RateFilmRequestDto
     ): Promise<void> {
-        console.dir({ msg: 'rate', filmId, userId }, { depth: null });
+        const film = await this.filmRepository.findById(filmId);
+
+        if (!film) {
+            throw new NotFoundException();
+        }
 
         const { rate } = rateFilmRequestDto;
 
@@ -51,9 +55,13 @@ export class FilmService {
 
     // @TODO Transactions!
     async removeRate(filmId: string, userId: string): Promise<void> {
-        await this.film2UserRepository.removeRate(filmId, userId);
+        const film = await this.filmRepository.findById(filmId);
 
-        console.dir({ msg: 'removeRate', filmId, userId }, { depth: null });
+        if (!film) {
+            throw new NotFoundException();
+        }
+
+        await this.film2UserRepository.removeRate(filmId, userId);
 
         const avgRate = await this.film2UserRepository.countAvgRate(filmId);
 
