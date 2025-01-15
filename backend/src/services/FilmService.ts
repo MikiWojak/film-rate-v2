@@ -3,6 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { FilmDto } from '@/dto/film/FilmDto';
 import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
+import { PrismaService } from '@/services/PrismaService';
 import { FilmRepository } from '@/repositories/FilmRepository';
 import { RateFilmRequestDto } from '@/dto/film/RateFilmRequestDto';
 import { Film2UserRepository } from '@/repositories/Film2UserRepository';
@@ -10,6 +11,7 @@ import { Film2UserRepository } from '@/repositories/Film2UserRepository';
 @Injectable()
 export class FilmService {
     constructor(
+        private prisma: PrismaService,
         private filmRepository: FilmRepository,
         private film2UserRepository: Film2UserRepository
     ) {}
@@ -30,7 +32,6 @@ export class FilmService {
         return plainToInstance(FilmDto, film);
     }
 
-    // @TODO Transactions!
     async rate(
         filmId: string,
         userId: string,
@@ -44,16 +45,20 @@ export class FilmService {
 
         const { rate } = rateFilmRequestDto;
 
-        await this.film2UserRepository.rate(filmId, userId, rate);
+        await this.prisma.$transaction(async tx => {
+            await this.film2UserRepository.rate(filmId, userId, rate, tx);
 
-        const avgRate = await this.film2UserRepository.countAvgRate(filmId);
+            const avgRate = await this.film2UserRepository.countAvgRate(
+                filmId,
+                tx
+            );
 
-        await this.filmRepository.update({ avgRate }, { id: filmId });
+            await this.filmRepository.update({ avgRate }, { id: filmId }, tx);
+        });
 
         return Promise.resolve();
     }
 
-    // @TODO Transactions!
     async removeRate(filmId: string, userId: string): Promise<void> {
         const film = await this.filmRepository.findById(filmId);
 
@@ -61,11 +66,16 @@ export class FilmService {
             throw new NotFoundException();
         }
 
-        await this.film2UserRepository.removeRate(filmId, userId);
+        await this.prisma.$transaction(async tx => {
+            await this.film2UserRepository.removeRate(filmId, userId, tx);
 
-        const avgRate = await this.film2UserRepository.countAvgRate(filmId);
+            const avgRate = await this.film2UserRepository.countAvgRate(
+                filmId,
+                tx
+            );
 
-        await this.filmRepository.update({ avgRate }, { id: filmId });
+            await this.filmRepository.update({ avgRate }, { id: filmId }, tx);
+        });
 
         return Promise.resolve();
     }

@@ -7,8 +7,13 @@ import { PrismaService } from '@/services/PrismaService';
 export class Film2UserRepository {
     constructor(private prisma: PrismaService) {}
 
-    rate(filmId: string, userId: string, rate: number): Promise<Film2User> {
-        return this.prisma.film2User.upsert({
+    rate(
+        filmId: string,
+        userId: string,
+        rate: number,
+        tx: any = this.prisma
+    ): Promise<Film2User> {
+        return tx.film2User.upsert({
             where: {
                 filmId_userId: { filmId, userId }
             },
@@ -23,19 +28,18 @@ export class Film2UserRepository {
         });
     }
 
-    removeRate(filmId: string, userId: string) {
-        return this.prisma.film2User.deleteMany({
+    removeRate(filmId: string, userId: string, tx: any = this.prisma) {
+        return tx.film2User.delete({
             where: {
-                filmId,
-                userId
+                filmId_userId: { filmId, userId }
             }
         });
     }
 
-    async countAvgRate(filmId: string): Promise<number> {
+    async countAvgRate(filmId: string, tx: any = this.prisma): Promise<number> {
         const {
             _avg: { rate }
-        } = await this.prisma.film2User.aggregate({
+        } = await tx.film2User.aggregate({
             _avg: {
                 rate: true
             },

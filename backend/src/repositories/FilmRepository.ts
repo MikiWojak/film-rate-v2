@@ -45,8 +45,12 @@ export class FilmRepository {
         });
     }
 
-    update(data: { avgRate?: number }, where: { id: string }) {
-        return this.prisma.film.update({
+    update(
+        data: { avgRate?: number },
+        where: { id: string },
+        tx: any = this.prisma
+    ) {
+        return tx.film.update({
             data,
             where
         });
