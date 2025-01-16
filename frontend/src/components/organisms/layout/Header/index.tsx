@@ -12,7 +12,15 @@ import { useOnClickOutside } from 'usehooks-ts';
 import Menu from './Menu';
 import { RootState } from '@/redux';
 
-const Header = () => {
+type Props = {
+    adminHeader?: boolean;
+    onHamburgerMenuIconClick?: () => void;
+};
+
+const Header = ({
+    adminHeader = false,
+    onHamburgerMenuIconClick = () => {}
+}: Props) => {
     const profileRef = useRef<HTMLDivElement>(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -30,10 +38,15 @@ const Header = () => {
 
     return (
         <header className="flex justify-between items-center w-full h-16 p-4 bg-violet-500 text-white md:h-20 md:p-5">
-            <div className="flex gap-2.5">
-                <button>
-                    <Bars3Icon className="size-8 md:size-10" />
-                </button>
+            <div className="flex items-center gap-2.5">
+                {adminHeader && (
+                    <button
+                        className="hover:text-gray-200"
+                        onClick={onHamburgerMenuIconClick}
+                    >
+                        <Bars3Icon className="size-8 md:size-10" />
+                    </button>
+                )}
 
                 <Link
                     to="/"
@@ -41,13 +54,19 @@ const Header = () => {
                 >
                     <FilmIcon className="size-8 md:size-10" />
 
-                    <div className="hidden md:block text-4xl font-bold">
+                    <div className="hidden text-4xl font-bold md:block">
                         Film Rate
                     </div>
                 </Link>
+
+                {adminHeader && (
+                    <div className="text-2xl font-bold md:text-4xl">
+                        Admin Panel
+                    </div>
+                )}
             </div>
 
-            <div className="flex gap-2.5">
+            <div className="flex items-center gap-2.5">
                 {loggedIn ? (
                     <div ref={profileRef} className="relative">
                         <button
