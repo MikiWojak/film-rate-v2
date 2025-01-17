@@ -24,6 +24,7 @@ import AnonymousRoute from '@/components/organisms/router/AnonymousRoute';
 import ProtectedRoute from '@/components/organisms/router/ProtectedRoute';
 import { showLoader as filmShowLoader } from '@/router/loaders/film/showLoader';
 import { indexLoader as filmIndexLoader } from '@/router/loaders/film/indexLoader';
+import { indexLoader as adminFilmIndexLoader } from '@/router/loaders/admin/film/indexLoader';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -50,13 +51,16 @@ const router = createBrowserRouter(
                 <Route path="*" element={<NotFound />} />
             </Route>
 
-            {/*// @TODO Change layout*/}
             {/*// @TODO Restrict access to admin only!*/}
             <Route element={<ProtectedRoute />}>
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route index element={<AdminDashboard />} />
 
-                    <Route path="films" element={<AdminFilmsIndex />} />
+                    <Route
+                        path="films"
+                        element={<AdminFilmsIndex />}
+                        loader={adminFilmIndexLoader}
+                    />
                 </Route>
             </Route>
 

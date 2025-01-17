@@ -1,17 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Suspense } from 'react';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { Await, Link, useLoaderData } from 'react-router-dom';
 
 import FilmsTable from '@/components/molecules/films/Table';
+import AsyncError from '@/components/organisms/router/AsyncError';
 import FilmMobileItem from '@/components/molecules/films/MobileItem';
 
-import type { IBaseFilm } from '@/types/api/film';
+import type { IBaseFilm, IFilmIndexLoaderData } from '@/types/api/film';
 
 const Index = () => {
-    // @TODO TEMP - get from API!
-    const films: IBaseFilm[] = [];
+    const loaderData = useLoaderData() as IFilmIndexLoaderData;
 
-    return (
-        <div className="flex flex-col gap-4">
+    const renderFilmItems = (films: IBaseFilm[]) => (
+        <>
             <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between md:gap-0">
                 <h1 className="text-2xl font-medium">Films</h1>
 
@@ -39,6 +40,16 @@ const Index = () => {
             ) : (
                 <div className="text-center">No films found</div>
             )}
+        </>
+    );
+
+    return (
+        <div className="flex flex-col gap-4">
+            <Suspense fallback={<h1>Loading...</h1>}>
+                <Await resolve={loaderData.films} errorElement={<AsyncError />}>
+                    {renderFilmItems}
+                </Await>
+            </Suspense>
         </div>
     );
 };

@@ -26,9 +26,13 @@ export const filmApiSlice = apiSlice.injectEndpoints({
                 method: 'DELETE'
             }),
             invalidatesTags: ['Film']
+        }),
+        adminGetFilms: builder.query<IBaseFilm[], void>({
+            query: () => '/v1/admin/films'
         })
     }),
     overrideExisting: 'throw'
 });
 
-export const { useRateFilmMutation, useRemoveRateFromFilmMutation } = filmApiSlice;
+export const { useRateFilmMutation, useRemoveRateFromFilmMutation } =
+    filmApiSlice;
