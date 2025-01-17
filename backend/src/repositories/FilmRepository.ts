@@ -9,7 +9,7 @@ import type { PrismaTransaction } from '@/types/prisma';
 export class FilmRepository {
     constructor(private prisma: PrismaService) {}
 
-    findAll({ userId = null }: { userId: string | null }) {
+    findAll({ userId = null }: { userId?: string | null } = {}) {
         return this.prisma.film.findMany({
             ...(userId && {
                 include: {
