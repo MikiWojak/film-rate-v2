@@ -1,3 +1,5 @@
+import { Role } from '@/enums/auth';
+
 type ILoginRequestFields = 'email' | 'password';
 
 type IRegisterRequestFields =
@@ -19,6 +21,13 @@ interface ITokenResponse {
     accessToken: string;
 }
 
+interface IDecodedToken {
+    exp: number;
+    iat: number;
+    sub: string;
+    roles: Role[];
+}
+
 interface IProfileResponse {
     id: string;
     username: string;
@@ -32,6 +41,8 @@ interface IProfileLoaderData {
 }
 
 export type {
+    Role,
+    IDecodedToken,
     ILoginRequest,
     ITokenResponse,
     IProfileResponse,

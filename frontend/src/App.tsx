@@ -52,16 +52,14 @@ const router = createBrowserRouter(
             </Route>
 
             {/*// @TODO Restrict access to admin only!*/}
-            <Route element={<ProtectedRoute />}>
-                <Route path="/admin" element={<AdminLayout />}>
-                    <Route index element={<AdminDashboard />} />
+            <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
 
-                    <Route
-                        path="films"
-                        element={<AdminFilmsIndex />}
-                        loader={adminFilmIndexLoader}
-                    />
-                </Route>
+                <Route
+                    path="films"
+                    element={<AdminFilmsIndex />}
+                    loader={adminFilmIndexLoader}
+                />
             </Route>
 
             <Route element={<AnonymousRoute />}>

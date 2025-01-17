@@ -67,25 +67,22 @@ const Header = ({
             </div>
 
             <div className="flex items-center gap-2.5">
-                {loggedIn ? (
-                    <div ref={profileRef} className="relative">
-                        <button
-                            className="flex items-center hover:text-gray-200"
-                            onClick={openMenu}
-                        >
-                            <UserCircleIcon className="size-8 md:size-10" />
-                        </button>
-
-                        {isMenuOpen && <Menu closeMenu={closeMenu} />}
-                    </div>
-                ) : (
-                    <Link
-                        to="login"
+                <div ref={profileRef} className="relative">
+                    <button
                         className="flex items-center hover:text-gray-200"
+                        onClick={openMenu}
                     >
-                        <ArrowRightEndOnRectangleIcon className="size-8 md:size-10" />
-                    </Link>
-                )}
+                        <UserCircleIcon className="size-8 md:size-10" />
+                    </button>
+
+                    {isMenuOpen && <Menu closeMenu={closeMenu} />}
+                </div>
+                <Link
+                    to="login"
+                    className="flex items-center hover:text-gray-200"
+                >
+                    <ArrowRightEndOnRectangleIcon className="size-8 md:size-10" />
+                </Link>
             </div>
         </header>
     );
