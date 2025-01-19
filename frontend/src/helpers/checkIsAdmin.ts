@@ -4,13 +4,13 @@ import { Role } from '@/enums/auth';
 import type { IDecodedToken } from '@/types/api/auth';
 
 const checkIsAdmin = () => {
-    const token = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
 
-    if (!token) {
+    if (!accessToken) {
         return false;
     }
 
-    const decoded: IDecodedToken = jwtDecode(token);
+    const decoded: IDecodedToken = jwtDecode(accessToken);
 
     return decoded.roles.some(role => role === Role.ADMIN);
 };

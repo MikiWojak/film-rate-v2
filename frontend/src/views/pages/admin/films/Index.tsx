@@ -13,18 +13,6 @@ const Index = () => {
 
     const renderFilmItems = (films: IBaseFilm[]) => (
         <>
-            <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between md:gap-0">
-                <h1 className="text-2xl font-medium">Films</h1>
-
-                <Link
-                    to="/admin/films/add"
-                    className="flex items-center gap-1 p-2 bg-violet-500 rounded-lg text-white font-medium hover:bg-violet-600 md:py-1"
-                >
-                    <PlusCircleIcon className="size-6 stroke-2" />
-                    <div>Add new</div>
-                </Link>
-            </div>
-
             {films?.length > 0 ? (
                 <>
                     <div className="flex flex-col gap-4 md:hidden">
@@ -45,7 +33,19 @@ const Index = () => {
 
     return (
         <div className="flex flex-col gap-4">
-            <Suspense fallback={<h1>Loading...</h1>}>
+            <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between md:gap-0">
+                <h1 className="text-2xl font-medium">Films</h1>
+
+                <Link
+                    to="/admin/films/add"
+                    className="flex items-center gap-1 p-2 bg-violet-500 rounded-lg text-white font-medium hover:bg-violet-600 md:py-1"
+                >
+                    <PlusCircleIcon className="size-6 stroke-2" />
+                    <div>Add new</div>
+                </Link>
+            </div>
+
+            <Suspense fallback={<h2>Loading...</h2>}>
                 <Await resolve={loaderData.films} errorElement={<AsyncError />}>
                     {renderFilmItems}
                 </Await>

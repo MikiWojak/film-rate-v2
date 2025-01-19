@@ -1,4 +1,3 @@
-import { Get, Controller } from '@nestjs/common';
 import {
     ApiTags,
     ApiOperation,
@@ -6,6 +5,7 @@ import {
     ApiForbiddenResponse,
     ApiUnauthorizedResponse
 } from '@nestjs/swagger';
+import { Get, Controller } from '@nestjs/common';
 
 import { Role } from '@/enums/Role';
 import { Roles } from '@/decorators/Roles';

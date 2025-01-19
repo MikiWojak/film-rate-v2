@@ -23,7 +23,7 @@ const Admin = () => {
                 {sidebarOpen && <AdminSidebar onClose={closeSidebar} />}
 
                 <main
-                    className={`${sidebarOpen ? 'hidden' : ''} w-full p-4 sm:!block`}
+                    className={`${sidebarOpen ? 'hidden ' : ''}w-full p-4 sm:block`}
                 >
                     <Outlet />
                 </main>

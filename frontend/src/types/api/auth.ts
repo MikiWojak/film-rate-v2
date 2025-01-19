@@ -41,7 +41,6 @@ interface IProfileLoaderData {
 }
 
 export type {
-    Role,
     IDecodedToken,
     ILoginRequest,
     ITokenResponse,

@@ -8,9 +8,7 @@ export class UserRepository {
     constructor(private prisma: PrismaService) {}
 
     findById(id: string): Promise<User | null> {
-        return this.prisma.user.findFirst({
-            where: { id }
-        });
+        return this.prisma.user.findFirst({ where: { id } });
     }
 
     findByEmail(

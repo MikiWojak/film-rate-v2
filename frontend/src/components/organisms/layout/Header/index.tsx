@@ -80,7 +80,7 @@ const Header = ({
                     </div>
                 ) : (
                     <Link
-                        to="login"
+                        to="/login"
                         className="flex items-center hover:text-gray-200"
                     >
                         <ArrowRightEndOnRectangleIcon className="size-8 md:size-10" />
