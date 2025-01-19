@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { join } from 'path';
 import { JwtService } from '@nestjs/jwt';
+import { APP_FILTER } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
@@ -13,6 +14,7 @@ import { AuthModule } from '@/modules/AuthModule';
 import { FilmModule } from '@/modules/FilmModule';
 import { WelcomeModule } from '@/modules/WelcomeModule';
 import { JwtMiddleware } from '@/middleware/JwtMiddleware';
+import { DeleteFileOnErrorFilter } from '@/filters/DeleteFileOnErrorFilter';
 
 @Module({
     imports: [
@@ -32,7 +34,13 @@ import { JwtMiddleware } from '@/middleware/JwtMiddleware';
         FilmModule,
         WelcomeModule
     ],
-    providers: [JwtService]
+    providers: [
+        JwtService,
+        {
+            provide: APP_FILTER,
+            useClass: DeleteFileOnErrorFilter
+        }
+    ]
 })
 export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {

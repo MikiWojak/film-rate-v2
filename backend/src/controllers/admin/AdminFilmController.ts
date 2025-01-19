@@ -1,14 +1,4 @@
 import {
-    ApiTags,
-    ApiConsumes,
-    ApiOperation,
-    ApiOkResponse,
-    ApiCreatedResponse,
-    ApiForbiddenResponse,
-    ApiBadRequestResponse,
-    ApiUnauthorizedResponse
-} from '@nestjs/swagger';
-import {
     Get,
     Body,
     Post,
@@ -18,6 +8,16 @@ import {
     UseInterceptors,
     ParseFilePipeBuilder
 } from '@nestjs/common';
+import {
+    ApiTags,
+    ApiConsumes,
+    ApiOperation,
+    ApiOkResponse,
+    ApiCreatedResponse,
+    ApiForbiddenResponse,
+    ApiBadRequestResponse,
+    ApiUnauthorizedResponse
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { Role } from '@/enums/Role';
@@ -57,8 +57,6 @@ export class AdminFilmController {
         return this.adminFilmService.index();
     }
 
-    // @TODO It saves file even if file validation failed!
-    // @TODO Validation
     @Roles(Role.ADMIN)
     @Post()
     @UseInterceptors(FileInterceptor('poster'))
