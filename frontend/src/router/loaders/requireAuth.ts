@@ -1,7 +1,7 @@
+import { toast } from 'react-toastify';
 import { redirect } from 'react-router-dom';
 
 import { store } from '@/redux';
-import { toast } from 'react-toastify';
 
 const requireAuth = async (adminRoute = false) => {
     const { loggedIn, isAdmin } = store.getState().auth;

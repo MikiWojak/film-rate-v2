@@ -8,7 +8,7 @@ type Props = {
 
 const Table = ({ films }: Props) => {
     const filmRows = films.map(film => {
-        const { title, avgRate, createdAt, updatedAt } = film;
+        const { id, title, avgRate, createdAt, updatedAt } = film;
 
         const formattedAvgRate = avgRate.toFixed(2);
         const formattedCreatedAt = dayjs(createdAt).format(
@@ -19,7 +19,7 @@ const Table = ({ films }: Props) => {
         );
 
         return (
-            <tr className="hover:bg-gray-200">
+            <tr key={id} className="hover:bg-gray-200">
                 <td className="p-2 border border-black">{title}</td>
                 <td className="p-2 border border-black">{formattedAvgRate}</td>
                 <td className="p-2 border border-black">

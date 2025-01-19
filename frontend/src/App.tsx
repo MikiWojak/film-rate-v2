@@ -15,13 +15,13 @@ import Register from '@/views/pages/Register';
 import AdminLayout from '@/views/layouts/Admin';
 import DefaultLayout from '@/views/layouts/Default';
 import SingleFilm from '@/views/pages/films/Single';
+import requireAuth from '@/router/loaders/requireAuth';
+import requireGuest from '@/router/loaders/requireGuest';
 import AdminDashboard from '@/views/pages/admin/Dashboard';
 import AdminFilmsIndex from '@/views/pages/admin/films/Index';
 import { loginAction } from '@/router/actions/auth/loginAction';
 import { profileLoader } from '@/router/loaders/auth/profileLoader';
 import { registerAction } from '@/router/actions/auth/registerAction';
-import AnonymousRoute from '@/components/organisms/router/AnonymousRoute';
-import ProtectedRoute from '@/components/organisms/router/ProtectedRoute';
 import { showLoader as filmShowLoader } from '@/router/loaders/film/showLoader';
 import { indexLoader as filmIndexLoader } from '@/router/loaders/film/indexLoader';
 import { indexLoader as adminFilmIndexLoader } from '@/router/loaders/admin/film/indexLoader';
@@ -40,42 +40,51 @@ const router = createBrowserRouter(
                     loader={filmShowLoader}
                 />
 
-                <Route element={<ProtectedRoute />}>
-                    <Route
-                        path="profile"
-                        element={<Profile />}
-                        loader={profileLoader}
-                    />
-                </Route>
+                <Route
+                    path="profile"
+                    element={<Profile />}
+                    loader={async () => {
+                        await requireAuth();
+
+                        return profileLoader();
+                    }}
+                />
 
                 <Route path="*" element={<NotFound />} />
             </Route>
 
-            {/*// @TODO Restrict access to admin only!*/}
             <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminDashboard />} />
+                <Route
+                    index
+                    element={<AdminDashboard />}
+                    loader={async () => requireAuth(true)}
+                />
 
                 <Route
                     path="films"
                     element={<AdminFilmsIndex />}
-                    loader={adminFilmIndexLoader}
+                    loader={async () => {
+                        await requireAuth(true);
+
+                        return adminFilmIndexLoader();
+                    }}
                 />
             </Route>
 
-            <Route element={<AnonymousRoute />}>
-                <Route path="/" element={<AuthLayout />}>
-                    <Route
-                        path="login"
-                        element={<Login />}
-                        action={loginAction}
-                    />
+            <Route path="/" element={<AuthLayout />}>
+                <Route
+                    path="login"
+                    element={<Login />}
+                    loader={requireGuest}
+                    action={loginAction}
+                />
 
-                    <Route
-                        path="register"
-                        element={<Register />}
-                        action={registerAction}
-                    />
-                </Route>
+                <Route
+                    path="register"
+                    element={<Register />}
+                    loader={requireGuest}
+                    action={registerAction}
+                />
             </Route>
         </>
     )

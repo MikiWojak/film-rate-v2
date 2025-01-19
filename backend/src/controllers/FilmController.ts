@@ -42,7 +42,7 @@ export class FilmController {
     })
     @ApiOkResponse({
         description:
-            'Array with films (film2Users included for authenticated users)',
+            'Array with films (`film2Users` included for authenticated users)',
         type: [BaseFilmDto]
     })
     index(@Request() request): Promise<BaseFilmDto[]> {
@@ -57,7 +57,7 @@ export class FilmController {
     })
     @ApiOkResponse({
         description:
-            "Film's details (film2Users included for authenticated users)",
+            "Film's details (`film2Users` included for authenticated users)",
         type: FilmDto
     })
     @ApiNotFoundResponse({
