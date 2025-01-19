@@ -1,5 +1,6 @@
 import {
     Route,
+    Outlet,
     RouterProvider,
     createBrowserRouter,
     createRoutesFromElements
@@ -16,6 +17,7 @@ import AdminLayout from '@/views/layouts/Admin';
 import DefaultLayout from '@/views/layouts/Default';
 import SingleFilm from '@/views/pages/films/Single';
 import requireAuth from '@/router/loaders/requireAuth';
+import AdminAddFilm from '@/views/pages/admin/films/Add';
 import requireGuest from '@/router/loaders/requireGuest';
 import AdminDashboard from '@/views/pages/admin/Dashboard';
 import AdminFilmsIndex from '@/views/pages/admin/films/Index';
@@ -23,6 +25,7 @@ import { loginAction } from '@/router/actions/auth/loginAction';
 import { profileLoader } from '@/router/loaders/auth/profileLoader';
 import { registerAction } from '@/router/actions/auth/registerAction';
 import { showLoader as filmShowLoader } from '@/router/loaders/film/showLoader';
+import { storeAction as addFilmAction } from '@/router/actions/film/storeAction';
 import { indexLoader as filmIndexLoader } from '@/router/loaders/film/indexLoader';
 import { indexLoader as adminFilmIndexLoader } from '@/router/loaders/admin/film/indexLoader';
 
@@ -62,13 +65,30 @@ const router = createBrowserRouter(
 
                 <Route
                     path="films"
-                    element={<AdminFilmsIndex />}
+                    element={<Outlet />}
                     loader={async () => {
                         await requireAuth(true);
 
                         return adminFilmIndexLoader();
                     }}
-                />
+                >
+                    <Route
+                        index
+                        element={<AdminFilmsIndex />}
+                        loader={async () => {
+                            await requireAuth(true);
+
+                            return adminFilmIndexLoader();
+                        }}
+                    />
+
+                    <Route
+                        path="add"
+                        element={<AdminAddFilm />}
+                        loader={async () => requireAuth(true)}
+                        action={addFilmAction}
+                    />
+                </Route>
             </Route>
 
             <Route path="/" element={<AuthLayout />}>

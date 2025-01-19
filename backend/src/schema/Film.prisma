@@ -5,6 +5,8 @@ model Film {
   description String      @db.Text
   releaseDate DateTime    @db.Date
   avgRate     Float       @default(0) @db.Real
+  createdBy   User        @relation(fields: [createdById], references: [id])
+  createdById String      @db.Uuid
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   film2Users  Film2User[]
