@@ -25,7 +25,7 @@ const Profile = () => {
 
     return (
         <div>
-            <h1 className="mb-4 text-xl text-center font-medium">Profile</h1>
+            <h1 className="mb-4 text-2xl text-center font-medium">Profile</h1>
 
             <Suspense fallback={<h1>Loading...</h1>}>
                 <Await

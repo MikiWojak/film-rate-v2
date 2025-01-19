@@ -33,7 +33,8 @@ export class AuthService {
         const { email, password } = loginRequestDto;
 
         const user = await this.userRepository.findByEmail(email, {
-            includePassword: true
+            includePassword: true,
+            includeRoles: true
         });
 
         if (!user) {
@@ -46,7 +47,9 @@ export class AuthService {
             throw new UnauthorizedException();
         }
 
-        const payload = { sub: user.id };
+        const roles: string[] = user.role2Users.map(({ role }) => role.name);
+
+        const payload = { sub: user.id, roles };
 
         return {
             accessToken: await this.jwtService.signAsync(payload)

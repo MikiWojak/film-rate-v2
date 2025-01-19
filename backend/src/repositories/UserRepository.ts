@@ -13,12 +13,24 @@ export class UserRepository {
 
     findByEmail(
         email: string,
-        { includePassword = false }: { includePassword?: boolean } = {}
-    ): Promise<User | null> {
+        {
+            includePassword = false,
+            includeRoles = false
+        }: { includePassword?: boolean; includeRoles?: boolean } = {}
+    ) {
         return this.prisma.user.findFirst({
             where: { email },
             ...(includePassword && {
                 omit: { password: false }
+            }),
+            ...(includeRoles && {
+                include: {
+                    role2Users: {
+                        include: {
+                            role: true
+                        }
+                    }
+                }
             })
         });
     }

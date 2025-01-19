@@ -56,7 +56,7 @@ const Index = () => {
         ));
 
     return (
-        <main className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-4">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-4">
             <Suspense fallback={<h1>Loading...</h1>}>
                 <Await resolve={loaderData.films} errorElement={<AsyncError />}>
                     {renderFilmTiles}
@@ -71,7 +71,7 @@ const Index = () => {
                     />,
                     document.body
                 )}
-        </main>
+        </div>
     );
 };
 

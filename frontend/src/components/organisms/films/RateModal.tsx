@@ -108,7 +108,7 @@ const RateModal = ({ film, onClose }: Props) => {
     };
 
     return (
-        <div className="flex justify-center items-center fixed top-0 z-10 w-screen h-screen p-4 bg-black/20">
+        <div className="flex justify-center items-center fixed top-0 z-40 w-screen h-screen p-4 bg-black/20">
             <div className="flex flex-col gap-4 p-4 bg-white rounded-2xl w-full sm:max-w-100">
                 <div className="flex justify-end">
                     <button onClick={onClose}>
