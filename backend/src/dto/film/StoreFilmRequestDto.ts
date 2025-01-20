@@ -9,7 +9,6 @@ import * as dayjs from 'dayjs';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, TransformFnParams } from 'class-transformer';
 
-// @TODO What about `poster`?
 export class StoreFilmRequestDto {
     @MaxLength(255)
     @MinLength(2)
@@ -48,7 +47,7 @@ export class StoreFilmRequestDto {
     @Transform(({ value }: TransformFnParams) =>
         dayjs(value).endOf('day').format()
     )
-    @IsDateString()
+    @IsDateString({}, { message: 'Release date - invalid date format' })
     @IsNotEmpty()
     @ApiProperty({
         description: "Film's release date",

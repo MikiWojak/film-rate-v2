@@ -32,7 +32,7 @@ const Index = () => {
     );
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col flex-grow gap-4">
             <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between md:gap-0">
                 <h1 className="text-2xl font-medium">Films</h1>
 

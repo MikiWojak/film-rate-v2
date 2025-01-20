@@ -1,6 +1,6 @@
 const Dashboard = () => {
     return (
-        <div>
+        <div className="flex flex-col flex-grow">
             <h1 className="text-2xl font-medium">Admin Dashboard</h1>
         </div>
     );

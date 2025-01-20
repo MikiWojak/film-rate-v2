@@ -7,7 +7,7 @@ const StoreSchema = object({
         .max(255, 'This field must have max 255 characters'),
     poster: mixed()
         .required('This field is required')
-        .test('fileFormat', 'Accepted file types: JPEG, PNG, GIF', value => {
+        .test('fileFormat', 'Accepted file types: JPEG, PNG', value => {
             const file = value as File;
 
             if (file) {
@@ -31,7 +31,6 @@ const StoreSchema = object({
         .required('This field is required')
         .min(20, 'This field must have at least 20 characters')
         .max(5000, 'This field must have max 5000 characters'),
-    // @TODO Extend
     releaseDate: string().required('This field is required')
 });
 

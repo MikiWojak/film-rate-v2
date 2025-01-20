@@ -7,10 +7,13 @@ import { filmApiSlice } from '@/redux/film/filmApiSlice';
 
 import type { IStoreFilmRequest } from '@/types/api/film';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import type { IErrorResponse } from '@/types/api/common.ts';
 
 export const storeAction = async ({
     request
-}: ActionFunctionArgs<IStoreFilmRequest>): Promise<Response | null> => {
+}: ActionFunctionArgs<IStoreFilmRequest>): Promise<
+    Response | string[] | null
+> => {
     const formData = await request.formData();
 
     try {
@@ -25,11 +28,13 @@ export const storeAction = async ({
         const fetchError = error as FetchBaseQueryError;
 
         if (fetchError?.status === HTTP.BAD_REQUEST) {
+            const apiErrorResponse = fetchError.data as IErrorResponse;
+            const { message } = apiErrorResponse;
+
             toast.error('Recheck your form');
 
-            return null;
+            return Array.isArray(message) ? message : [message];
         }
-
         if (fetchError?.status === HTTP.UNAUTHORIZED) {
             toast.error('Unauthorized');
 
