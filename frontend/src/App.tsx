@@ -63,15 +63,7 @@ const router = createBrowserRouter(
                     loader={async () => requireAuth(true)}
                 />
 
-                <Route
-                    path="films"
-                    element={<Outlet />}
-                    loader={async () => {
-                        await requireAuth(true);
-
-                        return adminFilmIndexLoader();
-                    }}
-                >
+                <Route path="films" element={<Outlet />}>
                     <Route
                         index
                         element={<AdminFilmsIndex />}

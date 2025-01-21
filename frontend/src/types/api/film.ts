@@ -40,7 +40,7 @@ interface IRateFilmRequest {
 
 interface IStoreFilmRequest {
     title: string;
-    poster: string;
+    poster: '' | File;
     description: string;
     releaseDate: string;
 }

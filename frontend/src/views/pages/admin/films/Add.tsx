@@ -73,19 +73,17 @@ const Add = () => {
                     <ValidationMessage message={getErrorMessage('title')} />
                 )}
 
-                <label htmlFor="image" className="text-sm">
+                <label htmlFor="poster" className="text-sm">
                     Poster
                 </label>
                 <input
                     type="file"
-                    name="image"
-                    accept="image/png, image/jpeg, image/gif"
+                    name="poster"
+                    accept="image/png, image/jpeg"
                     className={`block w-full ${
                         !hasError('poster') ? 'mb-7' : ''
                     }`}
                     onChange={async e => {
-                        console.log(e.target.files);
-
                         await formik.setFieldValue(
                             'poster',
                             e.target.files?.[0] || ''

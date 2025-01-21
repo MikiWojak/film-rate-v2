@@ -40,7 +40,7 @@ export class StoreFilmRequestDto {
     @ApiProperty({
         description: "Film's description",
         example:
-            'Group of soldiers is supposed to save private whose brothers already felled in WW2'
+            'Group of soldiers is supposed to save a private whose brothers already fell in WW2'
     })
     readonly description: string;
 
