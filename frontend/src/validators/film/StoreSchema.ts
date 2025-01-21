@@ -5,17 +5,19 @@ const StoreSchema = object({
         .required('This field is required')
         .min(2, 'This field must have at least 2 characters')
         .max(255, 'This field must have max 255 characters'),
-    // @TODO Not working properly!
     poster: mixed()
         .required('This field is required')
         .test('fileFormat', 'Accepted file types: JPEG, PNG', value => {
-            const supportedFormats = ['image/jpeg', 'image/png'];
+            if (!value) return false;
 
             const file = value as File;
+            const supportedFormats = ['image/jpeg', 'image/png'];
 
             return supportedFormats.includes(file.type);
         })
         .test('fileSize', 'File size must be less than 5MB', value => {
+            if (!value) return false;
+
             const file = value as File;
 
             return file.size <= 5 * 1024 * 1024;

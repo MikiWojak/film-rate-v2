@@ -47,7 +47,7 @@ const Add = () => {
     });
 
     const hasError = (field: IStoreFilmRequestFields) =>
-        formik.touched[field] === true && !!formik.errors[field];
+        formik.touched[field] && !!formik.errors[field];
 
     const getErrorMessage = (field: IStoreFilmRequestFields): string =>
         formik.errors[field] || '';
