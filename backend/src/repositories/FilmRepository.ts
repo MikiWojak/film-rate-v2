@@ -22,7 +22,8 @@ export class FilmRepository {
             }),
             omit: {
                 description: true,
-                releaseDate: true
+                releaseDate: true,
+                createdById: true
             }
         });
     }
@@ -44,6 +45,32 @@ export class FilmRepository {
                     }
                 }
             })
+        });
+    }
+
+    create({
+        title,
+        posterUrl,
+        description,
+        releaseDate,
+        createdById
+    }: {
+        title: string;
+        posterUrl: string;
+        description: string;
+        releaseDate: string;
+        createdById: string;
+    }) {
+        return this.prisma.film.create({
+            data: {
+                title,
+                posterUrl,
+                description,
+                releaseDate,
+                createdBy: {
+                    connect: { id: createdById }
+                }
+            }
         });
     }
 

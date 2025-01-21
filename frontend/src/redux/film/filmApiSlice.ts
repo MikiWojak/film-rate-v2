@@ -29,6 +29,14 @@ export const filmApiSlice = apiSlice.injectEndpoints({
         }),
         adminGetFilms: builder.query<IBaseFilm[], void>({
             query: () => '/v1/admin/films'
+        }),
+        adminStoreFilm: builder.mutation<IFilm, FormData>({
+            query: body => ({
+                url: '/v1/admin/films',
+                method: 'POST',
+                body
+            }),
+            invalidatesTags: ['Film']
         })
     }),
     overrideExisting: 'throw'

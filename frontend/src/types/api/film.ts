@@ -38,12 +38,27 @@ interface IRateFilmRequest {
     body: IRateFilmBody;
 }
 
+interface IStoreFilmRequest {
+    title: string;
+    poster: '' | File;
+    description: string;
+    releaseDate: string;
+}
+
+type IStoreFilmRequestFields =
+    | 'title'
+    | 'poster'
+    | 'description'
+    | 'releaseDate';
+
 export type {
     IFilm,
     IBaseFilm,
     IFilm2User,
     IRateFilmBody,
     IRateFilmRequest,
+    IStoreFilmRequest,
     IFilmShowLoaderData,
-    IFilmIndexLoaderData
+    IFilmIndexLoaderData,
+    IStoreFilmRequestFields
 };

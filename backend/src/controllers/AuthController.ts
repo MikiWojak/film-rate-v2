@@ -12,6 +12,7 @@ import {
     ApiOperation,
     ApiBearerAuth,
     ApiOkResponse,
+    ApiCreatedResponse,
     ApiBadRequestResponse,
     ApiUnauthorizedResponse
 } from '@nestjs/swagger';
@@ -78,7 +79,7 @@ export class AuthController {
         summary: 'Register a new account',
         description: 'Endpoint for registering a new account'
     })
-    @ApiOkResponse({
+    @ApiCreatedResponse({
         description: 'Created account data',
         type: ProfileResponseDto
     })
