@@ -3,12 +3,16 @@ import { plainToInstance } from 'class-transformer';
 
 import { FilmDto } from '@/dto/film/FilmDto';
 import { BaseFilmDto } from '@/dto/film/BaseFilmDto';
+import { CacheService } from '@/services/CacheService';
 import { FilmRepository } from '@/repositories/FilmRepository';
 import { StoreFilmRequestDto } from '@/dto/film/StoreFilmRequestDto';
 
 @Injectable()
 export class AdminFilmService {
-    constructor(private filmRepository: FilmRepository) {}
+    constructor(
+        private cacheService: CacheService,
+        private filmRepository: FilmRepository
+    ) {}
 
     async index(): Promise<BaseFilmDto[]> {
         const films = await this.filmRepository.findAll();
@@ -33,6 +37,8 @@ export class AdminFilmService {
             releaseDate,
             createdById
         });
+
+        await this.cacheService.cacheDel('films');
 
         return plainToInstance(FilmDto, film);
     }

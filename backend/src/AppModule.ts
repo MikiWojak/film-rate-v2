@@ -7,8 +7,10 @@ import {
 import { join } from 'path';
 import { JwtService } from '@nestjs/jwt';
 import { APP_FILTER } from '@nestjs/core';
-import { ConfigModule } from '@nestjs/config';
+import { CacheModule } from '@nestjs/common/cache';
+import { redisStore } from 'cache-manager-redis-yet';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AuthModule } from '@/modules/AuthModule';
 import { FilmModule } from '@/modules/FilmModule';
@@ -29,6 +31,20 @@ import { DeleteFileOnErrorFilter } from '@/filters/DeleteFileOnErrorFilter';
                 redirect: false,
                 fallthrough: false
             }
+        }),
+        CacheModule.registerAsync({
+            isGlobal: true,
+            useFactory: async (configService: ConfigService) => ({
+                store: await redisStore({
+                    socket: {
+                        host: configService.get<string>('REDIS_CACHE_HOST'),
+                        port: configService.get<number>('REDIS_CACHE_PORT')
+                    },
+                    password: configService.get<string>('REDIS_CACHE_PASS'),
+                    ttl: configService.get<number>('REDIS_CACHE_TTL')
+                })
+            }),
+            inject: [ConfigService]
         }),
         AuthModule,
         FilmModule,
