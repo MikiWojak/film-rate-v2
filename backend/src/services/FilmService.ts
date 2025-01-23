@@ -1,5 +1,5 @@
 import { plainToInstance } from 'class-transformer';
-import { CACHE_MANAGER } from '@nestjs/common/cache';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 import { FilmDto } from '@/dto/film/FilmDto';
@@ -82,7 +82,7 @@ export class FilmService {
             await this.filmRepository.update({ avgRate }, { id: filmId }, tx);
         });
 
-        await this.cacheService.cacheDel('films');
+        await this.cacheService.del('films');
 
         return Promise.resolve();
     }
@@ -105,7 +105,7 @@ export class FilmService {
             await this.filmRepository.update({ avgRate }, { id: filmId }, tx);
         });
 
-        await this.cacheService.cacheDel('films');
+        await this.cacheService.del('films');
 
         return Promise.resolve();
     }

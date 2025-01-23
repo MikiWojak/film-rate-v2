@@ -7,7 +7,7 @@ import {
 import { join } from 'path';
 import { JwtService } from '@nestjs/jwt';
 import { APP_FILTER } from '@nestjs/core';
-import { CacheModule } from '@nestjs/common/cache';
+import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule, ConfigService } from '@nestjs/config';

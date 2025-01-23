@@ -38,7 +38,7 @@ export class AdminFilmService {
             createdById
         });
 
-        await this.cacheService.cacheDel('films');
+        await this.cacheService.del('films');
 
         return plainToInstance(FilmDto, film);
     }
