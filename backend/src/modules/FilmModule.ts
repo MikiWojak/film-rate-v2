@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 
 import { FilmService } from '@/services/FilmService';
 import { PrismaModule } from '@/modules/PrismaModule';
+import { CacheService } from '@/services/CacheService';
 import { MulterModule } from '@nestjs/platform-express';
 import { FilmController } from '@/controllers/FilmController';
 import { FilmRepository } from '@/repositories/FilmRepository';
@@ -29,6 +30,7 @@ import { AdminFilmController } from '@/controllers/admin/AdminFilmController';
     controllers: [FilmController, AdminFilmController],
     providers: [
         FilmService,
+        CacheService,
         FilmRepository,
         AdminFilmService,
         Film2UserRepository
