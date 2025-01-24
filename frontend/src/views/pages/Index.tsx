@@ -47,13 +47,19 @@ const Index = () => {
     };
 
     const renderFilmTiles = (films: IBaseFilm[]) =>
-        films.map(film => (
-            <FilmTile
-                key={film.id}
-                film={film}
-                onRateButtonClick={showRateFilmModal}
-            />
-        ));
+        films.length > 0 ? (
+            films.map(film => (
+                <FilmTile
+                    key={film.id}
+                    film={film}
+                    onRateButtonClick={showRateFilmModal}
+                />
+            ))
+        ) : (
+            <div className="col-span-2 md:col-span-4 text-center">
+                No films found
+            </div>
+        );
 
     return (
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-4">

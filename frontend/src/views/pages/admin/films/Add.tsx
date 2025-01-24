@@ -7,6 +7,7 @@ import {
 import { useFormik } from 'formik';
 
 import StoreSchema from '@/validators/film/StoreSchema';
+import BackButton from '@/components/atoms/common/BackButton';
 import ValidationMessage from '@/components/atoms/forms/ValidationMessage';
 
 import type {
@@ -54,6 +55,8 @@ const Add = () => {
 
     return (
         <div className="flex flex-col flex-grow gap-4 max-w-200">
+            <BackButton to="/admin/films" />
+
             <h1 className="text-2xl text-center font-medium">Add Film</h1>
 
             <Form method="post" onSubmit={formik.handleSubmit}>
