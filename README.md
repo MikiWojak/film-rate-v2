@@ -167,7 +167,7 @@ Run backend in dev mode.
 npm run start:dev
 ```
 
-Clear cache if necessary (for default `REDIS_CACHE_PASS`)
+Clear cache if necessary (for default `REDIS_CACHE_PASS`).
 
 ```
 npm run redis-cache-flush
