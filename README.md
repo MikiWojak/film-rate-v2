@@ -12,7 +12,7 @@
 
 ## App description
 
-Film Rate v2 is the web application to rate films. The user can rate film, modify and remove it. The admin can also manage films. The web application allows to login to existing account and register a new one.
+Film Rate v2 is the web application to rate films. The user can rate film, modify and remove the rate. The admin can also manage films. The web application allows to login to existing account and register a new one.
 
 The Film Rate v2 is built using JS frameworks. It's the project for course "Advanced technologies of web application development".
 
@@ -25,7 +25,6 @@ The Film Rate v2 is built using JS frameworks. It's the project for course "Adva
 - Node.js
 - React
 - Redux
-- RTK Query
 - Tailwind CSS
 - Heroicons
 - NestJS
@@ -70,7 +69,7 @@ Go to backend directory.
 cd backend
 ```
 
-Set proper Node.js version.
+Set up proper Node.js version. Download proper one if necessary.
 
 ```
 nvm use
@@ -82,22 +81,28 @@ Install packages.
 npm i
 ```
 
-Create .env file with env variables. You can leave default ones. However it is strongly recommended to adjust the env variables, espiecially `JWT_SECRET_KEY`.
+Create `.env` file with env variables. You can leave default ones. However it is strongly recommended to adjust the env variables, espiecially `JWT_SECRET_KEY`.
 
 ```
 cp .env.example .env
 ```
 
-Generate JWT secret key for .env file.
+Generate JWT secret key for the `.env` file.
 
 ```
 openssl rand -base64 32
 ```
 
-Run docker containers in the background.
+Run Docker containers in the background.
 
 ```
 docker compose up -d
+```
+
+Set up database - run migrations and seeders.
+
+```
+npm run dev-db-setup-fresh
 ```
 
 Run backend in dev mode.
@@ -105,8 +110,6 @@ Run backend in dev mode.
 ```
 npm run start:dev
 ```
-
-### TODO DB dump / migration
 
 ### Frontend
 
@@ -116,7 +119,7 @@ Go to frontend directory.
 cd frontend
 ```
 
-Set proper Node.js version.
+Set up proper Node.js version. Download proper one if necessary.
 
 ```
 nvm use
@@ -128,7 +131,7 @@ Install packages.
 npm i
 ```
 
-Create .env file with env variables. You can leave default ones.
+Create `.env` file with env variables. You can leave default ones.
 
 ```
 cp .env.example .env
@@ -152,7 +155,7 @@ Go to backend directory.
 cd backend
 ```
 
-Run docker containers in the background.
+Run Docker containers in the background.
 
 ```
 docker compose up -d
@@ -162,6 +165,12 @@ Run backend in dev mode.
 
 ```
 npm run start:dev
+```
+
+Clear cache if necessary
+
+```
+npm run redis-cache-flush
 ```
 
 #### Frontend
@@ -180,19 +189,19 @@ npm run dev
 
 ### Shut down web application
 
+#### Frontend
+
+Stop running frontend by clicking `Ctrl + c` in terminal where frontend has been launched.
+
 #### Backend
 
-Stop running backend by clicking Ctrl + C.
+Stop running backend by clicking `Ctrl + c` in terminal where backend has been launched.
 
-Shut down docker containers.
+Shut down Docker containers.
 
 ```
 docker compose down
 ```
-
-#### Frontend
-
-Stop running frontend by clicking Ctrl + C.
 
 ### Web application
 

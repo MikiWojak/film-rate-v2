@@ -20,6 +20,8 @@
         "test:e2e": "jest --config ./test/jest-e2e.json",
         "dev-db-push": "npx prisma db push",
         "dev-db-seed": "npx prisma db seed",
+        "dev-db-migrate": "npx prisma migrate deploy",
+        "dev-db-setup-fresh": "npm run dev-db-migrate && npm run dev-db-seed",
         "redis-cache-flush": "docker compose exec redis_cache redis-cli -a 'pass' FLUSHALL"
     },
     "dependencies": {
