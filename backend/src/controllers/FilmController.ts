@@ -75,8 +75,9 @@ export class FilmController {
     @HttpCode(HttpStatus.NO_CONTENT)
     @ApiBearerAuth()
     @ApiOperation({
-        summary: 'Rate film',
-        description: 'Endpoint for rating film'
+        summary: 'Add / edit rate',
+        description:
+            'Endpoint for rating a film - adding rate or editing existing one'
     })
     @ApiNoContentResponse({
         description: 'Film rated successfully'
@@ -105,7 +106,7 @@ export class FilmController {
     @HttpCode(HttpStatus.NO_CONTENT)
     @ApiBearerAuth()
     @ApiOperation({
-        summary: 'Remove rate from film',
+        summary: 'Remove rate',
         description: 'Endpoint for removing rate from film'
     })
     @ApiNoContentResponse({
