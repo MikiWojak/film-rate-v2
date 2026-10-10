@@ -5,10 +5,11 @@ import { ThemedView } from '@/components/themed-view';
 import FilmTile from '@/components/molecules/films/Tile';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 
+import type { IFilm } from '@/types/film';
+
 export default function HomeScreen() {
     const FilmsList = () => {
-        // TODO TS Type
-        const data = [
+        const data: IFilm[] = [
             {
                 id: 'b28177ad-4da6-49f1-8ded-06987b6e57e4',
                 title: 'Lorem ipsum dolor'
@@ -48,9 +49,10 @@ export default function HomeScreen() {
         ];
 
         return (
-            <ThemedView style={styles.container}>
+            <ThemedView>
                 <FlatList
                     data={data}
+                    numColumns={2}
                     renderItem={({ item }) => (
                         <FilmTile key={item.id} film={item} />
                     )}
@@ -71,13 +73,6 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-        flex: 1
-    },
-    contentContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center'
-    },
     container: {
         maxWidth: MaxContentWidth,
         flexGrow: 1
@@ -87,12 +82,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: Spacing.four,
         paddingVertical: Spacing.six
-    },
-    centerText: {
-        textAlign: 'center'
-    },
-    image: {
-        width: 150,
-        height: 200
     }
 });

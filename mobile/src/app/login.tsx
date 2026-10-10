@@ -9,20 +9,13 @@ export default function TabTwoScreen() {
         <ThemedView style={styles.container}>
             <ThemedView style={styles.titleContainer}>
                 <ThemedText type="title"> Login </ThemedText>
-                <ThemedText style={styles.centerText}> Coming soon </ThemedText>
+                <ThemedText> Coming soon </ThemedText>
             </ThemedView>
         </ThemedView>
     );
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-        flex: 1
-    },
-    contentContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center'
-    },
     container: {
         maxWidth: MaxContentWidth,
         flexGrow: 1
@@ -32,8 +25,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: Spacing.four,
         paddingVertical: Spacing.six
-    },
-    centerText: {
-        textAlign: 'center'
     }
 });
