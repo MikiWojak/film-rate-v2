@@ -1,10 +1,9 @@
 import { Image } from 'expo-image';
 import { StyleSheet, FlatList, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { MaxContentWidth, Spacing } from '@/constants/theme';
 
 export default function HomeScreen() {
     const FlatListBasics = () => {
@@ -17,7 +16,10 @@ export default function HomeScreen() {
                         { key: 'Nunc at urna' },
                         { key: 'Proin finibus posuere' },
                         { key: 'Aenean et' },
-                        { key: 'Vestibulum ac' }
+                        { key: 'Vestibulum ac' },
+                        { key: 'Hello there' },
+                        { key: 'Lorem ipsum' },
+                        { key: 'O tempora o mores' }
                     ]}
                     renderItem={({ item }) => (
                         <ThemedView>
@@ -36,41 +38,35 @@ export default function HomeScreen() {
 
     return (
         <ThemedView style={styles.container}>
-            <SafeAreaView style={styles.safeArea}>
-                <ThemedView style={styles.heroSection}>
-                    <ThemedText type="title" style={styles.title}>
-                        Film Rate
-                    </ThemedText>
+            <ThemedView style={styles.titleContainer}>
+                <ThemedText type="title">Film Rate</ThemedText>
+                <ThemedView>
+                    <FlatListBasics />
                 </ThemedView>
-
-                <FlatListBasics />
-            </SafeAreaView>
+            </ThemedView>
         </ThemedView>
     );
 }
 
 const styles = StyleSheet.create({
+    scrollView: {
+        flex: 1
+    },
+    contentContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        flexDirection: 'row'
+        maxWidth: MaxContentWidth,
+        flexGrow: 1
     },
-    safeArea: {
-        flex: 1,
-        paddingHorizontal: Spacing.four,
-        alignItems: 'center',
+    titleContainer: {
         gap: Spacing.three,
-        paddingBottom: BottomTabInset + Spacing.three,
-        maxWidth: MaxContentWidth
-    },
-    heroSection: {
         alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
         paddingHorizontal: Spacing.four,
-        gap: Spacing.four
+        paddingVertical: Spacing.six
     },
-    title: {
+    centerText: {
         textAlign: 'center'
     },
     image: {
