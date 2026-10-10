@@ -6,9 +6,6 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 
-// Default project has both light and dark mode
-// - depends on device settings
-// - good to hear that
 export default function HomeScreen() {
     const FlatListBasics = () => {
         return (
