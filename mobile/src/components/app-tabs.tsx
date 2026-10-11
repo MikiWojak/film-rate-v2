@@ -7,7 +7,6 @@ export default function AppTabs() {
     const scheme = useColorScheme();
     const colors = Colors[scheme === 'unspecified' ? 'light' : scheme];
 
-    // TODO explore icon -> login icon
     return (
         <NativeTabs
             backgroundColor={colors.background}
@@ -25,7 +24,7 @@ export default function AppTabs() {
             <NativeTabs.Trigger name="login">
                 <NativeTabs.Trigger.Label>Login</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
-                    src={require('@/assets/images/tabIcons/explore.png')}
+                    src={require('@/assets/images/tabIcons/login.png')}
                     renderingMode="template"
                 />
             </NativeTabs.Trigger>
