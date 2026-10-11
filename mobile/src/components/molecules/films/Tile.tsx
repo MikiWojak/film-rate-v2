@@ -1,6 +1,7 @@
 import { Image } from 'expo-image';
 import { StyleSheet } from 'react-native';
 
+import { Spacing } from '@/constants/theme';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 
@@ -26,7 +27,7 @@ export default function Tile({ film }: Props) {
 const styles = StyleSheet.create({
     tile: {
         flex: 1,
-        marginHorizontal: 6,
+        marginHorizontal: Spacing.two,
         overflow: 'hidden'
     },
     image: {
@@ -35,6 +36,6 @@ const styles = StyleSheet.create({
         objectFit: 'cover'
     },
     text: {
-        paddingVertical: 12
+        paddingVertical: Spacing.two
     }
 });
