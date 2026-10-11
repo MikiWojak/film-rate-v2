@@ -53,6 +53,8 @@ export default function HomeScreen() {
                 <FlatList
                     data={data}
                     numColumns={2}
+                    contentContainerStyle={styles.list}
+                    columnWrapperStyle={styles.row}
                     renderItem={({ item }) => (
                         <FilmTile key={item.id} film={item} />
                     )}
@@ -65,9 +67,9 @@ export default function HomeScreen() {
         <ThemedView style={styles.container}>
             <ThemedView style={styles.titleContainer}>
                 <ThemedText type="title"> Film Rate </ThemedText>
-
-                <FilmsList />
             </ThemedView>
+
+            <FilmsList />
         </ThemedView>
     );
 }
@@ -75,12 +77,18 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         maxWidth: MaxContentWidth,
-        flexGrow: 1
-    },
-    titleContainer: {
-        gap: Spacing.three,
-        alignItems: 'center',
         paddingHorizontal: Spacing.four,
         paddingVertical: Spacing.six
+    },
+    list: {
+        padding: 12
+    },
+    row: {
+        marginBottom: 12,
+        alignItems: 'stretch',
+        justifyContent: 'space-between'
+    },
+    titleContainer: {
+        alignItems: 'center'
     }
 });

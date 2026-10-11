@@ -12,20 +12,29 @@ type Props = {
 
 export default function Tile({ film }: Props) {
     return (
-        <ThemedView>
+        <ThemedView style={styles.tile}>
             <Image
                 style={styles.image}
                 source={require('@/assets/images/sample-film.jpg')}
             />
 
-            <ThemedText> {film.title} </ThemedText>
+            <ThemedText style={styles.text}>{film.title}</ThemedText>
         </ThemedView>
     );
 }
 
 const styles = StyleSheet.create({
+    tile: {
+        flex: 1,
+        marginHorizontal: 6,
+        overflow: 'hidden'
+    },
     image: {
-        width: 150,
-        height: 200
+        width: '100%',
+        aspectRatio: 3 / 4,
+        objectFit: 'cover'
+    },
+    text: {
+        paddingVertical: 12
     }
 });
