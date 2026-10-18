@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -48,7 +48,7 @@ const data: IFilm[] = [
 
 const FilmList = () => {
     return (
-        <ThemedView>
+        <View>
             <FlatList
                 data={data}
                 numColumns={2}
@@ -58,16 +58,16 @@ const FilmList = () => {
                     <FilmTile key={item.id} film={item} />
                 )}
             />
-        </ThemedView>
+        </View>
     );
 };
 
 export default function HomeScreen() {
     return (
         <ThemedView style={styles.container}>
-            <ThemedView style={styles.titleContainer}>
-                <ThemedText type="title"> Film Rate </ThemedText>
-            </ThemedView>
+            <View style={styles.titleContainer}>
+                <ThemedText type="title">Film Rate</ThemedText>
+            </View>
 
             <FilmList />
         </ThemedView>

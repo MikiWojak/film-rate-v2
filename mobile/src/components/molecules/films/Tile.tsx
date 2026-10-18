@@ -1,9 +1,8 @@
 import { Image } from 'expo-image';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { Spacing } from '@/constants/theme';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
 
 import type { IFilm } from '@/types/film';
 
@@ -13,14 +12,14 @@ type Props = {
 
 export default function Tile({ film }: Props) {
     return (
-        <ThemedView style={styles.tile}>
+        <View style={styles.tile}>
             <Image
                 style={styles.image}
                 source={require('@/assets/images/sample-film.jpg')}
             />
 
             <ThemedText style={styles.text}>{film.title}</ThemedText>
-        </ThemedView>
+        </View>
     );
 }
 

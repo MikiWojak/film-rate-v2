@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -7,10 +7,10 @@ import { MaxContentWidth, Spacing } from '@/constants/theme';
 export default function TabTwoScreen() {
     return (
         <ThemedView style={styles.container}>
-            <ThemedView style={styles.titleContainer}>
+            <View style={styles.titleContainer}>
                 <ThemedText type="title"> Login </ThemedText>
                 <ThemedText> Coming soon </ThemedText>
-            </ThemedView>
+            </View>
         </ThemedView>
     );
 }
