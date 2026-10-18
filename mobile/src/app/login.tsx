@@ -4,7 +4,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 
-export default function TabTwoScreen() {
+export default function LoginScreen() {
     return (
         <ThemedView style={styles.container}>
             <View style={styles.titleContainer}>
