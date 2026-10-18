@@ -39,8 +39,7 @@
         "ios": "expo start --ios",
         "web": "expo start --web",
         "eslint": "expo lint",
-        "ts-check": "tsc --noEmit",
-        "lint": "expo lint"
+        "ts-check": "tsc --noEmit"
     },
     "private": true
 }
