@@ -3,22 +3,25 @@ import { StyleSheet, View } from 'react-native';
 
 import { Spacing } from '@/constants/theme';
 import { ThemedText } from '@/components/themed-text';
+import getFullImagePath from '@/helpers/getFullImagePath';
 
-import type { IFilm } from '@/types/film';
+import type { IBaseFilm } from '@/types/film';
 
 type Props = {
-    film: IFilm;
+    film: IBaseFilm;
 };
 
+// TODO Show average rate
 export default function Tile({ film }: Props) {
+    const { title, posterUrl } = film;
+
+    const fullPosterUrl = getFullImagePath(posterUrl);
+
     return (
         <View style={styles.tile}>
-            <Image
-                style={styles.image}
-                source={require('@/assets/images/sample-film.jpg')}
-            />
+            <Image style={styles.image} source={{ uri: fullPosterUrl }} />
 
-            <ThemedText style={styles.text}>{film.title}</ThemedText>
+            <ThemedText style={styles.text}>{title}</ThemedText>
         </View>
     );
 }
