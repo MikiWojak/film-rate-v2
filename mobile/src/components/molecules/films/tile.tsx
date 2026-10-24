@@ -21,16 +21,18 @@ export default function Tile({ film }: Props) {
         <View style={styles.tile}>
             <Image style={styles.image} source={{ uri: fullPosterUrl }} />
 
-            <ThemedText style={styles.text}>{title}</ThemedText>
+            <View style={styles.infoContainer}>
+                <ThemedText style={styles.title}>{title}</ThemedText>
 
-            <View style={styles.rateContainer}>
-                <StarIcon
-                    width={Spacing.four}
-                    height={Spacing.four}
-                    color="#EAB308"
-                />
+                <View style={styles.rateContainer}>
+                    <StarIcon
+                        width={Spacing.four}
+                        height={Spacing.four}
+                        color="#EAB308"
+                    />
 
-                <ThemedText>{avgRate.toFixed(2)}</ThemedText>
+                    <ThemedText>{avgRate.toFixed(2)}</ThemedText>
+                </View>
             </View>
         </View>
     );
@@ -49,17 +51,20 @@ const styles = StyleSheet.create({
         objectFit: 'cover',
         borderRadius: Spacing.two
     },
-    text: {
-        textAlign: 'center',
-        marginVertical: Spacing.one
+
+    infoContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: Spacing.one,
+        rowGap: Spacing.one
+    },
+    title: {
+        textAlign: 'center'
     },
     rateContainer: {
-        flex: 1,
         flexDirection: 'row',
-        columnGap: Spacing.one,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: Spacing.one
+        columnGap: Spacing.one
     },
     starIcon: {
         width: Spacing.four,
