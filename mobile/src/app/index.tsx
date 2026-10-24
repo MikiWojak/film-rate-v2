@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
+import config from '@/config';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import FilmTile from '@/components/molecules/films/Tile';
+import FilmTile from '@/components/molecules/films/tile';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 
 import type { IBaseFilm } from '@/types/film';
@@ -14,7 +15,7 @@ export default function HomeScreen() {
     useEffect(() => {
         const getFilms = async () => {
             try {
-                const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+                const { apiUrl } = config;
 
                 const response = await fetch(`${apiUrl}/v1/films`);
 

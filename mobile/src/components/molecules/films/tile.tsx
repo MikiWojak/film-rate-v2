@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { Spacing } from '@/constants/theme';
 import { ThemedText } from '@/components/themed-text';
-import getFullImagePath from '@/helpers/getFullImagePath';
+import getFullImagePath from '@/helpers/get-full-image-path';
 
 import type { IBaseFilm } from '@/types/film';
 
@@ -35,9 +35,11 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         aspectRatio: 3 / 4,
-        objectFit: 'cover'
+        objectFit: 'cover',
+        borderRadius: Spacing.two
     },
     text: {
+        textAlign: 'center',
         paddingVertical: Spacing.two
     }
 });
