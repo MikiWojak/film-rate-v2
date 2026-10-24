@@ -30,7 +30,6 @@ export default function HomeScreen() {
         getFilms();
     }, []);
 
-    // TODO Last film should not be bigger than others
     return (
         <ThemedView style={styles.container}>
             <View style={styles.titleContainer}>
