@@ -12,9 +12,15 @@
 
 ## Description
 
-Film Rate v2 is the web and mobile application to rate films. The user can rate film, modify and remove the rate. The admin can also manage films. The application allows to login to existing account and register a new one.
+Film Rate v2 is the application to rate films. The user can rate film, modify and remove the rate. The admin can also manage films. The application allows to login to existing account and register a new one.
 
 The Film Rate v2 is built using JS frameworks. It's the project for course "Advanced technologies of web application development". Now it's developed further.
+
+The application consists of:
+
+- backend - NestJS
+- frontend - React
+- mobile - React Native
 
 ## Tech stack
 
@@ -176,14 +182,14 @@ cp .env.example .env
 > [!IMPORTANT]
 > You need to set up proper env variables to make the mobile application work!
 >
-> If your backend runs locally on `http://localhost:3001`, then you need to set up these variables:
+> If your backend runs locally on `http://localhost:3001` or similar, then you need to set up the mobile variables like below:
 >
 > ```
 > EXPO_PUBLIC_API_URL=http://192.168.1.X:3001/api
 > EXPO_PUBLIC_API_MEDIA_URL=http://192.168.1.X:3001/public
 > ```
 >
-> Where `X` depends on the backend host. The address might vary depending on IP class utilized in the (local) network and the host address.
+> Where `X` (last part of IPv4 address) depends on the backend host. The address might vary depending on IP class utilized in the (local) network and the host address.
 >
 > You also need to add React Native web address for preview to the env variable `FRONTEND_URLS` in `backend/.env` to see the preview in web browser. The React Native web address for preview will be visible in the console after launching the mobile application.
 
