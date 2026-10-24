@@ -199,7 +199,7 @@ Run mobile in dev mode.
 npm run start
 ```
 
-Use Expo Go on the physical device on in the emulator to see the mobile application. More details [here](https://docs.expo.dev/get-started/set-up-your-environment/).
+Use Expo Go on the physical device or in the emulator to see the mobile application. More details [here](https://docs.expo.dev/get-started/set-up-your-environment/).
 
 ## Usage
 
@@ -299,7 +299,7 @@ docker compose down
 
 ### Mobile application
 
-Use Expo Go on the physical device on in the emulator to see the mobile application. More details [here](https://docs.expo.dev/get-started/set-up-your-environment/).
+Use Expo Go on the physical device or in the emulator to see the mobile application. More details [here](https://docs.expo.dev/get-started/set-up-your-environment/).
 
 ### Web application
 
