@@ -2,7 +2,7 @@
 
 ## Table of content
 
-- [App description](#app-description)
+- [Description](#description)
 - [Tech stack](#tech-stack)
 - [Database design and structure](#database-design-and-structure)
 - [Installation](#installation)
@@ -10,7 +10,7 @@
 - [Features](#features)
 - [Screenshots](#screenshots)
 
-## App description
+## Description
 
 Film Rate v2 is the web and mobile application to rate films. The user can rate film, modify and remove the rate. The admin can also manage films. The application allows to login to existing account and register a new one.
 
@@ -185,7 +185,7 @@ cp .env.example .env
 >
 > Where `X` depends on the backend host. The address might vary depending on IP class utilized in the (local) network and the host address.
 >
-> You also need to add React Native web address to `FRONTEND_URLS` in `backend/.env` to see the preview in web browser.
+> You also need to add React Native web address for preview to the env variable `FRONTEND_URLS` in `backend/.env` to see the preview in web browser. The React Native web address for preview will be visible in the console after launching the mobile application.
 
 Run mobile in dev mode.
 
@@ -205,6 +205,12 @@ Go to backend directory.
 
 ```
 cd backend
+```
+
+Set up proper Node.js version. Download proper one if necessary.
+
+```
+nvm use
 ```
 
 Run Docker containers in the background.
@@ -233,6 +239,12 @@ Go to frontend directory.
 cd frontend
 ```
 
+Set up proper Node.js version. Download proper one if necessary.
+
+```
+nvm use
+```
+
 Run frontend in dev mode.
 
 ```
@@ -245,6 +257,12 @@ Go to mobile directory.
 
 ```
 cd mobile
+```
+
+Set up proper Node.js version. Download proper one if necessary.
+
+```
+nvm use
 ```
 
 Run mobile in dev mode.
