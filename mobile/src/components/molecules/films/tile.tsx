@@ -40,7 +40,7 @@ export default function Tile({ film }: Props) {
 
 const styles = StyleSheet.create({
     tile: {
-        flex: 1,
+        flex: 1 / 2,
         marginHorizontal: Spacing.two,
         marginVertical: Spacing.two,
         overflow: 'hidden'
