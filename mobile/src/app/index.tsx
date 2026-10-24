@@ -38,15 +38,21 @@ export default function HomeScreen() {
             </View>
 
             <View>
-                <FlatList
-                    data={films}
-                    numColumns={2}
-                    contentContainerStyle={styles.list}
-                    columnWrapperStyle={styles.row}
-                    renderItem={({ item }) => (
-                        <FilmTile key={item.id} film={item} />
-                    )}
-                />
+                {films.length > 0 ? (
+                    <FlatList
+                        data={films}
+                        numColumns={2}
+                        contentContainerStyle={styles.list}
+                        columnWrapperStyle={styles.row}
+                        renderItem={({ item }) => (
+                            <FilmTile key={item.id} film={item} />
+                        )}
+                    />
+                ) : (
+                    <ThemedText style={styles.noFilmsText}>
+                        No films found
+                    </ThemedText>
+                )}
             </View>
         </ThemedView>
     );
@@ -68,5 +74,8 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         alignItems: 'center'
+    },
+    noFilmsText: {
+        textAlign: 'center'
     }
 });
