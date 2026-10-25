@@ -2,7 +2,7 @@
 
 ## Table of content
 
-- [App description](#app-description)
+- [Description](#description)
 - [Tech stack](#tech-stack)
 - [Database design and structure](#database-design-and-structure)
 - [Installation](#installation)
@@ -10,11 +10,17 @@
 - [Features](#features)
 - [Screenshots](#screenshots)
 
-## App description
+## Description
 
-Film Rate v2 is the web application to rate films. The user can rate film, modify and remove the rate. The admin can also manage films. The web application allows to login to existing account and register a new one.
+Film Rate v2 is the application to rate films. The user can rate film, modify and remove the rate. The admin can also manage films. The application allows to login to existing account and register a new one.
 
-The Film Rate v2 is built using JS frameworks. It's the project for course "Advanced technologies of web application development".
+The Film Rate v2 is built using JS frameworks. It's the project for course "Advanced technologies of web application development". Now it's developed further.
+
+The application consists of:
+
+- backend - NestJS
+- frontend - React
+- mobile - React Native
 
 ## Tech stack
 
@@ -31,6 +37,9 @@ The Film Rate v2 is built using JS frameworks. It's the project for course "Adva
 - Swagger
 - PostgreSQL
 - Redis
+- React Native
+- Expo
+- Expo Go
 
 ## Database design and structure
 
@@ -46,6 +55,7 @@ The Film Rate v2 is built using JS frameworks. It's the project for course "Adva
 - NVM
 - Docker
 - Docker Compose
+- Physical mobile phone or emulator with Android / iOS with installed Expo Go for SDK 57
 
 ### Download Repository
 
@@ -143,9 +153,57 @@ Run frontend in dev mode.
 npm run dev
 ```
 
+### Mobile
+
+Go to mobile directory.
+
+```
+cd mobile
+```
+
+Set up proper Node.js version. Download proper one if necessary.
+
+```
+nvm use
+```
+
+Install packages.
+
+```
+npm i
+```
+
+Create `.env` file with env variables.
+
+```
+cp .env.example .env
+```
+
+> [!IMPORTANT]
+> You need to set up proper env variables to make the mobile application work!
+>
+> If your backend runs locally on `http://localhost:3001` or similar, then you need to set up the mobile env variables like below:
+>
+> ```
+> EXPO_PUBLIC_API_URL=http://192.168.1.X:3001/api
+> EXPO_PUBLIC_API_MEDIA_URL=http://192.168.1.X:3001/public
+> ```
+>
+> Where `X` (last part of IPv4 address) depends on the backend host. The address might vary depending on IP class utilized in the (local) network and the host address.
+>
+> You also need to add React Native web address for preview to the env variable `FRONTEND_URLS` in `backend/.env` to see the preview in web browser. The React Native web address for preview will be visible in the console after launching the mobile application.
+
+Run mobile in dev mode.
+
+```
+npm run start
+```
+
+Use Expo Go on the physical device or in the emulator to see the mobile application. More details [here](https://docs.expo.dev/get-started/set-up-your-environment/).
+
 ## Usage
 
-### Run web application
+### Run application
 
 #### Backend
 
@@ -153,6 +211,12 @@ Go to backend directory.
 
 ```
 cd backend
+```
+
+Set up proper Node.js version. Download proper one if necessary.
+
+```
+nvm use
 ```
 
 Run Docker containers in the background.
@@ -181,13 +245,43 @@ Go to frontend directory.
 cd frontend
 ```
 
+Set up proper Node.js version. Download proper one if necessary.
+
+```
+nvm use
+```
+
 Run frontend in dev mode.
 
 ```
 npm run dev
 ```
 
-### Shut down web application
+#### Mobile
+
+Go to mobile directory.
+
+```
+cd mobile
+```
+
+Set up proper Node.js version. Download proper one if necessary.
+
+```
+nvm use
+```
+
+Run mobile in dev mode.
+
+```
+npm run start
+```
+
+### Shut down application
+
+#### Mobile
+
+Stop running mobile by clicking `Ctrl + c` in terminal where mobile has been launched.
 
 #### Frontend
 
@@ -202,6 +296,10 @@ Shut down Docker containers.
 ```
 docker compose down
 ```
+
+### Mobile application
+
+Use Expo Go on the physical device or in the emulator to see the mobile application. More details [here](https://docs.expo.dev/get-started/set-up-your-environment/).
 
 ### Web application
 
@@ -228,7 +326,15 @@ docker compose down
 
 ## Features
 
-### Guest
+### Mobile application
+
+- View films
+- Light and dark mode (dependent on the device settings)
+- (To be developed) Login
+
+### Web application
+
+#### Guest
 
 (unauthorized)
 
@@ -237,14 +343,14 @@ docker compose down
 - Login
 - Register
 
-### User
+#### User
 
 - View films
 - View single film
 - Rate film, edit and remove rate
 - Profile page
 
-### Admin
+#### Admin
 
 All User's features, also:
 
@@ -253,67 +359,85 @@ All User's features, also:
 
 ## Screenshots
 
-### Desktop - Films
+### Mobile application
+
+#### Films (dark)
+
+![image](readme-files/react-native-films-dark.jpg)
+
+#### Login (dark)
+
+![image](readme-files/react-native-login-dark.jpg)
+
+#### Films (light)
+
+![image](readme-files/react-native-films-light.jpg)
+
+### Web application (desktop view)
+
+#### Films
 
 ![image](readme-files/desktop-films.png)
 
-### Desktop - Single film
+#### Single film
 
 ![image](readme-files/desktop-single-film.png)
 
-### Desktop - Register
+#### Register
 
 ![image](readme-files/desktop-register.png)
 
-### Desktop - Login
+#### Login
 
 ![image](readme-files/desktop-login.png)
 
-### Desktop - Rate film
+#### Rate film
 
 ![image](readme-files/desktop-rate-film.png)
 
-### Desktop - Profile
+#### Profile
 
 ![image](readme-files/desktop-profile.png)
 
-### Desktop - Admin films
+#### Admin films
 
 ![image](readme-files/desktop-admin-films.png)
 
-### Desktop - Admin add film
+#### Admin add film
 
 ![image](readme-files/desktop-admin-add-film.png)
 
-### Mobile - Films
+### Web application (mobile view)
+
+#### Films
 
 ![image](readme-files/mobile-films.png)
 
-### Mobile - Single film
+#### Single film
 
 ![image](readme-files/mobile-single-film.png)
 
-### Mobile - Register
+#### Register
 
 ![image](readme-files/mobile-register.png)
 
-### Mobile - Login
+#### Login
 
 ![image](readme-files/mobile-login.png)
 
-### Mobile - Rate film
+#### Rate film
 
 ![image](readme-files/mobile-rate-film.png)
 
-### Mobile - Profile
+#### Profile
 
 ![image](readme-files/mobile-profile.png)
 
-### Mobile - Admin films
+#### Admin films
 
 ![image](readme-files/mobile-admin-films.png)
 ![image](readme-files/mobile-admin-films-1.png)
 
-### Mobile - Admin add film
+#### Admin add film
 
 ![image](readme-files/mobile-admin-add-film.png)
