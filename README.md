@@ -182,7 +182,7 @@ cp .env.example .env
 > [!IMPORTANT]
 > You need to set up proper env variables to make the mobile application work!
 >
-> If your backend runs locally on `http://localhost:3001` or similar, then you need to set up the mobile variables like below:
+> If your backend runs locally on `http://localhost:3001` or similar, then you need to set up the mobile env variables like below:
 >
 > ```
 > EXPO_PUBLIC_API_URL=http://192.168.1.X:3001/api
