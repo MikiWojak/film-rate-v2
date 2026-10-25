@@ -324,15 +324,17 @@ Use Expo Go on the physical device or in the emulator to see the mobile applicat
 - Go to location http://localhost:3001/api/docs
 - Now you can browse the API documentation
 
-## Features - mobile application
+## Features
+
+### Mobile application
 
 - View films
 - Light and dark mode (dependent on the device settings)
-- Login (coming soon)
+- (To be developed) Login
 
-## Features - web application
+### Web application
 
-### Guest
+#### Guest
 
 (unauthorized)
 
@@ -341,14 +343,14 @@ Use Expo Go on the physical device or in the emulator to see the mobile applicat
 - Login
 - Register
 
-### User
+#### User
 
 - View films
 - View single film
 - Rate film, edit and remove rate
 - Profile page
 
-### Admin
+#### Admin
 
 All User's features, also:
 
