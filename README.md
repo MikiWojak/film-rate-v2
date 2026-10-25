@@ -357,79 +357,85 @@ All User's features, also:
 
 ## Screenshots
 
-### Mobile application - Films (dark)
+### Mobile application
+
+#### Films (dark)
 
 ![image](readme-files/react-native-films-dark.jpg)
 
-### Mobile application - Login (dark)
+#### Login (dark)
 
 ![image](readme-files/react-native-login-dark.jpg)
 
-### Mobile application - Films (light)
+#### Films (light)
 
 ![image](readme-files/react-native-films-light.jpg)
 
-### Web application (desktop view) - Films
+### Web application (desktop view)
+
+#### Films
 
 ![image](readme-files/desktop-films.png)
 
-### Web application (desktop view) - Single film
+#### Single film
 
 ![image](readme-files/desktop-single-film.png)
 
-### Web application (desktop view) - Register
+#### Register
 
 ![image](readme-files/desktop-register.png)
 
-### Web application (desktop view) - Login
+#### Login
 
 ![image](readme-files/desktop-login.png)
 
-### Web application (desktop view) - Rate film
+#### Rate film
 
 ![image](readme-files/desktop-rate-film.png)
 
-### Web application (desktop view) - Profile
+#### Profile
 
 ![image](readme-files/desktop-profile.png)
 
-### Web application (desktop view) - Admin films
+#### Admin films
 
 ![image](readme-files/desktop-admin-films.png)
 
-### Web application (desktop view) - Admin add film
+#### Admin add film
 
 ![image](readme-files/desktop-admin-add-film.png)
 
-### Web application (mobile view) - Films
+### Web application (mobile view)
+
+#### Films
 
 ![image](readme-files/mobile-films.png)
 
-### Web application (mobile view) - Single film
+#### Single film
 
 ![image](readme-files/mobile-single-film.png)
 
-### Web application (mobile view) - Register
+#### Register
 
 ![image](readme-files/mobile-register.png)
 
-### Web application (mobile view) - Login
+#### Login
 
 ![image](readme-files/mobile-login.png)
 
-### Web application (mobile view) - Rate film
+#### Rate film
 
 ![image](readme-files/mobile-rate-film.png)
 
-### Web application (mobile view) - Profile
+#### Profile
 
 ![image](readme-files/mobile-profile.png)
 
-### Web application (mobile view) - Admin films
+#### Admin films
 
 ![image](readme-files/mobile-admin-films.png)
 ![image](readme-files/mobile-admin-films-1.png)
 
-### Web application (mobile view) - Admin add film
+#### Admin add film
 
 ![image](readme-files/mobile-admin-add-film.png)
